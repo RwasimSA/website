@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>جمعية رواسم | الموقع قيد الإنشاء</title>
+<meta name="description" content="موقع جمعية رواسم قيد الإنشاء حاليًا. للتواصل: info@rwasim.sa — ‎+966501663298">
+<meta name="theme-color" content="#123E54">
+<meta property="og:type" content="website">
+<meta property="og:title" content="جمعية رواسم | الموقع قيد الإنشاء">
+<meta property="og:description" content="نعمل على إطلاق موقع جمعية رواسم قريبًا.">
+<meta property="og:locale" content="ar_SA">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#123E54;
+    --navy-soft:#2A5D76;
+    --orange:#F09A28;
+    --teal:#3C7E8B;
+    --mint:#7FBEAB;
+    --logo-ink:#123E54;
+    --bg:#F6FAFB;
+    --surface:#FFFFFF;
+    --text:#123E54;
+    --muted:#5C7C8A;
+    --line:#E1EBEF;
+    --shadow:0 24px 60px -30px rgba(18,62,84,.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0B2634;
+      --surface:#103445;
+      --text:#EAF3F6;
+      --muted:#9FBAC6;
+      --line:#1D4A5E;
+      --mint:#8ECBB8;
+      --logo-ink:#F1F7F9;
+      --shadow:0 24px 60px -30px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Tajawal","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    flex-direction:column;
+    min-height:100svh;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+      radial-gradient(60rem 34rem at 82% -8%, rgba(240,154,40,.16), transparent 62%),
+      radial-gradient(52rem 32rem at 8% 104%, rgba(60,126,139,.18), transparent 62%);
+  }
+  main{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(1.25rem,4vw,3rem);
+  }
+  .card{
+    width:min(680px,100%);
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:28px;
+    box-shadow:var(--shadow);
+    padding:clamp(2rem,6vw,3.75rem) clamp(1.5rem,5vw,3.5rem);
+    text-align:center;
+  }
+
+  /* ---------- logo ---------- */
+  .logo{display:block;margin:0 auto}
+  .logo .ink{stroke:var(--logo-ink)}
+  .logo svg{width:clamp(150px,34vw,208px);height:auto;display:block;margin:0 auto}
+  .wordmark{margin-top:1.15rem}
+  .wordmark .ar{
+    font-size:clamp(1.15rem,4.2vw,1.5rem);
+    font-weight:700;
+    color:var(--teal);
+    letter-spacing:.02em;
+    margin:0;
+  }
+  .wordmark .en{
+    font-size:clamp(.8rem,2.6vw,.95rem);
+    font-weight:500;
+    color:var(--mint);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    margin:.15rem 0 0;
+    direction:ltr;
+  }
+
+  .rule{
+    width:64px;height:3px;border-radius:99px;
+    background:linear-gradient(90deg,var(--orange),var(--teal));
+    margin:clamp(1.75rem,5vw,2.5rem) auto;
+    border:0;
+  }
+
+  /* ---------- status ---------- */
+  .status-icon{
+    position:relative;
+    width:clamp(72px,18vw,86px);
+    aspect-ratio:1;
+    margin:0 auto 1.5rem;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:rgba(240,154,40,.13);
+    color:var(--orange);
+    border:1px solid rgba(240,154,40,.28);
+  }
+  .status-icon svg{width:46%;height:46%}
+  .status-icon::after{
+    content:"";
+    position:absolute;
+    inset:-9px;
+    border-radius:50%;
+    border:1px solid rgba(240,154,40,.35);
+    animation:ring 2.8s ease-out infinite;
+  }
+  @keyframes ring{
+    0%{transform:scale(.92);opacity:.9}
+    70%{transform:scale(1.12);opacity:0}
+    100%{opacity:0}
+  }
+
+  h1{
+    font-size:clamp(1.6rem,6vw,2.35rem);
+    font-weight:800;
+    line-height:1.4;
+    margin:0 0 .6rem;
+    color:var(--text);
+  }
+  .lede{
+    font-size:clamp(1rem,3vw,1.1rem);
+    color:var(--muted);
+    margin:0 auto;
+    max-width:42ch;
+  }
+
+  /* ---------- contact ---------- */
+  .contact{
+    margin-top:clamp(2rem,5vw,2.75rem);
+    display:grid;
+    gap:.75rem;
+    grid-template-columns:1fr;
+  }
+  @media (min-width:520px){ .contact{grid-template-columns:1fr 1fr} }
+  .contact a{
+    display:flex;align-items:center;gap:.85rem;
+    padding:.95rem 1.1rem;
+    border:1px solid var(--line);
+    border-radius:16px;
+    text-decoration:none;
+    color:var(--text);
+    background:transparent;
+    transition:border-color .2s ease, transform .2s ease, background-color .2s ease;
+  }
+  .contact a:hover,.contact a:focus-visible{
+    border-color:var(--orange);
+    background:rgba(240,154,40,.07);
+    transform:translateY(-2px);
+  }
+  .contact a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+  .contact .ico{
+    flex:none;width:40px;height:40px;border-radius:12px;
+    display:grid;place-items:center;
+    background:rgba(60,126,139,.12);
+    color:var(--teal);
+  }
+  .contact .ico svg{width:20px;height:20px}
+  .contact .txt{text-align:start;min-width:0}
+  .contact .label{display:block;font-size:.75rem;color:var(--muted);font-weight:500;line-height:1.5}
+  .contact .value{
+    display:block;font-size:.98rem;font-weight:700;direction:ltr;text-align:start;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+
+  footer{
+    padding:1.5rem;
+    text-align:center;
+    font-size:.82rem;
+    color:var(--muted);
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+
+    <div class="logo">
+      <!-- شعار جمعية رواسم -->
+      <svg viewBox="0 0 860 600" role="img" aria-label="شعار جمعية رواسم">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="44">
+          <path stroke="#F09A28" d="M18 388c52-26 142-52 240-66 78-12 114-34 140-84 30-60 50-180 120-198 64-16 92 78 74 152-16 64-68 104-102 150 46 56 70 110 72 196"/>
+          <path class="ink" d="M486 452c0 48-16 83-46 83s-40-35-40-83c0 48-16 83-46 83s-40-35-40-83c0 48-14 83-46 83h-42"/>
+          <circle class="ink" cx="140" cy="505" r="46"/>
+          <path class="ink" d="M108 538c-24 20-48 24-70 16"/>
+          <path class="ink" d="M830 350c0 92-32 164-116 200"/>
+        </g>
+      </svg>
+      <div class="wordmark">
+        <p class="ar">جمعية رواسم</p>
+        <p class="en">Rwasim Association</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="status-icon">
+      <!-- أيقونة خوذة العمل: دلالة على أن الموقع تحت الإنشاء -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+           stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="قيد الإنشاء">
+        <path d="M5 16v-2.6a7 7 0 0 1 14 0V16"/>
+        <path d="M9.5 16V8.6a2.5 2.5 0 0 1 5 0V16"/>
+        <rect x="2" y="16" width="20" height="4" rx="2"/>
+      </svg>
+    </div>
+
+    <h1>الموقع قيد الإنشاء</h1>
+    <p class="lede">
+      نعمل حاليًا على بناء موقع جمعية رواسم ليكون في مستوى تطلعاتكم.
+      ترقّبوا إطلاقه قريبًا بإذن الله.
+    </p>
+
+    <nav class="contact" aria-label="بيانات التواصل">
+      <a href="mailto:info@rwasim.sa">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2.5" y="4.5" width="19" height="15" rx="3"/>
+            <path d="m3.5 7 7.3 5.2a2 2 0 0 0 2.4 0L20.5 7"/>
+          </svg>
+        </span>
+        <span class="txt">
+          <span class="label">البريد الإلكتروني</span>
+          <span class="value">info@rwasim.sa</span>
+        </span>
+      </a>
+
+      <a href="tel:+966501663298">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.6 3.5h2.2l1.5 3.8-1.9 1.3a11.5 11.5 0 0 0 5 5l1.3-1.9 3.8 1.5v2.2a2.1 2.1 0 0 1-2.3 2.1A16.4 16.4 0 0 1 4.5 5.8a2.1 2.1 0 0 1 2.1-2.3Z"/>
+          </svg>
+        </span>
+        <span class="txt">
+          <span class="label">الهاتف</span>
+          <span class="value">+966 50 166 3298</span>
+        </span>
+      </a>
+    </nav>
+
+  </div>
+</main>
+
+<footer>
+  <p>© <span id="year">2026</span> جمعية رواسم — جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
