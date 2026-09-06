@@ -79,9 +79,10 @@ export default function App() {
   const currentRef = useRef(order.includes(savedNav.section) ? savedNav.section : 'hero')
   const scrollerRef = useRef(null) // حاوي القسم الحالي — للتمرير الداخلي على الشاشات الصغيرة
 
-  // كشف الجوال — على الشاشات الصغيرة نعتمد التمرير العمودي الطبيعي بدل القفل
+  // كشف الجوال — الشاشات الصغيرة أو أجهزة اللمس الخالصة (حتى مع «طلب موقع
+  // سطح المكتب» على الهاتف) تعتمد التمرير العمودي الطبيعي بدل القفل
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)')
+    const mq = window.matchMedia('(max-width: 767px), ((pointer: coarse) and (hover: none))')
     const update = () => setIsMobile(mq.matches)
     update()
     mq.addEventListener('change', update)
