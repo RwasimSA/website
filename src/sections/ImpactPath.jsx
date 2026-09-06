@@ -209,33 +209,66 @@ export default function ImpactPath() {
           {IMPACT_STEPS.map((s, i) => <StepCard key={i} step={s} i={i} />)}
         </div>
 
-        {/* ── الجوال: خيط عمودي بسيط ── */}
-        <div className="relative mt-6 flex w-full max-w-md flex-col gap-10 md:hidden">
-          {/* خط عمودي متدرج */}
-          <div aria-hidden="true" style={{
-            position: 'absolute', top: '10px', bottom: '10px', right: '28px', width: '3px', borderRadius: '3px',
-            background: 'linear-gradient(180deg, #4db3d4 0%, #2fa7cc 38%, #f4a63f 75%, #ef9122 100%)', opacity: 0.7,
-          }} />
+        {/* ── الجوال: خيط عمودي تُعلَّق عليه بطاقات زجاجية ── */}
+        <div className="relative mt-8 flex w-full max-w-md flex-col gap-7 md:hidden" style={{ paddingBottom: '6px' }}>
           {IMPACT_STEPS.map((s, i) => (
-            <motion.div key={i} className="relative flex items-start gap-5" style={{ paddingInlineStart: '0' }}
-              initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + i * 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
-              <div style={{
-                flexShrink: 0, width: '58px', height: '58px', borderRadius: '50%', zIndex: 1,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: s.final
-                  ? 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)'
-                  : 'linear-gradient(150deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%)',
-                border: s.final ? '1px solid rgba(255,200,120,0.65)' : '1px solid rgba(255,255,255,0.28)',
-                boxShadow: s.final ? '0 0 26px rgba(239,145,34,0.6)' : `0 0 18px ${s.accent}44`,
-              }}>
-                <span style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '22px', color: 'white', paddingTop: '4px' }}>{s.num}</span>
+            <motion.div key={i} className="relative flex items-stretch gap-3.5"
+              initial={{ opacity: 0, x: -22 }} animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.35 + i * 0.22, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
+
+              {/* عقدة الرقم + مقطع الخيط نحو العقدة التالية */}
+              <div className="flex flex-shrink-0 flex-col items-center" style={{ width: '52px', zIndex: 1 }}>
+                {i < IMPACT_STEPS.length - 1 && (
+                  <motion.span aria-hidden="true"
+                    className="absolute"
+                    style={{ top: '26px', bottom: '-54px', right: '24.5px', width: '3px', borderRadius: '3px',
+                      transformOrigin: 'top', zIndex: -1,
+                      background: `linear-gradient(180deg, ${s.accent}, ${IMPACT_STEPS[i + 1].accent})`,
+                      boxShadow: `0 0 10px ${s.accent}55` }}
+                    initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.55, delay: 0.5 + i * 0.22, ease: 'easeInOut' }}
+                  />
+                )}
+                <motion.div
+                  initial={{ scale: 0 }} animate={{ scale: 1 }}
+                  transition={{ delay: 0.4 + i * 0.22, type: 'spring', stiffness: 260, damping: 17 }}
+                  style={{
+                    width: '52px', height: '52px', borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: s.final
+                      ? 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)'
+                      : 'rgba(10,42,56,0.75)',
+                    backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+                    border: s.final ? '1.5px solid rgba(255,200,120,0.7)' : `1.5px solid ${s.accent}88`,
+                    boxShadow: s.final ? '0 0 24px rgba(239,145,34,0.6)' : `0 0 16px ${s.accent}55`,
+                  }}>
+                  <span style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '21px', color: 'white', paddingTop: '4px' }}>{s.num}</span>
+                </motion.div>
               </div>
-              <div>
-                <h3 style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '21px', color: 'white', margin: '0 0 6px' }}>
+
+              {/* بطاقة المحطة */}
+              <div className="relative flex-1 overflow-hidden"
+                style={{
+                  borderRadius: '20px', padding: '16px 18px 17px',
+                  background: s.final
+                    ? 'linear-gradient(150deg, rgba(239,145,34,0.16) 0%, rgba(255,255,255,0.05) 55%, rgba(239,145,34,0.08) 100%)'
+                    : 'linear-gradient(150deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.035) 55%, rgba(255,255,255,0.06) 100%)',
+                  backdropFilter: 'blur(18px) saturate(150%)', WebkitBackdropFilter: 'blur(18px) saturate(150%)',
+                  border: s.final ? '1px solid rgba(239,145,34,0.45)' : '1px solid rgba(255,255,255,0.18)',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2), 0 12px 28px rgba(3,15,21,0.28)',
+                }}>
+                {/* خيط لوني علوي بلون المحطة */}
+                <span aria-hidden="true" style={{ position: 'absolute', top: 0, insetInline: '16%', height: '2px',
+                  background: `linear-gradient(90deg, transparent, ${s.accent}, transparent)` }} />
+                {/* رقم شبحي في الزاوية */}
+                <span aria-hidden="true" style={{ position: 'absolute', top: '-16px', left: '-4px', fontFamily: titleFont, fontWeight: 700,
+                  fontSize: '72px', lineHeight: 1, color: s.final ? 'rgba(239,145,34,0.12)' : 'rgba(255,255,255,0.05)', userSelect: 'none' }}>
+                  {s.num}
+                </span>
+                <h3 style={{ position: 'relative', fontFamily: titleFont, fontWeight: 700, fontSize: '19px', color: 'white', margin: '0 0 6px' }}>
                   {s.final ? <span style={gradTextStyle}>{s.title}</span> : s.title}
                 </h3>
-                <p style={{ color: '#c9dde8', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.9, margin: 0 }}>{s.desc}</p>
+                <p style={{ position: 'relative', color: '#c9dde8', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>{s.desc}</p>
               </div>
             </motion.div>
           ))}
