@@ -33,8 +33,9 @@ const WHY = [
   },
 ]
 
-/* شعارات الشركاء — placeholder موحّد مع قسم الرئيسية حتى تصل الشعارات الحقيقية */
-const LOGOS = Array.from({ length: 18 }, (_, i) => `/images/partners/p${i + 1}.png`)
+/* شعارات شركاء رواسم — تُضاف هنا فور اعتمادها للنشر:
+   ['/images/partners/اسم-الشريك.png', ...] وتُبنى الشبكة تلقائياً */
+const LOGOS = []
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 26 },
@@ -120,15 +121,30 @@ export default function Partnerships({ onOpenPage = () => {} }) {
         {/* ═══ شركاء رواسم ═══ */}
         <SectionTitle>شركاء رواسم</SectionTitle>
         <Lead>جهات حكومية وخاصة وغير ربحية أسهمت مع رواسم في دعم برامجها وتوسيع نطاق أثرها.</Lead>
-        <motion.div {...rise(0.08)} className="partners-grid mb-24 grid w-full gap-3">
-          {LOGOS.map((src, i) => (
-            <div key={i} className="partner-cell flex items-center justify-center"
-              style={{ ...glass({ borderRadius: '18px', padding: '14px 10px' }), aspectRatio: '1.5' }}>
-              <img src={src} alt="شريك" draggable="false" loading="lazy"
-                className="max-h-[52px] w-auto max-w-full object-contain opacity-85" />
-            </div>
-          ))}
-        </motion.div>
+        {LOGOS.length > 0 ? (
+          <motion.div {...rise(0.08)} className="partners-grid mb-24 grid w-full gap-3">
+            {LOGOS.map((src, i) => (
+              <div key={i} className="partner-cell flex items-center justify-center"
+                style={{ ...glass({ borderRadius: '18px', padding: '14px 10px' }), aspectRatio: '1.5' }}>
+                <img src={src} alt="شريك" draggable="false" loading="lazy"
+                  className="max-h-[52px] w-auto max-w-full object-contain opacity-85" />
+              </div>
+            ))}
+          </motion.div>
+        ) : (
+          /* حالة صادقة حتى اعتماد الشعارات للنشر */
+          <motion.div {...rise(0.08)} className="relative mx-auto mb-24 max-w-2xl overflow-hidden text-center"
+            style={glass({ borderRadius: '28px', padding: 'clamp(32px, 5vw, 48px)' })}>
+            <div aria-hidden="true" className="pointer-events-none absolute"
+              style={{ top: '-40%', right: '-10%', width: '45%', height: '110%', borderRadius: '50%',
+                background: 'radial-gradient(ellipse, rgba(239,145,34,0.14) 0%, transparent 65%)', filter: 'blur(55px)' }} />
+            <p className="relative" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: 0 }}>
+              20 شراكة في أحدث بيانات رواسم المعتمدة —
+              <br />
+              تُعرض شعارات شركائنا هنا فور اعتمادها للنشر.
+            </p>
+          </motion.div>
+        )}
 
         {/* ═══ ابدأ شراكة مع رواسم ═══ */}
         <motion.div {...rise(0.05)} className="relative overflow-hidden"

@@ -19,22 +19,6 @@ import Governance from './pages/Governance'
 import Partnerships from './pages/Partnerships'
 import Contact from './pages/Contact'
 import VolunteerPage from './pages/VolunteerPage'
-import StrategicDirection from './pages/StrategicDirection'
-import RegistrationCertificate from './pages/RegistrationCertificate'
-import OrgStructure from './pages/OrgStructure'
-import Board from './pages/Board'
-import Executive from './pages/Executive'
-import GeneralAssembly from './pages/GeneralAssembly'
-import ManagersBranches from './pages/ManagersBranches'
-import Disclosure from './pages/Disclosure'
-import FinancialReports from './pages/FinancialReports'
-import ProgramReports from './pages/ProgramReports'
-import AssemblyMinutes from './pages/AssemblyMinutes'
-import Investments from './pages/Investments'
-import SatisfactionSurvey from './pages/SatisfactionSurvey'
-import OurProjects from './pages/OurProjects'
-import Initiatives from './pages/Initiatives'
-import SinglePost from './pages/SinglePost'
 import ComingSoon from './pages/ComingSoon'
 import CrystalLights from './components/CrystalLights'
 import Navbar from './components/Navbar'
@@ -52,15 +36,8 @@ const backgrounds = {
 
 const order = ['hero', 'programs', 'numbers', 'how', 'news', 'partners', 'cta', 'footer']
 
-// الصفحات قيد الإعداد — تُعرض بشاشة «قريباً»
-const COMING_SOON = {
-  blog: { eyebrow: 'المركز الإعلامي', title: 'المدونة', subtitle: 'مدونة جمعية رواسم قيد الإعداد، وستتاح مقالاتها قريباً.' },
-  media: { eyebrow: 'المركز الإعلامي', title: 'الوسائط والصور', subtitle: 'مكتبة الوسائط والصور قيد الإعداد، وستتاح قريباً.' },
-  'visual-identity': { eyebrow: 'المركز الإعلامي', title: 'الهوية البصرية', subtitle: 'دليل الهوية البصرية لجمعية رواسم قيد الإعداد، وسيتاح قريباً.' },
-  'stats-beneficiaries': { eyebrow: 'برامجنا وأثرنا', title: 'إحصائيات المستفيدين', subtitle: 'لوحة إحصائيات المستفيدين قيد الإعداد، وستتاح قريباً.' },
-  'stats-surah': { eyebrow: 'برامجنا وأثرنا', title: 'إحصائيات تطبيق سورة', subtitle: 'إحصائيات تطبيق سورة قيد الإعداد، وستتاح قريباً.' },
-  join: { eyebrow: 'شارك معنا', title: 'طلب الانضمام للجمعية', subtitle: 'نموذج طلب الانضمام للجمعية قيد الإعداد، وسيتاح قريباً.' },
-}
+// الصفحات قيد الإعداد مستقبلاً — تُعرض بشاشة «قريباً» (فارغة حالياً)
+const COMING_SOON = {}
 
 // خلفية ثابتة للجوال (تمرير طبيعي): بنفسجي أعلى ← داكن أسفل
 const mobileBg = 'linear-gradient(180deg, #124a61 0%, #0d3a4d 38%, #082633 72%, #030f15 100%)'
@@ -254,44 +231,10 @@ export default function App() {
         <div className="relative z-10"><Saif onOpenPage={openPage} /></div>
       ) : page === 'programs' ? (
         <div className="relative z-10"><ProgramsPage onOpenPage={openPage} /></div>
-      ) : page === 'strategic' ? (
-        <div className="relative z-10"><StrategicDirection /></div>
-      ) : page === 'certificate' ? (
-        <div className="relative z-10"><RegistrationCertificate /></div>
-      ) : page === 'org-structure' ? (
-        <div className="relative z-10"><OrgStructure /></div>
-      ) : page === 'board' ? (
-        <div className="relative z-10"><Board /></div>
-      ) : page === 'executive' ? (
-        <div className="relative z-10"><Executive /></div>
-      ) : page === 'general-assembly' ? (
-        <div className="relative z-10"><GeneralAssembly /></div>
-      ) : page === 'managers-branches' ? (
-        <div className="relative z-10"><ManagersBranches /></div>
       ) : page === 'policies' || (page && page.startsWith('gov-')) ? (
         <div className="relative z-10"><Governance section={page === 'policies' ? 'gov-data' : page} onOpenPage={openPage} /></div>
-      ) : page === 'disclosure' ? (
-        <div className="relative z-10"><Disclosure /></div>
-      ) : page === 'financial-reports' ? (
-        <div className="relative z-10"><FinancialReports /></div>
-      ) : page === 'program-reports' ? (
-        <div className="relative z-10"><ProgramReports /></div>
-      ) : page === 'assembly-minutes' ? (
-        <div className="relative z-10"><AssemblyMinutes /></div>
-      ) : page === 'investments' ? (
-        <div className="relative z-10"><Investments /></div>
-      ) : page === 'survey' ? (
-        <div className="relative z-10"><SatisfactionSurvey /></div>
-      ) : page === 'projects' ? (
-        <div className="relative z-10"><OurProjects /></div>
-      ) : page && page.startsWith('projects:') ? (
-        <div className="relative z-10"><OurProjects initialFilter={page.slice(9)} /></div>
-      ) : page === 'programs' ? (
-        <div className="relative z-10"><Initiatives /></div>
       ) : page === 'news' ? (
         <div className="relative z-10"><MediaCenter onOpenPage={openPage} /></div>
-      ) : page && page.startsWith('post:') ? (
-        <div className="relative z-10"><SinglePost id={page.slice(5)} onBack={() => openPage('news')} onOpen={(id) => openPage('post:' + id)} /></div>
       ) : page === 'volunteer' ? (
         <div className="relative z-10"><VolunteerPage onOpenPage={openPage} /></div>
       ) : page === 'partners' ? (
