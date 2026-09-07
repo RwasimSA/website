@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { glass } from '../theme'
 import FileCards from '../components/FileCards'
+import mediaData from '../../content/media.json'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «المركز الإعلامي» — وفق خطة المحتوى المعتمدة:
@@ -15,26 +16,12 @@ import FileCards from '../components/FileCards'
 const titleFont = "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif"
 const ACCENT = '#ef9122'
 
-/* التغطيات — فيديوهات حقيقية من قناة رواسم @RwasimSA */
-const COVERAGE = [
-  { id: '1NnBXxA-Ji0', title: 'نادي ضفاف الصيفي | التقرير الختامي', tag: 'صيف رواسم' },
-  { id: 'cTz5Kf4vClE', title: 'ليلة الختام | صيف رواسم ٤٨', tag: 'صيف رواسم' },
-  { id: 'LVLUfS4L45c', title: 'كيف بدينا.. ووين وصلنا؟ | منظومة صيف رواسم', tag: 'صيف رواسم' },
-  { id: 'HjqAFYcXl84', title: 'حكاية صيفٍ.. صنعت أثرًا | نادي أشبال رواسم', tag: 'أشبال رواسم' },
-  { id: 'Xw8K2fEmOg8', title: 'حصاد الإنجاز | نادي رواسم الموسمي', tag: 'صيف رواسم' },
-  { id: 'B6fVvRC1A6Q', title: 'ضفاف لنرتوي.. وبنوره نهتدي | ضفاف الصيفي', tag: 'صيف رواسم' },
-]
+/* المحتوى من content/media.json — يُحرَّر من لوحة التحكم */
+const COVERAGE = mediaData.coverage
+const NEWS = mediaData.news
 
-/* إصدارات واردة في التقرير السنوي 2025 — نواة قسم المحتوى والإصدارات.
-   يُضاف file: '/files/....pdf' لكل بطاقة فور رفع النسخة الرقمية */
 const RELEASE_TYPES = ['الأدلة', 'الحقائب', 'الإصدارات']
-const RELEASES = [
-  { title: 'دليل أشبال الخير', type: 'الأدلة', desc: 'دليل المشروع الرمضاني التفاعلي لأشبال رواسم.', file: null },
-  { title: 'دليل القيم لصيف رواسم', type: 'الأدلة', desc: 'الدليل التشغيلي للإطار القيمي الموحد لموسم الصيف.', file: null },
-  { title: 'بصلاتي أرتقي', type: 'الحقائب', desc: 'حقيبة تعليم صفة الصلاة والوضوء للصغار بأساليب التعلم النشط.', file: null },
-  { title: 'القيم التربوية في شهر رمضان', type: 'الإصدارات', desc: 'إصدار تربوي موجه للأسرة والمربي في شهر رمضان.', file: null },
-  { title: 'قيم التأسيس — إرث يصنع القادة', type: 'الإصدارات', desc: 'إصدار تربوي من إنتاج رواسم.', file: null },
-]
+const RELEASES = mediaData.releases.map((r) => ({ ...r, file: r.file || null }))
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 26 },
@@ -191,8 +178,35 @@ export default function MediaCenter({ onOpenPage = () => {} }) {
             emptyNote="تُنشر إصدارات هذا التصنيف هنا فور توفر نسخها الرقمية." />
         </div>
 
-        {/* ═══ آخر الأخبار — حالة صادقة حتى يتوفر المحتوى ═══ */}
+        {/* ═══ آخر الأخبار — من لوحة التحكم؛ وحالة صادقة إن لم توجد أخبار ═══ */}
         <SectionTitle>آخر الأخبار</SectionTitle>
+        {NEWS.length > 0 && (
+          <div className="mb-24 mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {NEWS.map((n, i) => (
+              <motion.article key={n.title + i} {...rise(0.05 * i)}
+                whileHover={{ y: -5, transition: { duration: 0.25 } }}
+                className="relative flex flex-col overflow-hidden"
+                style={glass({ borderRadius: '24px' })}>
+                {n.image && (
+                  <div className="relative" style={{ aspectRatio: '16 / 9' }}>
+                    <img src={n.image} alt="" draggable="false" className="h-full w-full object-cover" />
+                    <div style={{ position: 'absolute', inset: 0,
+                      background: 'linear-gradient(180deg, transparent 45%, rgba(10,42,56,0.85) 100%)' }} />
+                  </div>
+                )}
+                <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
+                  <div className="mb-2.5 flex flex-wrap items-center gap-2">
+                    {n.tag && <span style={{ color: '#f4a63f', fontWeight: 600, fontSize: '11.5px' }}>{n.tag}</span>}
+                    {n.date && <span style={{ color: '#8fb0c1', fontWeight: 300, fontSize: '11.5px' }} dir="ltr">{n.date}</span>}
+                  </div>
+                  <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '17px', lineHeight: 1.7, margin: '0 0 8px' }}>{n.title}</h3>
+                  {n.summary && <p style={{ color: '#c9dde8', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.95, margin: 0 }}>{n.summary}</p>}
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        )}
+        {NEWS.length === 0 && (
         <motion.div {...rise(0.08)} className="relative mx-auto mb-24 max-w-3xl overflow-hidden text-center"
           style={glass({ borderRadius: '28px', padding: 'clamp(34px, 5vw, 52px)' })}>
           <div aria-hidden="true" className="pointer-events-none absolute"
@@ -218,6 +232,7 @@ export default function MediaCenter({ onOpenPage = () => {} }) {
             ))}
           </div>
         </motion.div>
+        )}
 
         {/* ختام خفيف */}
         <div className="flex flex-col items-center">

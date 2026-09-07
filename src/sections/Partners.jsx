@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { motion as anim } from '../theme'
 import { text } from '../typography'
+import partnersData from '../../content/partners.json'
 
 /* ─────────────────────────────────────────────────────────────
    «شركاء النجاح» — ⚠️ الشعارات الحالية تجريبية مولّدة (أشكال
@@ -10,7 +11,7 @@ import { text } from '../typography'
    ───────────────────────────────────────────────────────────── */
 
 const COLS = 9
-const logos = Array.from({ length: 18 }, (_, i) => `/images/partners/p${i + 1}.svg`)
+const logos = partnersData.logos.map((l) => l.image)
 
 /* خانة شعار — خلفية بيضاء + ظهور تدريجي + طفو خفيف متتابع + تكبير عند المرور */
 const LogoCell = ({ src, index }) => {

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { glass } from '../theme'
+import partnersData from '../../content/partners.json'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «الشراكات» — وفق خطة المحتوى المعتمدة:
@@ -33,9 +34,8 @@ const WHY = [
   },
 ]
 
-/* ⚠️ شعارات تجريبية مولّدة (أشكال مجردة بنص «شعار الشريك») لعرض
-   التصميم — تُستبدل بشعارات شركاء رواسم المعتمدة فور وصولها */
-const LOGOS = Array.from({ length: 18 }, (_, i) => `/images/partners/p${i + 1}.svg`)
+/* الشعارات من content/partners.json — تُحرَّر من لوحة التحكم */
+const LOGOS = partnersData.logos.map((l) => l.image)
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 26 },

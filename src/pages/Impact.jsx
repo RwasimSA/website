@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { glass } from '../theme'
 import { IMPACT_STEPS } from '../sections/ImpactPath'
+import statsData from '../../content/stats.json'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «أثرنا» — وفق خطة المحتوى المعتمدة:
@@ -23,23 +24,23 @@ const INTRO = [
 /* ⚠️ نفس القيم المعتمدة في قسم الأرقام بالرئيسية — تُحدَّث معاً */
 const NUMBERS = [
   {
-    name: 'الوصول', value: '+9,000', label: 'مستفيد', icon: '/images/stats/reach.svg',
+    name: 'الوصول', value: `+${statsData.beneficiaries.toLocaleString('en-US')}`, label: 'مستفيد', icon: '/images/stats/reach.svg',
     desc: 'حجم المستفيدين الذين وصلت إليهم برامج ومشاريع رواسم خلال الفترة المعتمدة.',
   },
   {
-    name: 'ساعات التجربة', value: '3,600', label: 'ساعة', icon: '/images/stats/hours.svg',
+    name: 'ساعات التجربة', value: statsData.hours.toLocaleString('en-US'), label: 'ساعة', icon: '/images/stats/hours.svg',
     desc: 'حجم الوقت التربوي المباشر الذي استثمرته الجمعية في تنفيذ برامجها وتجاربها مع المستفيدين.',
   },
   {
-    name: 'البرامج والمشاريع', value: '28', label: 'برنامج ومشروع', icon: '/images/stats/programs.svg',
+    name: 'البرامج والمشاريع', value: String(statsData.programs), label: 'برنامج ومشروع', icon: '/images/stats/programs.svg',
     desc: 'عدد البرامج والمشاريع والمبادرات التي نفذتها رواسم ضمن محفظتها خلال الفترة.',
   },
   {
-    name: 'التطوع', value: '178', label: 'متطوع ومتطوعة', icon: '/images/stats/volunteer.svg',
+    name: 'التطوع', value: String(statsData.volunteers), label: 'متطوع ومتطوعة', icon: '/images/stats/volunteer.svg',
     desc: 'حجم إسهام المتطوعين والمتطوعات في تنفيذ برامج الجمعية وصناعة تجربتها.',
   },
   {
-    name: 'الشراكة', value: '20', label: 'شراكة', icon: '/images/stats/partnership.svg',
+    name: 'الشراكة', value: String(statsData.partnerships), label: 'شراكة', icon: '/images/stats/partnership.svg',
     desc: 'حجم شبكة الجهات التي أسهمت مع رواسم في دعم البرامج وتوسيع نطاق أثرها.',
   },
 ]

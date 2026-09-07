@@ -3,31 +3,32 @@ import { motion } from 'framer-motion'
 import { glass, motion as anim } from '../theme'
 import SectionCta from '../components/SectionCta'
 import { text } from '../typography'
+import statsData from '../../content/stats.json'
 
-/* مؤشرات «أثرنا بالأرقام» — أحدث بيانات معتمدة وقت الإطلاق، تُحدَّث يدوياً هنا. */
+/* مؤشرات «أثرنا بالأرقام» — القيم من content/stats.json (تُحرَّر من لوحة التحكم) */
 const STATS = [
   {
-    label: 'مستفيد', value: 9000, suffix: '', plus: true,
+    label: 'مستفيد', value: statsData.beneficiaries, suffix: '', plus: true,
     glow: 'rgba(60,200,210,0.16)', iconGlow: 'rgba(60,200,210,0.55)',
     img: '/images/stats/reach.svg',
   },
   {
-    label: 'ساعة', value: 3600, suffix: '', plus: false,
+    label: 'ساعة', value: statsData.hours, suffix: '', plus: false,
     glow: 'rgba(70,170,205,0.16)', iconGlow: 'rgba(70,170,205,0.55)',
     img: '/images/stats/hours.svg',
   },
   {
-    label: 'برنامج ومشروع', value: 28, suffix: '', plus: false,
+    label: 'برنامج ومشروع', value: statsData.programs, suffix: '', plus: false,
     glow: 'rgba(239,145,34,0.15)', iconGlow: 'rgba(239,145,34,0.55)',
     img: '/images/stats/programs.svg',
   },
   {
-    label: 'متطوع ومتطوعة', value: 178, suffix: '', plus: false,
+    label: 'متطوع ومتطوعة', value: statsData.volunteers, suffix: '', plus: false,
     glow: 'rgba(244,166,63,0.15)', iconGlow: 'rgba(244,166,63,0.55)',
     img: '/images/stats/volunteer.svg',
   },
   {
-    label: 'شراكة', value: 20, suffix: '', plus: false,
+    label: 'شراكة', value: statsData.partnerships, suffix: '', plus: false,
     glow: 'rgba(93,184,164,0.16)', iconGlow: 'rgba(93,184,164,0.55)',
     img: '/images/stats/partnership.svg',
   },

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { motion as anim } from '../theme'
 import SectionCta from '../components/SectionCta'
 import { text } from '../typography'
+import mediaData from '../../content/media.json'
 
 /* ─────────────────────────────────────────────────────────────
    «رواسم اليوم» — مسرح الوسائط (Coverflow):
@@ -13,16 +14,9 @@ import { text } from '../typography'
    وبطاقة الفيديو مميزة بأيقونة تشغيل صغيرة أعلى يسارها.
    ───────────────────────────────────────────────────────────── */
 
-/* أحدث فيديوهات قناة رواسم — الرئيسي في المنتصف (يبدأ نشطاً) */
-const MEDIA = [
-  { type: 'video', id: '1NnBXxA-Ji0', title: 'نادي ضفاف الصيفي | التقرير الختامي' },
-  { type: 'video', id: 'cTz5Kf4vClE', title: 'ليلة الختام | صيف رواسم ٤٨' },
-  { type: 'video', id: 'LVLUfS4L45c', title: 'كيف بدينا.. ووين وصلنا؟ | منظومة صيف رواسم' },
-  { type: 'video', id: 'HjqAFYcXl84', title: 'حكاية صيفٍ.. صنعت أثرًا | نادي أشبال رواسم' },
-  { type: 'video', id: 'Xw8K2fEmOg8', title: 'حصاد الإنجاز | نادي رواسم الموسمي' },
-  { type: 'video', id: 'B6fVvRC1A6Q', title: 'ضفاف لنرتوي.. وبنوره نهتدي | ضفاف الصيفي' },
-]
-const START_INDEX = 2
+/* فيديوهات المسرح من content/media.json (coverage) — تُحرَّر من لوحة التحكم */
+const MEDIA = mediaData.coverage.map((v) => ({ type: 'video', id: v.id, title: v.title }))
+const START_INDEX = Math.min(2, Math.max(0, MEDIA.length - 1))
 
 /* مصغرات الفيديو محفوظة محلياً حتى لا تعتمد الشبكة */
 const thumb = (m) => (m.type === 'video' ? `/images/today/yt-${m.id}.jpg` : m.src)

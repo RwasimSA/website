@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { glass } from '../theme'
+import statsData from '../../content/stats.json'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «التطوع» — وفق خطة المحتوى المعتمدة (صفحة داخلية):
@@ -15,7 +16,7 @@ const ACCENT = '#ef9122'
 
 /* حضور التطوع — من البيانات المعتمدة المنشورة في الموقع */
 const PRESENCE = [
-  { value: '178', label: 'متطوع ومتطوعة في أحدث بيانات رواسم المعتمدة' },
+  { value: String(statsData.volunteers), label: 'متطوع ومتطوعة في أحدث بيانات رواسم المعتمدة' },
   { value: '30', label: 'متطوعًا في برنامج بارع' },
   { value: '50', label: 'متطوعة في نادي ضفاف — صيف 1448هـ' },
 ]

@@ -1,0 +1,38 @@
+# بناء تلقائي: أي تعديل على المصدر أو المحتوى (من لوحة التحكم أو يدوياً)
+# يبني الموقع ويحدّث public/ في commit تلقائي، فينشره Cloudflare.
+name: build-site
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'public/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-site
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # تجاهل commits البوت نفسه (حماية إضافية فوق paths-ignore)
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: commit built site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public
+          git diff --cached --quiet && echo "لا تغيير في الناتج" && exit 0
+          git commit -m "بناء تلقائي للموقع"
+          git push
