@@ -295,8 +295,12 @@ export default function News({ onOpenPage = () => {} }) {
               src={`https://www.youtube.com/embed/${bgItem.id}?autoplay=1&mute=1&loop=1&playlist=${bgItem.id}&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&start=20`}
               title="" aria-hidden="true" tabIndex={-1}
               style={{
-                position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                width: 'max(100vw, 177.78vh)', height: 'max(100vh, 56.25vw)',
+                /* تغطية كاملة مع تعويض زوم الشاشات المتوسطة (متغيرا --vw/--vh-full)،
+                   وscale إضافي يدفع واجهة يوتيوب (العنوان والشعار) خارج حدود القسم */
+                position: 'absolute', top: '50%', left: '50%',
+                transform: 'translate(-50%, -50%) scale(1.35)',
+                width: 'max(var(--vw-full), calc(var(--vh-full) * 1.7778))',
+                height: 'max(var(--vh-full), calc(var(--vw-full) * 0.5625))',
                 border: 'none', pointerEvents: 'none',
               }}
               allow="autoplay; encrypted-media"

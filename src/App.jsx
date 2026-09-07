@@ -267,8 +267,8 @@ export default function App() {
           <motion.div
             key={section}
             ref={scrollerRef}
-            className="relative z-10 hide-scrollbar"
-            style={{ height: '100dvh', overflowY: 'auto', overflowX: 'hidden' }}
+            className="snap-scroller relative z-10 hide-scrollbar"
+            style={{ overflowY: 'auto', overflowX: 'hidden' }}
             custom={direction}
             variants={sectionVariants}
             initial="enter"

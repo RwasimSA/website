@@ -77,6 +77,26 @@ html, body {
   overflow-x: clip;
 }
 
+/* معايرة الحجم للشاشات المتوسطة (اللابتوبات) — التصميم عوير على شاشة
+   عريضة فيبدو ضخماً على 1280–1600px؛ zoom يصغّر كل شيء متناسقاً.
+   وحدات viewport لا تُعوَّض تلقائياً مع zoom، لذا يقسم ارتفاع صفوف
+   ملء الشاشة على معامل الزوم عبر ‎--vh-full. */
+:root { --vh-full: 100vh; --vw-full: 100vw; }
+.snap-scroller { height: var(--vh-full); }
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  body { zoom: 0.8; }
+  :root { --vh-full: calc(100vh / 0.8); --vw-full: calc(100vw / 0.8); }
+}
+@media (min-width: 1280px) and (max-width: 1599px) {
+  body { zoom: 0.85; }
+  :root { --vh-full: calc(100vh / 0.85); --vw-full: calc(100vw / 0.85); }
+}
+@media (min-width: 768px) and (max-width: 1599px) {
+  .h-screen { height: var(--vh-full) !important; }
+  .min-h-screen { min-height: var(--vh-full) !important; }
+}
+
 body {
   background-color: #ffffff;
 }
