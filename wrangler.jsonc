@@ -16,5 +16,12 @@
       "database_name": "rwasim-content",
       "database_id": "f5532985-e471-4af8-8916-23163743462d"
     }
+  ],
+  "r2_buckets": [
+    {
+      // ملفات لوحة ديوان — تُقدَّم عبر GET /files/<key>
+      "binding": "FILES",
+      "bucket_name": "rwasim-files"
+    }
   ]
 }
