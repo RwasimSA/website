@@ -3,6 +3,7 @@ import { glass } from '../theme'
 import FileCards from '../components/FileCards'
 import people from '../../content/people.json'
 import docs from '../../content/documents.json'
+import official from '../../content/official.json'
 
 /* ─────────────────────────────────────────────────────────────
    صفحات «الحوكمة» — مقسمة وفق أقسام الخطة، وكل صفحة تُفتح من
@@ -33,14 +34,8 @@ export const GOV_PAGES = [
   { key: 'gov-complaints', label: 'الشكاوى والبلاغات' },
 ]
 
-const OFFICIAL = [
-  { k: 'الاسم الرسمي', v: 'جمعية رواسم لتنمية الطفل' },
-  { k: 'رقم الترخيص', v: '5170' },
-  { k: 'المقر', v: 'الرياض — حي الشفا' },
-  { k: 'البريد الرسمي', v: 'info@Rwasim.sa', href: 'mailto:info@Rwasim.sa' },
-  { k: 'الهاتف الرسمي', v: '0501663298', href: 'tel:+966501663298' },
-  { k: 'الموقع الإلكتروني', v: 'www.Rwasim.sa' },
-]
+/* البيانات الرسمية من content/official.json — تُحرَّر من لوحة ديوان */
+const OFFICIAL = official.items
 
 /* الأشخاص من content/people.json — تُحرَّر من لوحة التحكم.
    البطاقة المصورة PhotoMemberCard تُفعّل تلقائياً لأي عضو له photo */

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { glass } from '../theme'
+import programsContent from '../../content/programs.json'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «برامجنا» المجمّعة — وفق خطة المحتوى المعتمدة:
@@ -15,45 +16,21 @@ const ACCENT = '#ef9122'
 const INTRO =
   'نصمم في رواسم برامج ومشاريع وتجارب تربوية تراعي احتياجات الأطفال والناشئة ومراحلهم العمرية، وتجمع بين بناء القيم وتنمية المهارات والتعلم بالممارسة؛ لتقدم لكل فئة تجربة تناسبها وتسهم في بناء الشخصية وصناعة الأثر.'
 
-/* البرامج الرئيسة — بترتيب الخطة، وكلٌّ يفتح صفحته */
-const MAIN = [
-  {
-    key: 'barie',
-    name: 'بارع',
-    nature: 'برنامج تربوي ممتد',
-    stage: 'المرحلة المتوسطة والثانوية',
-    logo: '/images/programs/barie-logo.svg',
-    pattern: '/images/programs/barie-pattern.png',
-    img: '/images/programs/card-barie.jpg',
-    color: '#ef9122',
-    colorSoft: 'rgba(239,145,34,0.22)',
-    desc: 'مسار تربوي ممتد يرافق الطالب عبر بيئات تربوية مركزة، تجمع بين البناء القيمي وتنمية الوعي وصقل المهارات، في تجربة مستمرة تمنحه مساحة للنمو والمشاركة وتحمل المسؤولية.',
-  },
-  {
-    key: 'ashbal',
-    name: 'أشبال رواسم',
-    nature: 'مشاريع تربوية خلال العام',
-    stage: 'المرحلة الابتدائية',
-    logo: '/images/programs/ashbal-logo.svg',
-    pattern: '/images/programs/ashbal-pattern.png',
-    img: '/images/programs/card-ashbal.jpg',
-    color: '#7fb8d4',
-    colorSoft: 'rgba(127,184,212,0.22)',
-    desc: 'مظلة لمشاريع تربوية متنوعة تُصمم لطلاب المرحلة الابتدائية، وتحول القيم والمعاني التربوية إلى تجارب ومواقف يعيشها الطفل ويمارسها في حياته، عبر أنشطة وتطبيقات تناسب مرحلته.',
-  },
-  {
-    key: 'saif',
-    name: 'صيف رواسم',
-    nature: 'موسم سنوي',
-    stage: 'فئات متعددة',
-    logo: '/images/programs/saif-logo.svg',
-    pattern: '/images/programs/saif-pattern.png',
-    img: '/images/programs/card-saif.jpg',
-    color: '#5db8a4',
-    colorSoft: 'rgba(93,184,164,0.22)',
-    desc: 'موسم سنوي يجمع عدة أندية وبرامج لفئات مختلفة، ضمن تجربة صيفية واحدة يوحّدها إطار قيمي، وتتنوّع فيها الأنشطة والورش والتحديات والرحلات بما يناسب كل فئة.',
-  },
-]
+/* البرامج الرئيسة — قائمتها تُدار من لوحة ديوان (programs.main):
+   إضافة وتعديل وحذف. الرسمة المتدلية والألوان زينة داخلية تُستكمل
+   هنا حسب هوية البرنامج المعروف؛ البرنامج المضاف حديثاً يظهر بلا
+   رسمة وبلون الهوية البرتقالي. */
+const DECOR = {
+  barie: { pattern: '/images/programs/barie-pattern.png', color: '#ef9122', colorSoft: 'rgba(239,145,34,0.22)' },
+  ashbal: { pattern: '/images/programs/ashbal-pattern.png', color: '#7fb8d4', colorSoft: 'rgba(127,184,212,0.22)' },
+  saif: { pattern: '/images/programs/saif-pattern.png', color: '#5db8a4', colorSoft: 'rgba(93,184,164,0.22)' },
+}
+const MAIN = (programsContent.main || []).map((p) => ({
+  color: ACCENT,
+  colorSoft: 'rgba(239,145,34,0.22)',
+  ...(DECOR[p.key] || {}),
+  ...p,
+}))
 
 const INITIATIVES_INTRO =
   'إلى جانب برامجها الرئيسة، تطور رواسم مبادرات نوعية تستجيب لفرص واحتياجات تربوية محددة، وتوسّع أثر الجمعية من خلال تجارب ومنتجات متخصصة.'
@@ -106,13 +83,16 @@ const Lead = ({ children, delay = 0.08 }) => (
   </motion.p>
 )
 
-/* بطاقة برنامج رئيس — صورة البرنامج خلفيتها، تفتح صفحته */
-const ProgramCard = ({ p, delay, onOpen }) => (
+/* بطاقة برنامج رئيس — صورة البرنامج خلفيتها. الرابط المخصص يفتح في
+   تبويب جديد، والبرنامج المعروف يفتح صفحته، وما سواهما بطاقة عرض فقط */
+const ProgramCard = ({ p, delay, onOpen }) => {
+  const clickable = !!(p.link || (p.key && DECOR[p.key]))
+  return (
   <motion.div {...rise(delay)}
     whileHover={{ y: -7, transition: { duration: 0.25, ease: 'easeOut' } }}
-    onClick={() => onOpen(p.key)}
-    className="group relative flex-1 cursor-pointer overflow-visible"
-    style={{ minWidth: 0 }}>
+    onClick={() => (p.link ? window.open(p.link, '_blank', 'noopener') : clickable && onOpen(p.key))}
+    className={`group relative flex-1 overflow-visible${clickable ? ' cursor-pointer' : ''}`}
+    style={{ minWidth: 0, flexBasis: '30%', maxWidth: '420px' }}>
     {/* توهج بلون البرنامج */}
     <div className="pointer-events-none absolute" aria-hidden="true"
       style={{ inset: '-8% -14%', borderRadius: '50%', filter: 'blur(56px)',
@@ -123,13 +103,13 @@ const ProgramCard = ({ p, delay, onOpen }) => (
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.22), 0 24px 48px rgba(3,15,21,0.28)' }}>
       {/* صورة البرنامج أعلى البطاقة */}
       <div className="relative h-[190px] overflow-hidden">
-        <img src={p.img} alt="" aria-hidden="true" draggable="false"
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        {p.img && <img src={p.img} alt="" aria-hidden="true" draggable="false"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
         <div style={{ position: 'absolute', inset: 0,
           background: 'linear-gradient(180deg, rgba(8,38,51,0.28) 0%, rgba(8,38,51,0.55) 62%, rgba(10,42,56,0.96) 100%)' }} />
-        <img src={p.logo} alt={p.name} draggable="false"
+        {p.logo && <img src={p.logo} alt={p.name} draggable="false"
           className="absolute bottom-4 right-5 h-[54px] w-auto object-contain"
-          style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.45))' }} />
+          style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.45))' }} />}
       </div>
       {/* متن البطاقة */}
       <div className="relative flex flex-1 flex-col px-6 pb-7 pt-5 text-right"
@@ -140,6 +120,7 @@ const ProgramCard = ({ p, delay, onOpen }) => (
           <span style={{ color: '#b6ccd6', fontWeight: 400, fontSize: '12px' }}>{p.stage}</span>
         </div>
         <p className="flex-1" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14px', lineHeight: 2, margin: 0 }}>{p.desc}</p>
+        {clickable && (
         <span className="mt-5 flex items-center gap-2" style={{ color: p.color, fontWeight: 500, fontSize: '13.5px' }}>
           تعرّف على {p.name}
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={p.color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
@@ -147,17 +128,19 @@ const ProgramCard = ({ p, delay, onOpen }) => (
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </span>
+        )}
       </div>
     </div>
 
-    {/* نودل البرنامج يتدلى فوق البطاقة */}
-    <motion.img src={p.pattern} alt="" aria-hidden="true" draggable="false"
+    {/* نودل البرنامج يتدلى فوق البطاقة — للبرامج ذات الهوية المرسومة فقط */}
+    {p.pattern && <motion.img src={p.pattern} alt="" aria-hidden="true" draggable="false"
       className="pointer-events-none absolute"
       style={{ top: '-44px', left: '-10%', width: '76%', maxWidth: 'none', zIndex: 2 }}
       animate={{ y: [0, -6, 0], rotate: [0, 1, 0] }}
-      transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }} />
+      transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }} />}
   </motion.div>
-)
+  )
+}
 
 export default function ProgramsPage({ onOpenPage = () => {} }) {
   return (
@@ -166,7 +149,7 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
       {/* ═══ الافتتاحية ═══ */}
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
         <div className="pointer-events-none absolute inset-0">
-          <img src="/images/programs-back.jpg" alt="" aria-hidden="true" draggable="false"
+          <img src={programsContent.pageBack || '/images/programs-back.jpg'} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />
           <div style={{ position: 'absolute', inset: 0,
             background: 'linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.8) 45%, rgba(4,23,32,0.97) 100%)' }} />
@@ -190,7 +173,8 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
         {/* ═══ البرامج الرئيسة ═══ */}
         <div className="mt-4">
           <SectionTitle>البرامج الرئيسة</SectionTitle>
-          <div className="mb-28 mt-16 flex flex-col gap-16 md:flex-row md:items-stretch md:gap-7">
+          {/* flex-wrap: عند إضافة برنامج رابع فأكثر من اللوحة تلتف البطاقات لصف جديد */}
+          <div className="mb-28 mt-16 flex flex-col gap-16 md:flex-row md:flex-wrap md:items-stretch md:justify-center md:gap-7">
             {MAIN.map((p, i) => (
               <ProgramCard key={p.key} p={p} delay={0.08 + i * 0.09} onOpen={onOpenPage} />
             ))}
