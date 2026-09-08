@@ -8,5 +8,13 @@
     // يُنشر محتوى public/ فقط (ناتج البناء). جذر المستودع خارج النطاق عمدًا.
     "directory": "./public",
     "binding": "ASSETS"
-  }
+  },
+  "d1_databases": [
+    {
+      // نفس قاعدة محتوى اللوحة — للقراءة عبر GET /api/content
+      "binding": "DB",
+      "database_name": "rwasim-content",
+      "database_id": "f5532985-e471-4af8-8916-23163743462d"
+    }
+  ]
 }
