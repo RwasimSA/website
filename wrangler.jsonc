@@ -4,6 +4,8 @@
   "name": "website",
   "main": "worker/index.js",
   "compatibility_date": "2026-01-01",
+  // روابط معاينة لكل نسخة مرفوعة (لا تمس النشرة الفعلية على rwasim.sa)
+  "preview_urls": true,
   "assets": {
     // يُنشر محتوى public/ فقط (ناتج البناء). جذر المستودع خارج النطاق عمدًا.
     "directory": "./public",
