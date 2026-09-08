@@ -107,9 +107,12 @@ const ProgramCard = ({ p, delay, onOpen }) => {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
         <div style={{ position: 'absolute', inset: 0,
           background: 'linear-gradient(180deg, rgba(8,38,51,0.28) 0%, rgba(8,38,51,0.55) 62%, rgba(10,42,56,0.96) 100%)' }} />
-        {p.logo && <img src={p.logo} alt={p.name} draggable="false"
+        {p.logo ? <img src={p.logo} alt={p.name} draggable="false"
           className="absolute bottom-4 right-5 h-[54px] w-auto object-contain"
-          style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.45))' }} />}
+          style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.45))' }} />
+        : p.name && <span className="absolute bottom-4 right-5"
+          style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '26px', lineHeight: 1.4,
+            filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.45))' }}>{p.name}</span>}
       </div>
       {/* متن البطاقة */}
       <div className="relative flex flex-1 flex-col px-6 pb-7 pt-5 text-right"
