@@ -15,8 +15,10 @@
    يتطلب في إعدادات الـWorker على Cloudflare:
    - سرّان: GITHUB_CLIENT_ID و GITHUB_CLIENT_SECRET (من OAuth App
      بCallback: https://<النطاق>/api/oauth/callback)
-   - ربط R2: حاوية باسم rwasim-files على binding اسمه FILES
-     (تُفعَّل بإضافة r2_buckets في wrangler.jsonc بعد إنشاء الحاوية)
+   - ربط R2: حاوية rwasim-files على binding اسمه FILES
+   - ربط D1: قاعدة rwasim-content على binding اسمه DB
+     (يقرأ منها GET /api/content محتوى الموقع الحي — تحرره لوحة ديوان)
+   تُضاف الروابط في wrangler.jsonc بعد إنشاء الموارد
    ───────────────────────────────────────────────────────────── */
 
 const REPO = 'RwasimSA/website'
@@ -96,6 +98,15 @@ export default {
       } catch (e) {
         return authResponse('error', { error: String(e) })
       }
+    }
+
+    /* ══ محتوى الموقع من قاعدة D1 — يقرأه الموقع وقت التشغيل ══ */
+    if (url.pathname === '/api/content' && request.method === 'GET') {
+      if (!env.DB) return Response.json({ error: 'القاعدة غير مربوطة بعد' }, { status: 501 })
+      const { results } = await env.DB.prepare('SELECT key, value FROM content').all()
+      const out = {}
+      for (const r of results) out[r.key] = JSON.parse(r.value)
+      return Response.json(out, { headers: { 'cache-control': 'public, max-age=60' } })
     }
 
     /* ══ تخزين الملفات على R2 ══ */
