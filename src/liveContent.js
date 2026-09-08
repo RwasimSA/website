@@ -6,8 +6,10 @@ import people from '../content/people.json'
 import documents from '../content/documents.json'
 import media from '../content/media.json'
 import partners from '../content/partners.json'
+import site from '../content/site.json'
+import programs from '../content/programs.json'
 
-const TARGETS = { stats, people, documents, media, partners }
+const TARGETS = { stats, people, documents, media, partners, site, programs }
 
 export async function hydrateContent() {
   try {

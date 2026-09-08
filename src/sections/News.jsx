@@ -4,6 +4,7 @@ import { motion as anim } from '../theme'
 import SectionCta from '../components/SectionCta'
 import { text } from '../typography'
 import mediaData from '../../content/media.json'
+import site from '../../content/site.json'
 
 /* ─────────────────────────────────────────────────────────────
    «رواسم اليوم» — مسرح الوسائط (Coverflow):
@@ -273,8 +274,17 @@ export default function News({ onOpenPage = () => {} }) {
     <motion.section
       className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-16"
     >
-      {/* خلفية القسم — مقطع صامت من فيديو البطاقة النشطة، يتبدل معها بتلاشٍ متقاطع */}
+      {/* خلفية القسم — فيديو MP4 مرفوع من لوحة ديوان (site.todayVideo)؛
+          وإن لم يُرفع بعد: مقطع صامت من فيديو البطاقة النشطة يتبدل معها بتلاشٍ متقاطع */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {site.todayVideo ? (
+          <video
+            src={site.todayVideo}
+            autoPlay muted loop playsInline preload="auto"
+            aria-hidden="true" tabIndex={-1}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
         <AnimatePresence>
           <motion.div
             key={bgIdx}
@@ -301,6 +311,7 @@ export default function News({ onOpenPage = () => {} }) {
             />
           </motion.div>
         </AnimatePresence>
+        )}
         {/* تظليل الهوية فوق الفيديو */}
         <div style={{ position: 'absolute', inset: 0,
           background: 'linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.78) 40%, rgba(8,38,51,0.84) 72%, rgba(4,23,32,0.95) 100%)' }} />

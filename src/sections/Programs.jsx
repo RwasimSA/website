@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SectionCta from '../components/SectionCta'
+import programsContent from '../../content/programs.json'
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -8,8 +9,10 @@ const fade = (delay = 0) => ({
   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay },
 })
 
-/* برامج رواسم الثلاثة — البطاقات الكبسولية الزجاجية مع النودلز الملونة */
-const programs = [
+/* برامج رواسم الثلاثة — البطاقات الكبسولية الزجاجية مع النودلز الملونة.
+   الشعار والعنوان والنص والرسمة العلوية تُحرَّر من لوحة ديوان (programs.cards)
+   بترتيب البطاقات نفسه؛ الحقل الفارغ يُبقي القيمة المدمجة أدناه. */
+const baseCards = [
   {
     key: 'ashbal',
     name: 'أشبال رواسم',
@@ -42,6 +45,13 @@ const programs = [
   },
 ]
 
+const programs = baseCards.map((p, i) => {
+  const live = (programsContent.cards || [])[i] || {}
+  const merged = { ...p }
+  for (const k of Object.keys(live)) if (live[k]) merged[k] = live[k]
+  return merged
+})
+
 const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) => (
   <motion.div
     // انزلاق بلا شفافية: أي opacity متحركة على البطاقة تؤجّل رسم البلور الزجاجي في كروم
@@ -51,7 +61,8 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     whileHover={{ y: -6, transition: { duration: 0.25, ease: 'easeOut' } }}
     onHoverStart={() => onHover(program.key)}
     onHoverEnd={() => onHover(null)}
-    onClick={() => onOpen(program.key)}
+    // رابط مخصص من اللوحة يفتح في تبويب جديد؛ وإلا تُفتح صفحة البرنامج الداخلية
+    onClick={() => (program.link ? window.open(program.link, '_blank', 'noopener') : onOpen(program.key))}
     className="relative w-full max-w-[320px] flex-1"
     style={{ minWidth: 0, cursor: 'pointer' }}
   >

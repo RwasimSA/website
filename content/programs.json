@@ -1,0 +1,25 @@
+{
+  "cards": [
+    {
+      "logo": "/images/programs/ashbal-logo.svg",
+      "pattern": "/images/programs/ashbal-pattern.png",
+      "tagline": "مشاريع تربوية خلال العام",
+      "desc": "لطلاب المرحلة الابتدائية",
+      "link": ""
+    },
+    {
+      "logo": "/images/programs/barie-logo.svg",
+      "pattern": "/images/programs/barie-pattern.png",
+      "tagline": "برنامج تربوي ممتد",
+      "desc": "لطلاب المرحلتين المتوسطة والثانوية",
+      "link": ""
+    },
+    {
+      "logo": "/images/programs/saif-logo.svg",
+      "pattern": "/images/programs/saif-pattern.png",
+      "tagline": "موسم صيفي سنوي",
+      "desc": "أندية وبرامج لفئات متعددة",
+      "link": ""
+    }
+  ]
+}

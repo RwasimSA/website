@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import site from '../../content/site.json'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -82,10 +83,10 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
       {/* فيديو «ليلة الختام» مستضاف محلياً — أقصى الخلف، مكتوم ويعيد نفسه،
           وخلفه صورة غطاء احتياطية لحين تحميله */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
-        <img src="/images/heroback.jpg" alt="" aria-hidden="true" draggable="false"
+        <img src={site.heroImage || '/images/heroback.jpg'} alt="" aria-hidden="true" draggable="false"
           className="absolute inset-0 h-full w-full object-cover" />
         <video
-          src="/videos/hero-bg.mp4"
+          src={site.heroVideo || '/videos/hero-bg.mp4'}
           autoPlay muted loop playsInline preload="auto"
           aria-hidden="true" tabIndex={-1}
           className="absolute inset-0 h-full w-full object-cover"
