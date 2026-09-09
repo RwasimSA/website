@@ -56,6 +56,29 @@ const pushPagePath = (p) => {
   if (window.location.pathname !== target) window.history.pushState({}, '', target)
 }
 
+/* عناوين المتصفح لكل صفحة — تحسين محركات البحث والمشاركة */
+const SITE_NAME = 'جمعية رواسم لتنمية الطفل'
+const PAGE_TITLES = {
+  'about-us': 'من نحن', programs: 'برامجنا', barie: 'بارع', ashbal: 'أشبال رواسم',
+  saif: 'صيف رواسم', impact: 'أثرنا', news: 'المركز الإعلامي', volunteer: 'التطوع',
+  partners: 'الشراكات', inquiries: 'تواصل معنا', policies: 'الحوكمة',
+  'gov-data': 'البيانات الرسمية', 'gov-board': 'مجلس الإدارة',
+  'gov-executive': 'الإدارة التنفيذية', 'gov-assembly': 'الجمعية العمومية',
+  'gov-reports': 'التقارير والقوائم المالية', 'gov-policies': 'اللوائح والسياسات',
+  'gov-complaints': 'الشكاوى والبلاغات',
+}
+
+/* عدّاد الزيارات الداخلي: إشارة خفيفة لكل صفحة تُعرض — بلا كوكيز
+   وبلا أي بيانات شخصية، تُجمع في قاعدة D1 وتُعرض في لوحة ديوان */
+const trackHit = (page) => {
+  try {
+    const path = page ? `/${page}` : '/'
+    const body = JSON.stringify({ path })
+    if (navigator.sendBeacon) navigator.sendBeacon('/api/hit', body)
+    else fetch('/api/hit', { method: 'POST', body, keepalive: true })
+  } catch { /* لا شيء */ }
+}
+
 // خلفية ثابتة للجوال (تمرير طبيعي): بنفسجي أعلى ← داكن أسفل
 const mobileBg = 'linear-gradient(180deg, #124a61 0%, #0d3a4d 38%, #082633 72%, #030f15 100%)'
 
@@ -102,6 +125,12 @@ export default function App() {
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
+
+  // مع كل صفحة تُعرض: عنوان متصفح خاص بها + تسجيل زيارة
+  useEffect(() => {
+    document.title = page && PAGE_TITLES[page] ? `${PAGE_TITLES[page]} — ${SITE_NAME}` : SITE_NAME
+    trackHit(page)
+  }, [page])
   const lockRef = useRef(false)
   const currentRef = useRef(order.includes(savedNav.section) ? savedNav.section : 'hero')
   const scrollerRef = useRef(null) // حاوي القسم الحالي — للتمرير الداخلي على الشاشات الصغيرة
