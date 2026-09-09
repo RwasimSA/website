@@ -1,13 +1,13 @@
 {
-  // نسخة المعاينة العامة للموقع الجديد على beta.rwasim.sa —
-  // تطبيق مستقل تماماً عن website فلا يمس rwasim.sa الأساسي.
+  // ⚠️ هذا التطبيق أصبح «الإنتاج»: ربطت المنظمة rwasim.sa به مباشرة
+  // (2026-09-09) بدل خط النشر القديم عبر تطبيق website.
   // النشر: npx wrangler deploy -c wrangler.beta.jsonc
   "name": "website-beta",
   "main": "worker/index.js",
   "compatibility_date": "2026-01-01",
-  "workers_dev": true,
+  "workers_dev": false,
   "routes": [
-    { "pattern": "beta.rwasim.sa", "custom_domain": true }
+    { "pattern": "rwasim.sa", "custom_domain": true }
   ],
   "assets": {
     "directory": "./public",
