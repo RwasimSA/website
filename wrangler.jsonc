@@ -1,11 +1,14 @@
 {
-  // موقع ثابت + Worker خفيف لبوابة دخول لوحة التحكم (GitHub OAuth).
-  // كل المسارات تُخدم من أصول public/ عدا /api/oauth/* التي يعالجها الـWorker.
+  // الموقع الرسمي rwasim.sa — أصول public/ + Worker يقدّم المحتوى الحي
+  // من D1 (/api/content) والملفات من R2 (/files/*).
+  // النشر: npx wrangler deploy
   "name": "website",
   "main": "worker/index.js",
   "compatibility_date": "2026-01-01",
-  // روابط معاينة لكل نسخة مرفوعة (لا تمس النشرة الفعلية على rwasim.sa)
-  "preview_urls": true,
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "rwasim.sa", "custom_domain": true }
+  ],
   "assets": {
     // يُنشر محتوى public/ فقط (ناتج البناء). جذر المستودع خارج النطاق عمدًا.
     "directory": "./public",
