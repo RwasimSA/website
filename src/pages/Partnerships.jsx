@@ -108,7 +108,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
                 background: `linear-gradient(90deg, transparent, ${ACCENT}99, transparent)` }} />
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', left: '-15%', width: '55%', height: '100%', borderRadius: '50%',
-                  background: 'radial-gradient(ellipse, rgba(239,145,34,0.12) 0%, transparent 65%)', filter: 'blur(46px)' }} />
+                  background: 'radial-gradient(ellipse, rgba(239,145,34,0.12) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <div className="mb-5 flex h-[58px] w-[58px] items-center justify-center rounded-2xl"
                 style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
                 <img src={w.icon} alt="" aria-hidden="true" draggable="false" style={{ width: '35px', height: '35px' }} />

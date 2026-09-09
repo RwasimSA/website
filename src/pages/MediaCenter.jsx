@@ -58,7 +58,7 @@ function Lightbox({ video, onClose }) {
   return (
     <motion.div
       className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
-      style={{ background: 'rgba(3,15,21,0.88)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}
+      style={{ background: 'rgba(3,15,21,0.88)', backdropFilter: 'var(--glass, blur(14px))', WebkitBackdropFilter: 'var(--glass, blur(14px))' }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       onClick={onClose}>
       <button type="button" onClick={onClose} aria-label="إغلاق"
@@ -135,7 +135,7 @@ export default function MediaCenter({ onOpenPage = () => {} }) {
                 {/* شارة التشغيل */}
                 <span className="absolute inset-0 flex items-center justify-center">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: 'rgba(255,255,255,0.16)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+                    style={{ background: 'rgba(255,255,255,0.16)', backdropFilter: 'var(--glass, blur(10px))', WebkitBackdropFilter: 'var(--glass, blur(10px))',
                       border: '0.5px solid rgba(255,255,255,0.45)' }}>
                     <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"
                       style={{ marginRight: '2px', filter: 'drop-shadow(0 2px 6px rgba(3,15,21,0.35))' }}>

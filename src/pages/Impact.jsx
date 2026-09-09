@@ -216,7 +216,7 @@ export default function Impact({ onOpenPage = () => {} }) {
               style={glass({ borderRadius: '28px', padding: '34px 30px' })}>
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', left: '-15%', width: '55%', height: '100%', borderRadius: '50%',
-                  background: `radial-gradient(ellipse, ${e.color}24 0%, transparent 65%)`, filter: 'blur(46px)' }} />
+                  background: `radial-gradient(ellipse, ${e.color}24 0%, transparent 65%)`, filter: 'var(--fx-blur, blur(46px))' }} />
               <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
                   <span style={{ color: e.color, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.06em' }}>{e.program}</span>
@@ -257,7 +257,7 @@ export default function Impact({ onOpenPage = () => {} }) {
               style={glass({ borderRadius: '26px', padding: '32px 28px' })}>
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', right: '-15%', width: '55%', height: '100%', borderRadius: '50%',
-                  background: `radial-gradient(ellipse, ${p.colorSoft} 0%, transparent 65%)`, filter: 'blur(46px)' }} />
+                  background: `radial-gradient(ellipse, ${p.colorSoft} 0%, transparent 65%)`, filter: 'var(--fx-blur, blur(46px))' }} />
               {p.logo && <img src={p.logo} alt={p.name} draggable="false" className="mb-5 h-[52px] w-auto self-start object-contain" />}
               <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '20px', lineHeight: 1.6, margin: '0 0 10px' }}>{p.title}</h3>
               <p className="flex-1" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{p.body}</p>

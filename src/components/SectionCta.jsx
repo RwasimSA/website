@@ -15,7 +15,7 @@ export default function SectionCta({ label, onClick = () => {}, className = '', 
       style={{
         borderRadius: '999px', padding: '8px 26px 8px 8px',
         background: 'linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%)',
-        backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+        backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
         border: '0.5px solid rgba(255,255,255,0.16)', cursor: 'pointer',
       }}
     >

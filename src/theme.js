@@ -53,8 +53,8 @@ export const glass = (extra = {}) => ({
   background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
   border: '0.5px solid rgba(255,255,255,0.12)',
   borderTop: '0.5px solid rgba(255,255,255,0.20)',
-  backdropFilter: 'blur(20px)',
-  WebkitBackdropFilter: 'blur(20px)',
+  backdropFilter: 'var(--glass, blur(20px))',
+  WebkitBackdropFilter: 'var(--glass, blur(20px))',
   borderRadius: radius.md,
   ...extra,
 })

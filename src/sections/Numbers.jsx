@@ -227,7 +227,7 @@ const CardGlow = ({ color }) => (
       position: 'absolute', top: '-30%', left: '50%',
       width: '80%', height: '80%', borderRadius: '50%', transform: 'translateX(-50%)',
       background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
-      filter: 'blur(40px)', pointerEvents: 'none',
+      filter: 'var(--fx-blur, blur(40px))', pointerEvents: 'none',
     }}
     animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.12, 1] }}
     transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
@@ -251,13 +251,13 @@ export default function Numbers({ onOpenPage = () => {} }) {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position:'absolute', top:'5%', left:'-10%', width:'55%', height:'90%', borderRadius:'50%',
-            background:'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter:'blur(100px)' }}
+            background:'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           style={{ position:'absolute', top:'15%', right:'-10%', width:'45%', height:'70%', borderRadius:'50%',
-            background:'radial-gradient(ellipse, rgba(18,113,154,0.15) 0%, transparent 65%)', filter:'blur(100px)' }}
+            background:'radial-gradient(ellipse, rgba(18,113,154,0.15) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -290,7 +290,7 @@ export default function Numbers({ onOpenPage = () => {} }) {
                 display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '13px',
                 textAlign: 'right', overflow: 'hidden',
                 background: 'linear-gradient(150deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.07) 100%)',
-                backdropFilter: 'blur(30px) saturate(150%)', WebkitBackdropFilter: 'blur(30px) saturate(150%)',
+                backdropFilter: 'var(--glass, blur(30px) saturate(150%))', WebkitBackdropFilter: 'var(--glass, blur(30px) saturate(150%))',
                 border: '1px solid rgba(255,255,255,0.22)',
                 borderTop: '1px solid rgba(255,255,255,0.32)',
                 boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), 0 20px 44px rgba(3,15,21,0.3)',

@@ -217,7 +217,7 @@ export default function Saif({ onOpenPage = () => {} }) {
           style={glass({ borderRadius: '32px', padding: 'clamp(30px, 5vw, 54px)' })}>
           <div aria-hidden="true" className="pointer-events-none absolute"
             style={{ top: '-35%', right: '-10%', width: '45%', height: '95%', borderRadius: '50%',
-              background: 'radial-gradient(ellipse, rgba(93,184,164,0.14) 0%, transparent 65%)', filter: 'blur(60px)' }} />
+              background: 'radial-gradient(ellipse, rgba(93,184,164,0.14) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(60px))' }} />
           <h2 className="mb-6 text-white" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(24px, 2.8vw, 34px)' }}>
             عن صيف رواسم
           </h2>
@@ -313,7 +313,7 @@ export default function Saif({ onOpenPage = () => {} }) {
               style={glass({ borderRadius: '26px', padding: '32px 28px' })}>
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', left: '-15%', width: '55%', height: '100%', borderRadius: '50%',
-                  background: 'radial-gradient(ellipse, rgba(93,184,164,0.14) 0%, transparent 65%)', filter: 'blur(46px)' }} />
+                  background: 'radial-gradient(ellipse, rgba(93,184,164,0.14) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <IconChip src={b.icon} size={58} />
               <h3 className="mt-5" style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '21px', margin: '20px 0 0' }}>{b.title}</h3>
               <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: '14px 0 0' }}>{b.body}</p>
@@ -331,7 +331,7 @@ export default function Saif({ onOpenPage = () => {} }) {
               style={glass({ borderRadius: '26px', padding: '32px 30px' })}>
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', left: '-15%', width: '55%', height: '100%', borderRadius: '50%',
-                  background: 'radial-gradient(ellipse, rgba(93,184,164,0.14) 0%, transparent 65%)', filter: 'blur(46px)' }} />
+                  background: 'radial-gradient(ellipse, rgba(93,184,164,0.14) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <div className="flex items-center gap-4">
                 <IconChip src={d.icon} size={58} />
                 <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '22px', margin: 0 }}>{d.title}</h3>

@@ -32,7 +32,7 @@ const PlayBadge = () => (
       width: '64px', height: '64px', borderRadius: '50%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'rgba(255,255,255,0.18)', border: '1.5px solid rgba(255,255,255,0.75)',
-      backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+      backdropFilter: 'var(--glass, blur(10px))', WebkitBackdropFilter: 'var(--glass, blur(10px))',
       boxShadow: '0 8px 26px rgba(3,15,21,0.4)',
     }}>
       {/* مثلث بزوايا دائرية — الحد بنفس لون التعبئة يقوّس الأركان */}
@@ -57,7 +57,7 @@ const ArrowButton = ({ onClick, direction, disabled }) => (
       transition: 'opacity 0.3s',
       background: 'linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)',
       border: '0.5px solid rgba(255,255,255,0.20)',
-      backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+      backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
     }}
   >
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -245,7 +245,7 @@ function Lightbox({ media, onClose }) {
   return (
     <motion.div
       className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
-      style={{ background: 'rgba(3,15,21,0.88)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}
+      style={{ background: 'rgba(3,15,21,0.88)', backdropFilter: 'var(--glass, blur(14px))', WebkitBackdropFilter: 'var(--glass, blur(14px))' }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
       onClick={onClose}
@@ -291,6 +291,8 @@ export default function News({ onOpenPage = () => {} }) {
   /* فيديو الخلفية يتبع البطاقة النشطة في المسرح */
   const [bgIdx, setBgIdx] = useState(START_INDEX)
   const bgItem = MEDIA[bgIdx]
+  /* الجوال: مشغّل يوتيوب الخفي مكلف جداً — تكفي الصورة المصغّرة خلفيةً */
+  const narrow = useIsNarrow()
 
   return (
     <motion.section
@@ -317,7 +319,7 @@ export default function News({ onOpenPage = () => {} }) {
             {/* مصغّر فورية تسدّ فجوة تحميل المشغّل */}
             <img src={thumb(bgItem)} alt="" aria-hidden="true" draggable="false"
               className="absolute inset-0 h-full w-full object-cover" />
-            <iframe
+            {!narrow && <iframe
               src={`https://www.youtube.com/embed/${bgItem.id}?autoplay=1&mute=1&loop=1&playlist=${bgItem.id}&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&start=20`}
               title="" aria-hidden="true" tabIndex={-1}
               style={{
@@ -330,7 +332,7 @@ export default function News({ onOpenPage = () => {} }) {
                 border: 'none', pointerEvents: 'none',
               }}
               allow="autoplay; encrypted-media"
-            />
+            />}
           </motion.div>
         </AnimatePresence>
         )}
@@ -343,13 +345,13 @@ export default function News({ onOpenPage = () => {} }) {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position:'absolute', top:'5%', left:'-10%', width:'55%', height:'90%', borderRadius:'50%',
-            background:'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter:'blur(100px)' }}
+            background:'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           style={{ position:'absolute', top:'15%', right:'-10%', width:'45%', height:'70%', borderRadius:'50%',
-            background:'radial-gradient(ellipse, rgba(18,113,154,0.15) 0%, transparent 65%)', filter:'blur(100px)' }}
+            background:'radial-gradient(ellipse, rgba(18,113,154,0.15) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />

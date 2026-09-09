@@ -88,7 +88,7 @@ const StepNode = ({ step, i }) => (
         background: step.final
           ? 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)'
           : 'linear-gradient(150deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%)',
-        backdropFilter: 'blur(14px) saturate(150%)', WebkitBackdropFilter: 'blur(14px) saturate(150%)',
+        backdropFilter: 'var(--glass, blur(14px) saturate(150%))', WebkitBackdropFilter: 'var(--glass, blur(14px) saturate(150%))',
         border: step.final ? '1px solid rgba(255,200,120,0.65)' : '1px solid rgba(255,255,255,0.28)',
         boxShadow: step.final
           ? '0 0 26px rgba(239,145,34,0.65), inset 0 1px 0 rgba(255,255,255,0.35)'
@@ -153,13 +153,13 @@ export default function ImpactPath() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position: 'absolute', top: '5%', left: '-10%', width: '55%', height: '90%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(239,145,34,0.10) 0%, transparent 65%)', filter: 'blur(100px)' }}
+            background: 'radial-gradient(ellipse, rgba(239,145,34,0.10) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           style={{ position: 'absolute', top: '15%', right: '-10%', width: '45%', height: '70%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(26,127,161,0.2) 0%, transparent 65%)', filter: 'blur(100px)' }}
+            background: 'radial-gradient(ellipse, rgba(26,127,161,0.2) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -239,7 +239,7 @@ export default function ImpactPath() {
                     background: s.final
                       ? 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)'
                       : 'rgba(10,42,56,0.75)',
-                    backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+                    backdropFilter: 'var(--glass, blur(10px))', WebkitBackdropFilter: 'var(--glass, blur(10px))',
                     border: s.final ? '1.5px solid rgba(255,200,120,0.7)' : `1.5px solid ${s.accent}88`,
                     boxShadow: s.final ? '0 0 24px rgba(239,145,34,0.6)' : `0 0 16px ${s.accent}55`,
                   }}>
@@ -254,7 +254,7 @@ export default function ImpactPath() {
                   background: s.final
                     ? 'linear-gradient(150deg, rgba(239,145,34,0.16) 0%, rgba(255,255,255,0.05) 55%, rgba(239,145,34,0.08) 100%)'
                     : 'linear-gradient(150deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.035) 55%, rgba(255,255,255,0.06) 100%)',
-                  backdropFilter: 'blur(18px) saturate(150%)', WebkitBackdropFilter: 'blur(18px) saturate(150%)',
+                  backdropFilter: 'var(--glass, blur(18px) saturate(150%))', WebkitBackdropFilter: 'var(--glass, blur(18px) saturate(150%))',
                   border: s.final ? '1px solid rgba(239,145,34,0.45)' : '1px solid rgba(255,255,255,0.18)',
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2), 0 12px 28px rgba(3,15,21,0.28)',
                 }}>

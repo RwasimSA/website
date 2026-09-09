@@ -95,8 +95,9 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
           background: 'linear-gradient(180deg, rgba(8,38,51,0.84) 0%, rgba(13,58,77,0.74) 42%, rgba(8,38,51,0.8) 75%, rgba(4,23,32,0.94) 100%)' }} />
       </div>
 
-      {/* نودلز رواسم — تصعد ضبابيةً وبنعومة من أسفل إلى أعلى خلف الباترن */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+      {/* نودلز رواسم — تصعد ضبابيةً وبنعومة من أسفل إلى أعلى خلف الباترن
+          (تُخفى على الجوال توفيراً لمعالجته — hero-doodles في index.css) */}
+      <div className="hero-doodles pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
         {floatingDoodles.map(({ shape, style, rise: riseBy, rot, dur, delay }, i) => {
           const { viewBox, paths } = doodleShapes[shape]
           return (
@@ -208,7 +209,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
             width: '232px', justifyContent: 'space-between',
             borderRadius: '999px', padding: '8px 8px 8px 8px', paddingInlineStart: '26px',
             background: 'linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%)',
-            backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
             border: '0.5px solid rgba(255,255,255,0.16)', cursor: 'pointer',
           }}
         >
@@ -231,7 +232,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
             width: '232px', height: '62px', justifyContent: 'center',
             borderRadius: '999px', padding: '8px 30px',
             background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
-            backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
             border: '0.5px solid rgba(255,255,255,0.16)', cursor: 'pointer',
           }}
         >

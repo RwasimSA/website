@@ -95,7 +95,7 @@ const ProgramCard = ({ p, delay, onOpen }) => {
     style={{ minWidth: 0, flexBasis: '30%', maxWidth: '420px' }}>
     {/* توهج بلون البرنامج */}
     <div className="pointer-events-none absolute" aria-hidden="true"
-      style={{ inset: '-8% -14%', borderRadius: '50%', filter: 'blur(56px)',
+      style={{ inset: '-8% -14%', borderRadius: '50%', filter: 'var(--fx-blur, blur(56px))',
         background: `radial-gradient(ellipse at 50% 25%, ${p.colorSoft} 0%, transparent 65%)` }} />
 
     <div className="relative flex h-full flex-col overflow-hidden"
@@ -197,7 +197,7 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
                 background: `linear-gradient(90deg, transparent, ${ACCENT}99, transparent)` }} />
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', left: '-15%', width: '55%', height: '100%', borderRadius: '50%',
-                  background: 'radial-gradient(ellipse, rgba(239,145,34,0.12) 0%, transparent 65%)', filter: 'blur(46px)' }} />
+                  background: 'radial-gradient(ellipse, rgba(239,145,34,0.12) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <div className="flex items-center gap-4">
                 <div className="flex h-[58px] w-[58px] flex-shrink-0 items-center justify-center rounded-2xl"
                   style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>

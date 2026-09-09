@@ -191,7 +191,7 @@ export default function Barie({ onOpenPage = () => {} }) {
           style={glass({ borderRadius: '32px', padding: 'clamp(30px, 5vw, 54px)' })}>
           <div aria-hidden="true" className="pointer-events-none absolute"
             style={{ top: '-35%', right: '-10%', width: '45%', height: '95%', borderRadius: '50%',
-              background: 'radial-gradient(ellipse, rgba(239,145,34,0.13) 0%, transparent 65%)', filter: 'blur(60px)' }} />
+              background: 'radial-gradient(ellipse, rgba(239,145,34,0.13) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(60px))' }} />
           <h2 className="mb-6 text-white" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(24px, 2.8vw, 34px)' }}>
             عن بارع
           </h2>
@@ -279,7 +279,7 @@ export default function Barie({ onOpenPage = () => {} }) {
               style={glass({ borderRadius: '26px', padding: '32px 30px' })}>
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', left: '-15%', width: '55%', height: '100%', borderRadius: '50%',
-                  background: 'radial-gradient(ellipse, rgba(239,145,34,0.14) 0%, transparent 65%)', filter: 'blur(46px)' }} />
+                  background: 'radial-gradient(ellipse, rgba(239,145,34,0.14) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <div className="flex items-center gap-4">
                 <div className="flex h-[58px] w-[58px] flex-shrink-0 items-center justify-center rounded-2xl"
                   style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>

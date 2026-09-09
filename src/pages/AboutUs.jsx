@@ -115,7 +115,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
           {/* توهج زاوية */}
           <div aria-hidden="true" className="pointer-events-none absolute"
             style={{ top: '-30%', left: '-10%', width: '50%', height: '90%', borderRadius: '50%',
-              background: 'radial-gradient(ellipse, rgba(239,145,34,0.14) 0%, transparent 65%)', filter: 'blur(60px)' }} />
+              background: 'radial-gradient(ellipse, rgba(239,145,34,0.14) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(60px))' }} />
           <h2 className="mb-6 text-white" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(24px, 2.8vw, 34px)' }}>
             لماذا رواسم؟
           </h2>
@@ -212,7 +212,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               className="flex items-center gap-3.5"
               style={{ borderRadius: '999px', padding: '8px 26px 8px 8px', cursor: 'pointer',
                 background: 'linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%)',
-                backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+                backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
                 border: '0.5px solid rgba(255,255,255,0.16)' }}>
               <span style={{ color: 'white', fontWeight: 500, fontSize: '15px' }}>استكشف برامجنا</span>
               <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -229,7 +229,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               className="flex items-center"
               style={{ borderRadius: '999px', padding: '8px 30px', minHeight: '62px', cursor: 'pointer',
                 background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
-                backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+                backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
                 border: '0.5px solid rgba(255,255,255,0.16)' }}>
               <span style={{ color: 'white', fontWeight: 500, fontSize: '15px' }}>تعرّف على أثرنا</span>
             </motion.button>

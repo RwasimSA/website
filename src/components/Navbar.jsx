@@ -23,8 +23,8 @@ const Chevron = ({ open }) => (
 
 const glass = {
   background: 'rgba(255, 255, 255, 0.05)',
-  backdropFilter: 'blur(20px)',
-  WebkitBackdropFilter: 'blur(20px)',
+  backdropFilter: 'var(--glass, blur(20px))',
+  WebkitBackdropFilter: 'var(--glass, blur(20px))',
   border: '0.5px solid rgba(255, 255, 255, 0.18)',
 }
 
@@ -87,7 +87,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                                 <div style={{
                                   minWidth: '250px', borderRadius: '20px', padding: '10px',
                                   background: 'linear-gradient(160deg, rgba(11,39,51,0.98) 0%, rgba(6,26,35,0.98) 100%)',
-                                  backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)',
+                                  backdropFilter: 'var(--glass, blur(24px))', WebkitBackdropFilter: 'var(--glass, blur(24px))',
                                   border: '0.5px solid rgba(255,255,255,0.16)', boxShadow: '0 22px 60px rgba(0,0,0,0.55)',
                                 }}>
                                   {tab.children.map((c) => (
@@ -125,7 +125,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                   style={{
                     borderRadius: '999px', padding: '5px 16px 5px 5px',
                     background: 'linear-gradient(135deg, rgba(13,58,77,0.55) 0%, rgba(8,38,51,0.55) 100%)',
-                    backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+                    backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
                     border: '0.5px solid rgba(255,255,255,0.18)', cursor: 'pointer',
                   }}
                 >
@@ -160,7 +160,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                       position: 'absolute', top: '100%', insetInline: 0, marginTop: '10px', zIndex: 60,
                       maxHeight: '70vh', overflowY: 'auto', borderRadius: '22px', padding: '16px 22px',
                       background: 'linear-gradient(160deg, rgba(11,39,51,0.99) 0%, rgba(6,26,35,0.99) 100%)',
-                      backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)',
+                      backdropFilter: 'var(--glass, blur(24px))', WebkitBackdropFilter: 'var(--glass, blur(24px))',
                       border: '0.5px solid rgba(255,255,255,0.16)', boxShadow: '0 22px 60px rgba(0,0,0,0.6)',
                       textAlign: 'right',
                     }}

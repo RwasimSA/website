@@ -53,13 +53,13 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position: 'absolute', top: '10%', left: '-10%', width: '55%', height: '85%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(239,145,34,0.12) 0%, transparent 65%)', filter: 'blur(100px)' }}
+            background: 'radial-gradient(ellipse, rgba(239,145,34,0.12) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           style={{ position: 'absolute', top: '15%', right: '-10%', width: '45%', height: '70%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(26,127,161,0.2) 0%, transparent 65%)', filter: 'blur(100px)' }}
+            background: 'radial-gradient(ellipse, rgba(26,127,161,0.2) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -93,7 +93,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
             border: '1px solid rgba(255,255,255,0.22)',
             boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.30), 0 34px 70px rgba(3,15,21,0.45)',
             background: 'linear-gradient(160deg, rgba(13,58,77,0.62) 0%, rgba(8,38,51,0.68) 100%)',
-            backdropFilter: 'blur(22px) saturate(150%)', WebkitBackdropFilter: 'blur(22px) saturate(150%)',
+            backdropFilter: 'var(--glass, blur(22px) saturate(150%))', WebkitBackdropFilter: 'var(--glass, blur(22px) saturate(150%))',
           }}
         >
           {/* صورة خفيفة من فعاليات الجمعية */}
@@ -173,7 +173,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
                 style={{
                   borderRadius: '999px', padding: '9px 30px 9px 9px', cursor: 'pointer',
                   background: 'linear-gradient(150deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 100%)',
-                  backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)',
+                  backdropFilter: 'var(--glass, blur(18px))', WebkitBackdropFilter: 'var(--glass, blur(18px))',
                   border: '1px solid rgba(77,179,212,0.55)',
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25)',
                 }}

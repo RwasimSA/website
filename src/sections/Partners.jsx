@@ -82,13 +82,13 @@ export default function Partners({ onOpenPage = () => {} }) {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position: 'absolute', top: '5%', left: '-10%', width: '55%', height: '90%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter: 'blur(100px)' }}
+            background: 'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           style={{ position: 'absolute', top: '15%', right: '-10%', width: '45%', height: '70%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(18,113,154,0.15) 0%, transparent 65%)', filter: 'blur(100px)' }}
+            background: 'radial-gradient(ellipse, rgba(18,113,154,0.15) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />

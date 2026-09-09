@@ -69,7 +69,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
   >
     {/* توهج خلفي بلون البرنامج */}
     <div className="pointer-events-none absolute" aria-hidden="true"
-      style={{ inset: '-10% -20%', borderRadius: '50%', filter: 'blur(60px)',
+      style={{ inset: '-10% -20%', borderRadius: '50%', filter: 'var(--fx-blur, blur(60px))',
         background: `radial-gradient(ellipse at 50% 30%, ${program.accent} 0%, transparent 65%)` }} />
 
     {/* البطاقة الزجاجية */}
@@ -81,7 +81,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
         background: 'linear-gradient(155deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.015) 70%, rgba(255,255,255,0.05) 100%)',
         border: '1px solid rgba(255,255,255,0.20)',
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(255,255,255,0.06), 0 24px 48px rgba(3,15,21,0.22)',
-        backdropFilter: 'blur(26px) saturate(160%)', WebkitBackdropFilter: 'blur(26px) saturate(160%)',
+        backdropFilter: 'var(--glass, blur(26px) saturate(160%))', WebkitBackdropFilter: 'var(--glass, blur(26px) saturate(160%))',
       }}
     >
       {/* شعار البرنامج — وإن لم يُرفع بعد يظهر الاسم نصاً */}
@@ -152,13 +152,13 @@ export default function Programs({ onOpenPage = () => {} }) {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position: 'absolute', top: '5%', left: '-10%', width: '55%', height: '90%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter: 'blur(100px)' }}
+            background: 'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           style={{ position: 'absolute', top: '15%', right: '-10%', width: '45%', height: '70%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(18,113,154,0.15) 0%, transparent 65%)', filter: 'blur(100px)' }}
+            background: 'radial-gradient(ellipse, rgba(18,113,154,0.15) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
           animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />
