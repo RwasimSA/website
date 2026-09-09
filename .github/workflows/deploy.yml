@@ -1,0 +1,29 @@
+# النشر من GitHub: أي دفعة إلى main تبني الموقع وتنشره على rwasim.sa.
+# يتطلب سراً واحداً في إعدادات المستودع: CLOUDFLARE_API_TOKEN
+# (يُنشأ من Cloudflare بقالب «Edit Cloudflare Workers»)
+name: deploy-site
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: النشر إلى Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: bccdf648317c38cfaa576792881e1476
