@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import site from '../../content/site.json'
 
 /* ─────────────────────────────────────────────────────────────
    الدعوة الختامية — لوحة واحدة كبيرة:
@@ -96,9 +97,9 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
           }}
         >
           {/* صورة خفيفة من فعاليات الجمعية */}
-          <img src="/images/cta-back.jpg" alt="" aria-hidden="true" draggable="false"
+          {site.backCta && <img src={site.backCta} alt="" aria-hidden="true" draggable="false"
             className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-            style={{ opacity: 0.16 }} />
+            style={{ opacity: 0.16 }} />}
           {/* تظليل الهوية فوق الصورة — شفاف ليُظهر الشكل خلف اللوحة */}
           <div aria-hidden="true" style={{ position: 'absolute', inset: 0,
             background: 'linear-gradient(115deg, rgba(8,38,51,0.5) 0%, rgba(13,58,77,0.32) 45%, rgba(8,38,51,0.26) 70%, rgba(201,118,15,0.2) 100%)' }} />

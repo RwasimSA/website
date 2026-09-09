@@ -21,9 +21,9 @@ const INTRO =
    هنا حسب هوية البرنامج المعروف؛ البرنامج المضاف حديثاً يظهر بلا
    رسمة وبلون الهوية البرتقالي. */
 const DECOR = {
-  barie: { pattern: '/images/programs/barie-pattern.png', color: '#ef9122', colorSoft: 'rgba(239,145,34,0.22)' },
-  ashbal: { pattern: '/images/programs/ashbal-pattern.png', color: '#7fb8d4', colorSoft: 'rgba(127,184,212,0.22)' },
-  saif: { pattern: '/images/programs/saif-pattern.png', color: '#5db8a4', colorSoft: 'rgba(93,184,164,0.22)' },
+  barie: { pattern: '', color: '#ef9122', colorSoft: 'rgba(239,145,34,0.22)' },
+  ashbal: { pattern: '', color: '#7fb8d4', colorSoft: 'rgba(127,184,212,0.22)' },
+  saif: { pattern: '', color: '#5db8a4', colorSoft: 'rgba(93,184,164,0.22)' },
 }
 const MAIN = (programsContent.main || []).map((p) => ({
   color: ACCENT,
@@ -152,8 +152,8 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
       {/* ═══ الافتتاحية ═══ */}
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
         <div className="pointer-events-none absolute inset-0">
-          <img src={programsContent.pageBack || '/images/programs-back.jpg'} alt="" aria-hidden="true" draggable="false"
-            className="h-full w-full object-cover" />
+          {programsContent.pageBack && <img src={programsContent.pageBack} alt="" aria-hidden="true" draggable="false"
+            className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.8) 45%, rgba(4,23,32,0.97) 100%)' }} />
         </div>

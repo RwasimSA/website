@@ -4,6 +4,7 @@ import { glass, motion as anim } from '../theme'
 import SectionCta from '../components/SectionCta'
 import { text } from '../typography'
 import statsData from '../../content/stats.json'
+import site from '../../content/site.json'
 
 /* مؤشرات «أثرنا بالأرقام» — القيم من content/stats.json (تُحرَّر من لوحة التحكم) */
 const STATS = [
@@ -240,8 +241,8 @@ export default function Numbers({ onOpenPage = () => {} }) {
     >
       {/* خلفية القسم — صورة قوية الحضور من فعاليات الجمعية مع تظليل بلون الهوية */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <img src="/images/numbers-back.jpg" alt="" aria-hidden="true" draggable="false"
-          className="h-full w-full object-cover" />
+        {site.backNumbers && <img src={site.backNumbers} alt="" aria-hidden="true" draggable="false"
+          className="h-full w-full object-cover" />}
         <div style={{ position: 'absolute', inset: 0,
           background: 'linear-gradient(180deg, rgba(8,38,51,0.88) 0%, rgba(13,58,77,0.72) 40%, rgba(8,38,51,0.78) 72%, rgba(4,23,32,0.94) 100%)' }} />
       </div>

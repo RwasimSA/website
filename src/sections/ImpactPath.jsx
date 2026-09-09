@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import site from '../../content/site.json'
 
 /* ─────────────────────────────────────────────────────────────
    كيف نصنع الأثر؟ — رحلة من أربع محطات على «خيط رواسم»:
@@ -142,8 +143,8 @@ export default function ImpactPath() {
     <motion.section className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-16">
       {/* خلفية القسم — صورة جمهور الفعالية (المتبادَلة مع الهيرو) مع تظليل بلون الهوية */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <img src="/images/heroback.jpg" alt="" aria-hidden="true" draggable="false"
-          className="absolute inset-0 h-full w-full object-cover" />
+        {site.heroImage && <img src={site.heroImage} alt="" aria-hidden="true" draggable="false"
+          className="absolute inset-0 h-full w-full object-cover" />}
         <div style={{ position: 'absolute', inset: 0,
           background: 'linear-gradient(180deg, rgba(8,38,51,0.88) 0%, rgba(13,58,77,0.74) 40%, rgba(8,38,51,0.8) 72%, rgba(4,23,32,0.94) 100%)' }} />
       </div>

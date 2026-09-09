@@ -1,6 +1,18 @@
 import { motion } from 'framer-motion'
 import { glass } from '../theme'
 
+/* وسائط البرامج من لوحة ديوان — الشعار والرسمة من بطاقات الرئيسية،
+   وصورة البرنامج من قائمة «برامجنا». الفارغ لا يُعرض حتى يُرفع بديله. */
+import programsContent from '../../content/programs.json'
+const __IDX = { ashbal: 0, barie: 1, saif: 2 }
+const progMedia = (k) => {
+  const card = (programsContent.cards || [])[__IDX[k]] || {}
+  const main = (programsContent.main || []).find((p) => p.key === k) || {}
+  return { logo: card.logo || main.logo || '', pattern: card.pattern || '', img: main.img || '' }
+}
+const PROG = progMedia('barie')
+
+
 /* ─────────────────────────────────────────────────────────────
    صفحة برنامج «بارع» — وفق خطة المحتوى المعتمدة:
    الافتتاحية | عن بارع | لمن البرنامج؟ | كيف يعمل؟ | ماذا نبني؟
@@ -125,22 +137,22 @@ export default function Barie({ onOpenPage = () => {} }) {
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '90px' }}>
         {/* خلفية بارع مع تظليل الهوية */}
         <div className="pointer-events-none absolute inset-0">
-          <img src="/images/programs/card-barie.jpg" alt="" aria-hidden="true" draggable="false"
-            className="h-full w-full object-cover" />
+          {PROG.img && <img src={PROG.img} alt="" aria-hidden="true" draggable="false"
+            className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.78) 45%, rgba(4,23,32,0.96) 100%)' }} />
         </div>
         {/* نودل بارع يتدلى من أعلى الصفحة */}
-        <motion.img src="/images/programs/barie-pattern.png" alt="" aria-hidden="true" draggable="false"
+        {PROG.pattern && <motion.img src={PROG.pattern} alt="" aria-hidden="true" draggable="false"
           className="pointer-events-none absolute"
           style={{ top: '-40px', left: '4%', width: 'min(420px, 40vw)' }}
           animate={{ y: [0, -8, 0], rotate: [0, 1.2, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} />
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} />}
 
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
-          <motion.img {...rise(0)} src="/images/programs/barie-logo.svg" alt="بارع" draggable="false"
+          {PROG.logo && <motion.img {...rise(0)} src={PROG.logo} alt="بارع" draggable="false"
             className="mb-8 h-[110px] w-auto object-contain"
-            style={{ filter: 'drop-shadow(0 6px 16px rgba(3,15,21,0.4))' }} />
+            style={{ filter: 'drop-shadow(0 6px 16px rgba(3,15,21,0.4))' }} />}
           <motion.h1 {...rise(0.08)} className="mb-6 text-white"
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(30px, 4vw, 52px)', lineHeight: 1.45 }}>
             بيئة تربوية ترافق الطالب في رحلة{' '}

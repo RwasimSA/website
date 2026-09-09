@@ -1,5 +1,8 @@
 {
-  "heroVideo": "/videos/hero-bg.mp4",
-  "heroImage": "/images/heroback.jpg",
-  "todayVideo": ""
+  "heroVideo": "",
+  "heroImage": "",
+  "todayVideo": "",
+  "backNumbers": "",
+  "backImpact": "",
+  "backCta": ""
 }

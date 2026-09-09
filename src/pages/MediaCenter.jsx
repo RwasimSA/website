@@ -92,7 +92,7 @@ export default function MediaCenter({ onOpenPage = () => {} }) {
       {/* ═══ الافتتاحية ═══ */}
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
         <div className="pointer-events-none absolute inset-0">
-          <img src="/images/today/yt-cTz5Kf4vClE.jpg" alt="" aria-hidden="true" draggable="false"
+          <img src="https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg" alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />
           <div style={{ position: 'absolute', inset: 0,
             background: 'linear-gradient(180deg, rgba(8,38,51,0.92) 0%, rgba(13,58,77,0.82) 45%, rgba(4,23,32,0.97) 100%)' }} />
@@ -128,7 +128,7 @@ export default function MediaCenter({ onOpenPage = () => {} }) {
               style={{ borderRadius: '22px', background: 'transparent',
                 border: '0.5px solid rgba(255,255,255,0.16)', boxShadow: '0 18px 40px rgba(3,15,21,0.3)' }}>
               <div className="relative" style={{ aspectRatio: '16 / 9' }}>
-                <img src={`/images/today/yt-${v.id}.jpg`} alt={v.title} draggable="false"
+                <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt={v.title} draggable="false"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div style={{ position: 'absolute', inset: 0,
                   background: 'linear-gradient(180deg, rgba(8,38,51,0.05) 30%, rgba(4,23,32,0.85) 100%)' }} />

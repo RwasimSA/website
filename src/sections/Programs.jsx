@@ -17,9 +17,9 @@ const baseCards = [
   {
     key: 'ashbal',
     name: 'أشبال رواسم',
-    logo: '/images/programs/ashbal-logo.svg',
-    pattern: '/images/programs/ashbal-pattern.png',
-    img: '/images/programs/card-ashbal.jpg',
+    logo: '',
+    pattern: '',
+    img: '',
     accent: 'rgba(127,184,212,0.22)',
     tagline: 'مشاريع تربوية خلال العام',
     desc: 'لطلاب المرحلة الابتدائية',
@@ -27,9 +27,9 @@ const baseCards = [
   {
     key: 'barie',
     name: 'بارع',
-    logo: '/images/programs/barie-logo.svg',
-    pattern: '/images/programs/barie-pattern.png',
-    img: '/images/programs/card-barie.jpg',
+    logo: '',
+    pattern: '',
+    img: '',
     accent: 'rgba(239,145,34,0.22)',
     tagline: 'برنامج تربوي ممتد',
     desc: 'لطلاب المرحلتين المتوسطة والثانوية',
@@ -37,9 +37,9 @@ const baseCards = [
   {
     key: 'saif',
     name: 'صيف رواسم',
-    logo: '/images/programs/saif-logo.svg',
-    pattern: '/images/programs/saif-pattern.png',
-    img: '/images/programs/card-saif.jpg',
+    logo: '',
+    pattern: '',
+    img: '',
     accent: 'rgba(93,184,164,0.22)',
     tagline: 'موسم صيفي سنوي',
     desc: 'أندية وبرامج لفئات متعددة',
@@ -84,10 +84,16 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
         backdropFilter: 'blur(26px) saturate(160%)', WebkitBackdropFilter: 'blur(26px) saturate(160%)',
       }}
     >
-      {/* شعار البرنامج */}
-      <img src={program.logo} alt={program.name} draggable="false"
-        className="relative mb-8 h-[82px] w-auto object-contain"
-        style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.3))', zIndex: 1 }} />
+      {/* شعار البرنامج — وإن لم يُرفع بعد يظهر الاسم نصاً */}
+      {program.logo ? (
+        <img src={program.logo} alt={program.name} draggable="false"
+          className="relative mb-8 h-[82px] w-auto object-contain"
+          style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.3))', zIndex: 1 }} />
+      ) : (
+        <span className="relative mb-8 flex h-[82px] items-center"
+          style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: 'white', fontWeight: 700, fontSize: '30px', zIndex: 1,
+            filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.3))' }}>{program.name}</span>
+      )}
 
       {/* السطر التعريفي */}
       <h3 style={{ position: 'relative', zIndex: 1, color: 'white', fontWeight: 600, fontSize: '18px', lineHeight: 1.8, margin: '0 0 10px' }}>
@@ -101,13 +107,13 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     </div>
 
     {/* النودل الملوّن — يتدلّى فوق الحافة العلوية وظله مدموج في الصورة */}
-    <motion.img
+    {program.pattern && <motion.img
       src={program.pattern} alt="" aria-hidden="true" draggable="false"
       className="pointer-events-none absolute"
       style={{ top: '-52px', left: '-13%', width: '94%', maxWidth: 'none', zIndex: 2 }}
       animate={{ y: [0, -6, 0], rotate: [0, 1, 0] }}
       transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-    />
+    />}
   </motion.div>
 )
 
@@ -123,10 +129,10 @@ export default function Programs({ onOpenPage = () => {} }) {
       {/* صورة من فعاليات البرامج — حضور قوي مع تظليل بلون الهوية،
           وتنكشف صورة البرنامج الذي يمر عليه المؤشر */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <img src="/images/programs-back.jpg" alt="" aria-hidden="true" draggable="false"
-          className="absolute inset-0 h-full w-full object-cover" />
+        {programsContent.pageBack && <img src={programsContent.pageBack} alt="" aria-hidden="true" draggable="false"
+          className="absolute inset-0 h-full w-full object-cover" />}
         <AnimatePresence>
-          {hoveredProgram && (
+          {hoveredProgram?.img && (
               <motion.img
                 key={hoveredProgram.key}
                 src={hoveredProgram.img} alt="" aria-hidden="true" draggable="false"

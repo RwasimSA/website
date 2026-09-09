@@ -83,14 +83,14 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
       {/* فيديو «ليلة الختام» مستضاف محلياً — أقصى الخلف، مكتوم ويعيد نفسه،
           وخلفه صورة غطاء احتياطية لحين تحميله */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
-        <img src={site.heroImage || '/images/heroback.jpg'} alt="" aria-hidden="true" draggable="false"
-          className="absolute inset-0 h-full w-full object-cover" />
-        <video
-          src={site.heroVideo || '/videos/hero-bg.mp4'}
+        {site.heroImage && <img src={site.heroImage} alt="" aria-hidden="true" draggable="false"
+          className="absolute inset-0 h-full w-full object-cover" />}
+        {site.heroVideo && <video
+          src={site.heroVideo}
           autoPlay muted loop playsInline preload="auto"
           aria-hidden="true" tabIndex={-1}
           className="absolute inset-0 h-full w-full object-cover"
-        />
+        />}
         <div style={{ position: 'absolute', inset: 0,
           background: 'linear-gradient(180deg, rgba(8,38,51,0.84) 0%, rgba(13,58,77,0.74) 42%, rgba(8,38,51,0.8) 75%, rgba(4,23,32,0.94) 100%)' }} />
       </div>

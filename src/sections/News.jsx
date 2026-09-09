@@ -20,7 +20,7 @@ const MEDIA = mediaData.coverage.map((v) => ({ type: 'video', id: v.id, title: v
 const START_INDEX = Math.min(2, Math.max(0, MEDIA.length - 1))
 
 /* مصغرات الفيديو محفوظة محلياً حتى لا تعتمد الشبكة */
-const thumb = (m) => (m.type === 'video' ? `/images/today/yt-${m.id}.jpg` : m.src)
+const thumb = (m) => (m.type === 'video' ? `https://i.ytimg.com/vi/${m.id}/hqdefault.jpg` : m.src)
 
 /* أيقونة تشغيل بيضاء في منتصف الصورة */
 const PlayBadge = () => (
