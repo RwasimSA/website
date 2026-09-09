@@ -167,6 +167,9 @@ body {
 @media (max-width: 767px) {
   :root { --glass: none; --fx-blur: none; }
   .hero-doodles { display: none !important; }
+  /* هالات الضوء المتحركة وتوهجات البطاقات — تُحذف كلياً على الجوال:
+     كل عنصر توهج يحمل filter عبر المتغير --fx-blur أو الوسم fx-glow */
+  [style*="--fx-blur"], .fx-glow { display: none !important; }
 }
 
 /* شريط الشركاء المتحرّك على الجوال — حركة أفقية لا نهائية.

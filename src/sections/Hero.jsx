@@ -128,16 +128,16 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
           opacity: 0.5, filter: 'blur(9px)',
         }} />
 
-      {/* توهّجات متنفّسة خلف الشعار */}
+      {/* توهّجات متنفّسة خلف الشعار — تُخفى على الجوال (fx-glow) */}
       <motion.div
-        className="pointer-events-none absolute"
+        className="fx-glow pointer-events-none absolute"
         style={{ width: '560px', height: '560px', borderRadius: '50%', top: '42%', left: '50%', transform: 'translate(-50%, -50%)',
           background: 'radial-gradient(circle, rgba(47,167,204,0.20) 0%, transparent 62%)' }}
         animate={{ opacity: [0.55, 1, 0.55], scale: [1, 1.08, 1] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="pointer-events-none absolute"
+        className="fx-glow pointer-events-none absolute"
         style={{ width: '420px', height: '420px', borderRadius: '50%', top: '44%', left: '50%', transform: 'translate(-50%, -50%)',
           background: 'radial-gradient(circle, rgba(239,145,34,0.16) 0%, transparent 60%)' }}
         animate={{ opacity: [0.4, 0.85, 0.4], scale: [1.05, 0.95, 1.05] }}

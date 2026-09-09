@@ -127,6 +127,7 @@ function DrawnIcon({ src }) {
 const StatIcon = ({ src, glow }) => (
   <div className="stat-icon" style={{ position: 'relative', width: '54px', height: '54px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
     <motion.div
+      className="fx-glow"
       style={{ position: 'absolute', inset: '-12px', borderRadius: '50%',
         background: `radial-gradient(circle, ${glow} 0%, transparent 68%)`, filter: 'blur(12px)', pointerEvents: 'none' }}
       animate={{ opacity: [0.55, 1, 0.55], scale: [0.9, 1.08, 0.9] }}
