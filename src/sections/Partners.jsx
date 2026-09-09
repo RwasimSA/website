@@ -120,8 +120,9 @@ export default function Partners({ onOpenPage = () => {} }) {
         </div>
 
         {/* الجوال: سطران ظاهران دائماً يتحركان باتجاهين متعاكسين بلا نهاية.
-            كل سطر يُكرَّر شعاراته حتى يفيض عرضه عن الشاشة مهما قلّ عددها */}
-        <div className="flex w-full flex-col gap-3 md:hidden">
+            كل سطر يُكرَّر شعاراته حتى يفيض عرضه عن الشاشة مهما قلّ عددها.
+            ‎-mx-6 تلغي حشوة القسم الجانبية فتصل الشعارات لحافتي الشاشة */}
+        <div className="-mx-6 flex flex-col gap-3 md:hidden">
           <MarqueeRow logos={fillRow(logos.slice(0, Math.ceil(logos.length / 2)))} anim="partners-right" />
           <MarqueeRow logos={fillRow(logos.slice(Math.ceil(logos.length / 2)))} anim="partners-left" />
         </div>
