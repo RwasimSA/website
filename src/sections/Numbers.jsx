@@ -137,24 +137,41 @@ const StatIcon = ({ src, glow }) => (
   </div>
 )
 
-/* عدّاد تصاعدي بأرقام إنجليزية */
+/* عدّاد تصاعدي بأرقام إنجليزية — يبدأ عند دخول البطاقة مجال الرؤية
+   (لا عند تحميل الصفحة)، ومؤقّت احتياطي يثبّت القيمة النهائية حتى لو
+   جمّد المتصفح رسوم rAF (تبويب خلفي أو وضع توفير الطاقة في الجوال) */
 function CountUp({ value, suffix = '', plus = true, duration = 1.6 }) {
   const [n, setN] = useState(0)
-  const raf = useRef()
+  const ref = useRef(null)
   useEffect(() => {
-    let start
-    const step = (t) => {
-      if (!start) start = t
-      const p = Math.min((t - start) / (duration * 1000), 1)
-      const eased = 1 - Math.pow(1 - p, 3)
-      setN(Math.round(eased * value))
-      if (p < 1) raf.current = requestAnimationFrame(step)
+    let raf, timer, io, started = false
+    const run = () => {
+      if (started) return
+      started = true
+      let start
+      const step = (t) => {
+        if (!start) start = t
+        const p = Math.min((t - start) / (duration * 1000), 1)
+        setN(Math.round((1 - Math.pow(1 - p, 3)) * value))
+        if (p < 1) raf = requestAnimationFrame(step)
+      }
+      raf = requestAnimationFrame(step)
+      timer = setTimeout(() => { cancelAnimationFrame(raf); setN(value) }, duration * 1000 + 500)
     }
-    raf.current = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(raf.current)
+    if ('IntersectionObserver' in window && ref.current) {
+      io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { run(); io.disconnect() }
+      }, { threshold: 0.2 })
+      io.observe(ref.current)
+      /* ضمانة أخيرة: مهما حدث، القيمة الحقيقية تظهر بعد 6 ثوانٍ */
+      timer = setTimeout(() => { if (!started) setN(value) }, 6000)
+    } else {
+      run()
+    }
+    return () => { cancelAnimationFrame(raf); clearTimeout(timer); if (io) io.disconnect() }
   }, [value, duration])
   return (
-    <span style={{ display: 'inline-flex', direction: 'rtl', alignItems: 'baseline', gap: '0.14em' }}>
+    <span ref={ref} style={{ display: 'inline-flex', direction: 'rtl', alignItems: 'baseline', gap: '0.14em' }}>
       {plus && <span>+</span>}
       <span dir="ltr">{n.toLocaleString('en-US')}</span>
       {suffix && <span>{suffix}</span>}

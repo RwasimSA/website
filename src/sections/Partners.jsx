@@ -20,7 +20,8 @@ const LogoCell = ({ src, index }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 + index * 0.012 }}
     >
       <motion.div
@@ -54,6 +55,14 @@ const MarqueeCell = ({ src }) => (
     <img src={src} alt="شريك" draggable="false" loading="lazy" className="h-full w-full object-contain" />
   </div>
 )
+
+/* يكرر شعارات السطر حتى تتجاوز عرض أي شاشة (ولو كانت القائمة قصيرة) */
+const fillRow = (row) => {
+  if (!row.length) return row
+  let out = [...row]
+  while (out.length < 10) out = [...out, ...row]
+  return out
+}
 
 /* سطر متحرّك أفقياً بلا نهاية */
 const MarqueeRow = ({ logos, anim: animName }) => (
@@ -102,10 +111,11 @@ export default function Partners({ onOpenPage = () => {} }) {
           ))}
         </div>
 
-        {/* الجوال: سطران متحرّكان أفقياً بلا نهاية */}
+        {/* الجوال: سطران ظاهران دائماً يتحركان باتجاهين متعاكسين بلا نهاية.
+            كل سطر يُكرَّر شعاراته حتى يفيض عرضه عن الشاشة مهما قلّ عددها */}
         <div className="flex w-full flex-col gap-3 md:hidden">
-          <MarqueeRow logos={logos.slice(0, 9)} anim="partners-right" />
-          <MarqueeRow logos={logos.slice(9)} anim="partners-left" />
+          <MarqueeRow logos={fillRow(logos.slice(0, Math.ceil(logos.length / 2)))} anim="partners-right" />
+          <MarqueeRow logos={fillRow(logos.slice(Math.ceil(logos.length / 2)))} anim="partners-left" />
         </div>
       </div>
     </motion.section>

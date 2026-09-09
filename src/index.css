@@ -158,9 +158,11 @@ body {
   .news-title { font-size: 15px !important; line-height: 1.5 !important; }
 }
 
-/* شريط الشركاء المتحرّك على الجوال — حركة أفقية لا نهائية */
-@keyframes partners-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes partners-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+/* شريط الشركاء المتحرّك على الجوال — حركة أفقية لا نهائية.
+   الصفحة RTL: نبقي الإزاحة في المدى الموجب [0، 50%] حتى يبقى
+   السطر ممتلئاً دائماً بلا فجوة على أي طرف */
+@keyframes partners-left { from { transform: translateX(50%); } to { transform: translateX(0); } }
+@keyframes partners-right { from { transform: translateX(0); } to { transform: translateX(50%); } }
 /* على الجوال: قسم مدمّج بلا مساحات فارغة كبيرة */
 @media (max-width: 767px) {
   .partners-section { min-height: auto !important; padding-top: 40px !important; padding-bottom: 40px !important; }

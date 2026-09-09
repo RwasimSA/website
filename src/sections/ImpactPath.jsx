@@ -168,14 +168,14 @@ export default function ImpactPath() {
         <motion.h2
           className="mb-2 text-white"
           style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(30px, 3.4vw, 44px)', lineHeight: 1.3 }}
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           كيف نصنع الأثر؟
         </motion.h2>
         <motion.p
           className="mb-4 text-center text-[15px]"
           style={{ color: '#c9dde8', fontWeight: 300 }}
-          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
           خيط واحد متصل: قيمة تُغرس، فمهارة تُنمّى، فممارسة تُعاش… حتى يُعقد الأثر.
         </motion.p>
@@ -196,12 +196,12 @@ export default function ImpactPath() {
             {/* توهج الخيط */}
             <motion.path d={THREAD} fill="none" stroke="url(#threadGrad)" strokeWidth="13"
               strokeLinecap="round" style={{ filter: 'blur(9px)', opacity: 0.35 }}
-              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+              initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: drawDur, delay: 0.3, ease: 'easeInOut' }} />
             {/* الخيط نفسه */}
             <motion.path d={THREAD} fill="none" stroke="url(#threadGrad)" strokeWidth="5"
               strokeLinecap="round"
-              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+              initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: drawDur, delay: 0.3, ease: 'easeInOut' }} />
           </svg>
 
@@ -213,8 +213,8 @@ export default function ImpactPath() {
         <div className="relative mt-8 flex w-full max-w-md flex-col gap-7 md:hidden" style={{ paddingBottom: '6px' }}>
           {IMPACT_STEPS.map((s, i) => (
             <motion.div key={i} className="relative flex items-stretch gap-3.5"
-              initial={{ opacity: 0, x: -22 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.35 + i * 0.22, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
+              initial={{ opacity: 0, x: -22 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-40px' }}
+              transition={{ delay: 0.1 + i * 0.14, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
 
               {/* عقدة الرقم + مقطع الخيط نحو العقدة التالية */}
               <div className="flex flex-shrink-0 flex-col items-center" style={{ width: '52px', zIndex: 1 }}>
@@ -225,13 +225,13 @@ export default function ImpactPath() {
                       transformOrigin: 'top', zIndex: -1,
                       background: `linear-gradient(180deg, ${s.accent}, ${IMPACT_STEPS[i + 1].accent})`,
                       boxShadow: `0 0 10px ${s.accent}55` }}
-                    initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.55, delay: 0.5 + i * 0.22, ease: 'easeInOut' }}
+                    initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.55, delay: 0.25 + i * 0.14, ease: 'easeInOut' }}
                   />
                 )}
                 <motion.div
-                  initial={{ scale: 0 }} animate={{ scale: 1 }}
-                  transition={{ delay: 0.4 + i * 0.22, type: 'spring', stiffness: 260, damping: 17 }}
+                  initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true, margin: '-40px' }}
+                  transition={{ delay: 0.15 + i * 0.14, type: 'spring', stiffness: 260, damping: 17 }}
                   style={{
                     width: '52px', height: '52px', borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',

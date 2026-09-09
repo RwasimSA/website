@@ -247,8 +247,9 @@ export default function App() {
       ) : COMING_SOON[page] ? (
         <div className="relative z-10"><ComingSoon {...COMING_SOON[page]} /></div>
       ) : isMobile ? (
-        // الجوال: كل الأقسام متتالية بتمرير طبيعي مع مساحات كافية بينها
-        <div className="relative z-10 flex flex-col gap-20">
+        // الجوال: كل الأقسام متتالية بتمرير طبيعي — بلا فجوات بينها،
+        // فخلفية كل قسم تغطيه بالكامل وتلتحم بالتي تليها
+        <div className="relative z-10 flex flex-col">
           <Hero
             onPrograms={() => document.getElementById('programs-mobile')?.scrollIntoView({ behavior: 'smooth' })}
             onAbout={() => openPage('about-us')}

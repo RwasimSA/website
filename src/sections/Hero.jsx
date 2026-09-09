@@ -204,7 +204,9 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
           whileTap={{ scale: 0.98 }}
           className="flex items-center gap-3.5"
           style={{
-            borderRadius: '999px', padding: '8px 26px 8px 8px',
+            // الزران بمقاس موحد: 232×62
+            width: '232px', justifyContent: 'space-between',
+            borderRadius: '999px', padding: '8px 8px 8px 8px', paddingInlineStart: '26px',
             background: 'linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%)',
             backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
             border: '0.5px solid rgba(255,255,255,0.16)', cursor: 'pointer',
@@ -225,7 +227,9 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
           whileTap={{ scale: 0.98 }}
           className="flex items-center"
           style={{
-            borderRadius: '999px', padding: '8px 30px', minHeight: '62px',
+            // نفس مقاس الزر الرئيسي تماماً
+            width: '232px', height: '62px', justifyContent: 'center',
+            borderRadius: '999px', padding: '8px 30px',
             background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
             backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
             border: '0.5px solid rgba(255,255,255,0.16)', cursor: 'pointer',

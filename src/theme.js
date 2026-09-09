@@ -66,8 +66,11 @@ export const motion = {
   ease,
   // ظهور تدريجي للعناصر مع تأخير اختياري
   fade: (delay = 0) => ({
+    // whileInView بدل animate: تبدأ الحركة عند ظهور العنصر فعلاً،
+    // فلا يعلق عنصر شفافاً إذا حُمّلت الصفحة والقسم خارج الشاشة
     initial: { opacity: 0, y: 24 },
-    animate: { opacity: 1, y: 0 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: '-40px' },
     transition: { duration: 0.6, ease, delay },
   }),
   // رفع البطاقة عند المرور

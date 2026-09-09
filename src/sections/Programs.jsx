@@ -5,7 +5,8 @@ import programsContent from '../../content/programs.json'
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-40px' },
   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay },
 })
 
@@ -63,7 +64,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     onHoverEnd={() => onHover(null)}
     // رابط مخصص من اللوحة يفتح في تبويب جديد؛ وإلا تُفتح صفحة البرنامج الداخلية
     onClick={() => (program.link ? window.open(program.link, '_blank', 'noopener') : onOpen(program.key))}
-    className="relative w-full max-w-[320px] flex-1"
+    className="relative w-full max-w-[290px] flex-1"
     style={{ minWidth: 0, cursor: 'pointer' }}
   >
     {/* توهج خلفي بلون البرنامج */}
@@ -74,9 +75,9 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     {/* البطاقة الزجاجية */}
     <div className="relative flex h-full flex-col items-center text-center"
       style={{
-        borderRadius: '110px',
-        padding: '118px 28px 54px',
-        minHeight: '440px',
+        borderRadius: '100px',
+        padding: '104px 24px 46px',
+        minHeight: '400px',
         background: 'linear-gradient(155deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.015) 70%, rgba(255,255,255,0.05) 100%)',
         border: '1px solid rgba(255,255,255,0.20)',
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(255,255,255,0.06), 0 24px 48px rgba(3,15,21,0.22)',
@@ -85,7 +86,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     >
       {/* شعار البرنامج */}
       <img src={program.logo} alt={program.name} draggable="false"
-        className="relative mb-10 h-[92px] w-auto object-contain"
+        className="relative mb-8 h-[82px] w-auto object-contain"
         style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.3))', zIndex: 1 }} />
 
       {/* السطر التعريفي */}

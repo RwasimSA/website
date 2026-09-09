@@ -79,8 +79,30 @@ const POS = {
   3: { x: 0,   y: -48, z: -540, r: 0,  s: 0.64, o: 0, dim: 0.85 },
 }
 
+/* الجوال: إزاحات أقصر ومقاسات أصغر حتى تطل حافتا البطاقتين
+   المجاورتين من طرفي الشاشة */
+const POS_MOBILE = {
+  0: { x: 0,   y: 0,   z: 0,    r: 0,  s: 0.8,  o: 1, dim: 0 },
+  1: { x: 215, y: -6,  z: -110, r: 28, s: 0.6,  o: 1, dim: 0.55 },
+  2: { x: 400, y: -18, z: -300, r: 44, s: 0.52, o: 0, dim: 0.75 },
+  3: { x: 0,   y: -40, z: -500, r: 0,  s: 0.48, o: 0, dim: 0.85 },
+}
+
+/* هل الشاشة بمقاس جوال؟ (يتابع تغيّر المقاس) */
+function useIsNarrow() {
+  const [narrow, setNarrow] = useState(() => window.innerWidth < 768)
+  useEffect(() => {
+    const onResize = () => setNarrow(window.innerWidth < 768)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+  return narrow
+}
+
 function MediaStage({ onOpen, lightboxOpen, onActive = () => {} }) {
   const n = MEDIA.length
+  const narrow = useIsNarrow()
+  const positions = narrow ? POS_MOBILE : POS
   /* active عدّاد غير محدود (يزيد وينقص للأبد) — دوران مستمر بلا نهاية */
   const [active, setActive] = useState(START_INDEX)
   const activeIdx = ((active % n) + n) % n
@@ -126,7 +148,7 @@ function MediaStage({ onOpen, lightboxOpen, onActive = () => {} }) {
       {/* المسرح — منظور ثلاثي الأبعاد، ويدعم السحب أفقياً */}
       <motion.div
         className="relative w-full select-none"
-        style={{ height: '408px', perspective: '1700px', transformStyle: 'preserve-3d', touchAction: 'pan-y' }}
+        style={{ height: narrow ? '350px' : '408px', perspective: '1700px', transformStyle: 'preserve-3d', touchAction: 'pan-y' }}
         onPanStart={() => { panRef.current = true }}
         onPanEnd={(_, info) => {
           if (Math.abs(info.offset.x) > 60) step(info.offset.x > 0 ? 1 : -1)
@@ -139,7 +161,7 @@ function MediaStage({ onOpen, lightboxOpen, onActive = () => {} }) {
           if (off > n / 2) off -= n
           const abs = Math.abs(off)
           const sgn = Math.sign(off)
-          const p = POS[abs]
+          const p = positions[abs]
           const isFront = off === 0
           return (
             <motion.div
