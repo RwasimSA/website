@@ -72,21 +72,6 @@ function useSvgShapes(src) {
   return data
 }
 
-/* نسخة شبحية كبيرة من الأيقونة — اوت لاين خفيف جداً لزخرفة خلفية البطاقة */
-function GhostIcon({ src }) {
-  const data = useSvgShapes(src)
-  if (!data) return null
-  return (
-    <svg viewBox={data.viewBox} style={{ width: '100%', height: '100%' }}>
-      {data.shapes.map((s, i) => {
-        const El = s.tag
-        const { fill, ...rest } = s.attrs
-        return <El key={i} {...rest} fill="none" stroke="#ffffff" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
-      })}
-    </svg>
-  )
-}
-
 /* أيقونة تُرسم خطياً: نتتبّع محيط أشكال الـ SVG بخط متحرك (pathLength)
    ثم تظهر التعبئة الملوّنة. */
 function DrawnIcon({ src }) {
@@ -298,13 +283,6 @@ export default function Numbers({ onOpenPage = () => {} }) {
               })}
             >
               <CardGlow color={s.glow} />
-              {/* نسخة شبحية كبيرة من أيقونة البطاقة — في الزاوية اليسرى السفلية، يظهر جزؤها العلوي فقط */}
-              <div aria-hidden="true" style={{
-                position: 'absolute', bottom: '-96px', left: '-30px', width: '170px', height: '170px',
-                opacity: 0.07, pointerEvents: 'none', zIndex: 0,
-              }}>
-                <GhostIcon src={s.img} />
-              </div>
               <StatIcon src={s.img} glow={s.iconGlow} />
               {/* marginTop: auto يدفع الرقم والعنوان لأسفل البطاقة والأيقونة تبقى أعلى */}
               <span className="stat-number" style={{ position: 'relative', zIndex: 1, marginTop: 'auto', color: 'white', fontWeight: 600, fontSize: '34px', lineHeight: 1, whiteSpace: 'nowrap' }}>

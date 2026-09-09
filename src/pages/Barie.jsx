@@ -228,7 +228,7 @@ export default function Barie({ onOpenPage = () => {} }) {
                 background: `linear-gradient(90deg, transparent, ${ACCENT}99, transparent)` }} />
               <span aria-hidden="true" style={{ position: 'absolute', top: '-26px', left: '-8px', fontFamily: titleFont, fontWeight: 700,
                 fontSize: '110px', lineHeight: 1, color: 'rgba(239,145,34,0.09)', userSelect: 'none' }}>
-                {['١', '٢', '٣', '٤'][i]}
+                {['1', '2', '3', '4'][i]}
               </span>
               <div className="mb-5 flex h-[62px] w-[62px] items-center justify-center rounded-2xl"
                 style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>

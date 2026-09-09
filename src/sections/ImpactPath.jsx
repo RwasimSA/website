@@ -10,25 +10,25 @@ import site from '../../content/site.json'
 /* التسلسل الرباعي للأثر — يُستخدم حرفياً موحّداً أينما ظهر (قاعدة الخطة) */
 export const IMPACT_STEPS = [
   {
-    num: '١',
+    num: '1',
     title: 'نبني بالقيم',
     desc: 'نرسّخ القيم والمعاني التي تشكل وعي المستفيد وشخصيته.',
     accent: '#4db3d4',
   },
   {
-    num: '٢',
+    num: '2',
     title: 'نُمكّن بالمهارات',
     desc: 'ننمي المهارات المناسبة لكل مرحلة عمرية بما يساعد المستفيد على النمو والمشاركة وتحمل المسؤولية.',
     accent: '#2fa7cc',
   },
   {
-    num: '٣',
+    num: '3',
     title: 'نحوّلها إلى ممارسة',
     desc: 'نقدّم تجارب ومواقف وتطبيقات تجعل القيمة والمهارة جزءًا من تجربة المستفيد وسلوكه.',
     accent: '#f4a63f',
   },
   {
-    num: '٤',
+    num: '4',
     title: 'ليصنع أثره',
     desc: 'ينتقل المستفيد من التلقي إلى ممارسة ما تعلمه، والمبادرة، والتأثير في نفسه ومحيطه.',
     accent: '#ef9122',
@@ -85,10 +85,10 @@ const StepNode = ({ step, i }) => (
       style={{
         width: '58px', height: '58px', borderRadius: '50%',
         display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative',
+        /* خلفية معتمة بالكامل — لا شفافية على دوائر الأرقام */
         background: step.final
           ? 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)'
-          : 'linear-gradient(150deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%)',
-        backdropFilter: 'var(--glass, blur(14px) saturate(150%))', WebkitBackdropFilter: 'var(--glass, blur(14px) saturate(150%))',
+          : 'linear-gradient(150deg, #17587a 0%, #0d3a4d 100%)',
         border: step.final ? '1px solid rgba(255,200,120,0.65)' : '1px solid rgba(255,255,255,0.28)',
         boxShadow: step.final
           ? '0 0 26px rgba(239,145,34,0.65), inset 0 1px 0 rgba(255,255,255,0.35)'
@@ -236,10 +236,10 @@ export default function ImpactPath() {
                   style={{
                     width: '52px', height: '52px', borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    /* خلفية معتمة بالكامل — لا شفافية على دوائر الأرقام */
                     background: s.final
                       ? 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)'
-                      : 'rgba(10,42,56,0.75)',
-                    backdropFilter: 'var(--glass, blur(10px))', WebkitBackdropFilter: 'var(--glass, blur(10px))',
+                      : '#0d3a4d',
                     border: s.final ? '1.5px solid rgba(255,200,120,0.7)' : `1.5px solid ${s.accent}88`,
                     boxShadow: s.final ? '0 0 24px rgba(239,145,34,0.6)' : `0 0 16px ${s.accent}55`,
                   }}>

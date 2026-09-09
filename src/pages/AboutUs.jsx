@@ -191,7 +191,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               style={glass({ borderRadius: '26px', padding: '32px 30px' })}>
               <span aria-hidden="true" style={{ position: 'absolute', top: '-26px', left: '-8px', fontFamily: titleFont, fontWeight: 700,
                 fontSize: '110px', lineHeight: 1, color: 'rgba(255,255,255,0.05)', userSelect: 'none' }}>
-                {['١', '٢', '٣', '٤'][i]}
+                {['1', '2', '3', '4'][i]}
               </span>
               <div className="mb-4 flex items-center gap-3">
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: a.accent, boxShadow: `0 0 12px ${a.accent}` }} />

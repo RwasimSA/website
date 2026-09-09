@@ -158,6 +158,15 @@ body {
   .news-title { font-size: 15px !important; line-height: 1.5 !important; }
 }
 
+/* هوامش أمان رأسية لكل الأقسام: حين يطول المحتوى عن ارتفاع الشاشة
+   لا يلامس الحواف. داخل طبقة base حتى تغلبها فئات py-* الأكبر حيث وُجدت. */
+@layer base {
+  section { padding-top: 56px; padding-bottom: 56px; }
+  @media (max-width: 767px) {
+    section { padding-top: 76px; padding-bottom: 76px; }
+  }
+}
+
 /* ══ الوضع الخفيف للجوال ══
    البلور الزجاجي (backdrop-filter) أغلى مؤثر على معالجات الجوال،
    ويفشل رسمه على iOS عند التراكم (وميض أبيض وفقدان الطبقات).
