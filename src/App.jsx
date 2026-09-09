@@ -39,6 +39,23 @@ const order = ['hero', 'programs', 'numbers', 'how', 'news', 'partners', 'cta', 
 // الصفحات قيد الإعداد مستقبلاً — تُعرض بشاشة «قريباً» (فارغة حالياً)
 const COMING_SOON = {}
 
+/* ═══ روابط الصفحات: لكل صفحة داخلية مسار خاص قابل للمشاركة ═══
+   /programs، /gov-data، /impact… — يُدفع للمتصفح عند التنقل،
+   ويُقرأ عند الفتح المباشر، ويستجيب لزرّي الرجوع/التقدم */
+const PAGE_KEYS = new Set([
+  'about-us', 'barie', 'ashbal', 'saif', 'programs', 'policies',
+  'news', 'volunteer', 'partners', 'inquiries', 'impact',
+])
+const isValidPage = (p) => !!p && (PAGE_KEYS.has(p) || p.startsWith('gov-') || !!COMING_SOON[p])
+const pageFromPath = () => {
+  const slug = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
+  return isValidPage(slug) ? slug : null
+}
+const pushPagePath = (p) => {
+  const target = p && isValidPage(p) ? `/${p}` : '/'
+  if (window.location.pathname !== target) window.history.pushState({}, '', target)
+}
+
 // خلفية ثابتة للجوال (تمرير طبيعي): بنفسجي أعلى ← داكن أسفل
 const mobileBg = 'linear-gradient(180deg, #124a61 0%, #0d3a4d 38%, #082633 72%, #030f15 100%)'
 
@@ -59,7 +76,8 @@ export default function App() {
   const [section, setSection] = useState(order.includes(savedNav.section) ? savedNav.section : 'hero')
   const [direction, setDirection] = useState(1) // +1 نزولاً، -1 صعوداً
   const [isMobile, setIsMobile] = useState(false)
-  const [page, setPage] = useState(savedNav.page ?? null) // صفحة داخلية مفتوحة (null = الصفحة الرئيسية)
+  // الرابط هو مصدر الحقيقة للصفحة المفتوحة (يليه لا شيء — الرئيسية)
+  const [page, setPage] = useState(() => pageFromPath())
 
   // فتح صفحة داخلية أو العودة للرئيسية
   const openPage = (p) => {
@@ -67,14 +85,23 @@ export default function App() {
     if (typeof p === 'string' && p.startsWith('home:')) {
       const sec = p.slice(5)
       setPage(null)
+      pushPagePath(null)
       if (order.includes(sec)) { setDirection(1); setSection(sec) }
       setTimeout(() => document.getElementById(`${sec}-mobile`)?.scrollIntoView({ behavior: 'smooth' }), 80)
       window.scrollTo({ top: 0 })
       return
     }
     setPage(p)
+    pushPagePath(p)
     window.scrollTo({ top: 0 })
   }
+
+  // زرا الرجوع/التقدم في المتصفح يتنقلان بين الصفحات
+  useEffect(() => {
+    const onPop = () => { setPage(pageFromPath()); window.scrollTo({ top: 0 }) }
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
   const lockRef = useRef(false)
   const currentRef = useRef(order.includes(savedNav.section) ? savedNav.section : 'hero')
   const scrollerRef = useRef(null) // حاوي القسم الحالي — للتمرير الداخلي على الشاشات الصغيرة

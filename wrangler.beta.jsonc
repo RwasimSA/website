@@ -11,7 +11,9 @@
   ],
   "assets": {
     "directory": "./public",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    // مسارات الصفحات (/programs، /gov-data…) تُخدم من index.html — توجيه داخل التطبيق
+    "not_found_handling": "single-page-application"
   },
   "d1_databases": [
     {

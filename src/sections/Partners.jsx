@@ -19,6 +19,7 @@ const LogoCell = ({ src, index }) => {
   const row = Math.floor(index / COLS)
   return (
     <motion.div
+      style={{ width: '112px' }}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -104,11 +105,18 @@ export default function Partners({ onOpenPage = () => {} }) {
           نفخر بشبكة من الشركاء الذين أسهموا في دعم البرامج وتوسيع الأثر.
         </motion.p>
 
-        {/* سطح المكتب: شبكة الشعارات */}
-        <div className="partners-grid hidden w-full max-w-6xl md:grid" style={{ gap: '12px' }}>
-          {logos.map((src, i) => (
-            <LogoCell key={i} src={src} index={i} />
-          ))}
+        {/* سطح المكتب: صفان متوسطان — العدد الزوجي يتوزع بالتساوي،
+            والفردي: الصف الأعلى أكثر بواحد والأسفل شعاراته موسّطة */}
+        <div className="hidden w-full max-w-6xl flex-col items-center md:flex" style={{ gap: '12px' }}>
+          {[logos.slice(0, Math.ceil(logos.length / 2)), logos.slice(Math.ceil(logos.length / 2))]
+            .filter((row) => row.length > 0)
+            .map((row, r) => (
+              <div key={r} className="flex w-full flex-wrap justify-center" style={{ gap: '12px' }}>
+                {row.map((src, i) => (
+                  <LogoCell key={i} src={src} index={r * Math.ceil(logos.length / 2) + i} />
+                ))}
+              </div>
+            ))}
         </div>
 
         {/* الجوال: سطران ظاهران دائماً يتحركان باتجاهين متعاكسين بلا نهاية.
