@@ -121,7 +121,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
       </div>
 
       {/* باترن الهوية — شريط منحنٍ بعرض كامل، متوسّط رأسياً مع تمويه خفيف */}
-      <img src="/images/hero-pattern.png" alt="" aria-hidden="true" draggable="false"
+      <img src="/images/hero-pattern.webp" alt="" aria-hidden="true" draggable="false"
         className="pointer-events-none absolute left-0 w-full"
         style={{
           top: '50%', transform: 'translateY(-50%)', zIndex: 0,
