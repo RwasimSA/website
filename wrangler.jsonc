@@ -14,7 +14,10 @@
     "directory": "./public",
     "binding": "ASSETS",
     // مسارات الصفحات (/programs، /gov-data…) تُخدم من index.html — توجيه داخل التطبيق
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "single-page-application",
+    // الملفات وAPI تمر على الـWorker دائماً حتى عند فتحها مباشرة في المتصفح —
+    // بدونها يعترض توجيه SPA تنزيل الملفات ويعرض الرئيسية بدلها
+    "run_worker_first": ["/files/*", "/api/*"]
   },
   "d1_databases": [
     {
