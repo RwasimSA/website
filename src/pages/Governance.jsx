@@ -235,6 +235,40 @@ function GovExecutive({ onOpenPage }) {
           {EXECUTIVE.photo
             ? <PhotoMemberCard name={EXECUTIVE.name} role={EXECUTIVE.role} photo={EXECUTIVE.photo} width={260} />
             : <MemberCard name={EXECUTIVE.name} role={EXECUTIVE.role} />}
+
+          {/* بيانات المدير التنفيذي — تُحرَّر من اللوحة وتظهر حقولها المعبأة فقط */}
+          {(EXECUTIVE.qualification || EXECUTIVE.email || EXECUTIVE.phone) && (
+            <motion.div {...rise(0.1)} className="mt-5 flex flex-col gap-3.5"
+              style={glass({ borderRadius: '20px', padding: '20px 22px' })}>
+              {[
+                { k: 'الاسم', v: EXECUTIVE.name },
+                { k: 'المنصب', v: EXECUTIVE.role },
+                { k: 'المؤهل', v: EXECUTIVE.qualification },
+              ].filter((r) => r.v).map((r) => (
+                <div key={r.k} className="flex flex-col gap-0.5">
+                  <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11.5px' }}>{r.k}</span>
+                  <span style={{ color: '#dcebf2', fontWeight: 400, fontSize: '13.5px', lineHeight: 1.8 }}>{r.v}</span>
+                </div>
+              ))}
+              {(EXECUTIVE.email || EXECUTIVE.phone) && (
+                <div className="flex flex-col gap-0.5">
+                  <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11.5px' }}>التواصل</span>
+                  {EXECUTIVE.email && (
+                    <a href={`mailto:${EXECUTIVE.email}`} dir="ltr" className="text-right"
+                      style={{ color: '#f4a63f', fontWeight: 400, fontSize: '13.5px', textDecoration: 'none', lineHeight: 1.9 }}>
+                      {EXECUTIVE.email}
+                    </a>
+                  )}
+                  {EXECUTIVE.phone && (
+                    <a href={`tel:${String(EXECUTIVE.phone).replace(/\s/g, '')}`} dir="ltr" className="text-right"
+                      style={{ color: '#f4a63f', fontWeight: 400, fontSize: '13.5px', textDecoration: 'none', lineHeight: 1.9 }}>
+                      {EXECUTIVE.phone}
+                    </a>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          )}
         </div>
 
         {/* نص الكلمة */}
