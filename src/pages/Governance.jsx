@@ -47,6 +47,19 @@ const BOARD = people.board
 const BOARD_NOTES = (people.boardNotes || []).filter(Boolean)
 const ASSEMBLY = people.assembly
 const EXECUTIVE = people.executive
+/* بطاقات بيانات المدير التنفيذي — بطاقة أفقية بأيقونة لكل معلومة معبأة */
+const EXEC_INFO = [
+  { k: 'المنصب', v: EXECUTIVE.role,
+    icon: '<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>' },
+  { k: 'المؤهل', v: EXECUTIVE.qualification,
+    icon: '<path d="M22 10v6"/><path d="m2 10 10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>' },
+  { k: 'البريد الإلكتروني', v: EXECUTIVE.email, ltr: true,
+    href: EXECUTIVE.email ? `mailto:${EXECUTIVE.email}` : '',
+    icon: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>' },
+  { k: 'رقم الجوال', v: EXECUTIVE.phone, ltr: true,
+    href: EXECUTIVE.phone ? `tel:${String(EXECUTIVE.phone).replace(/\s/g, '')}` : '',
+    icon: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>' },
+].filter((r) => r.v)
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 26 },
@@ -236,38 +249,39 @@ function GovExecutive({ onOpenPage }) {
             ? <PhotoMemberCard name={EXECUTIVE.name} role={EXECUTIVE.role} photo={EXECUTIVE.photo} width={260} />
             : <MemberCard name={EXECUTIVE.name} role={EXECUTIVE.role} />}
 
-          {/* بيانات المدير التنفيذي — تُحرَّر من اللوحة وتظهر حقولها المعبأة فقط */}
-          {(EXECUTIVE.qualification || EXECUTIVE.email || EXECUTIVE.phone) && (
-            <motion.div {...rise(0.1)} className="mt-5 flex flex-col gap-3.5"
-              style={glass({ borderRadius: '20px', padding: '20px 22px' })}>
-              {[
-                { k: 'الاسم', v: EXECUTIVE.name },
-                { k: 'المنصب', v: EXECUTIVE.role },
-                { k: 'المؤهل', v: EXECUTIVE.qualification },
-              ].filter((r) => r.v).map((r) => (
-                <div key={r.k} className="flex flex-col gap-0.5">
-                  <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11.5px' }}>{r.k}</span>
-                  <span style={{ color: '#dcebf2', fontWeight: 400, fontSize: '13.5px', lineHeight: 1.8 }}>{r.v}</span>
-                </div>
-              ))}
-              {(EXECUTIVE.email || EXECUTIVE.phone) && (
-                <div className="flex flex-col gap-0.5">
-                  <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11.5px' }}>التواصل</span>
-                  {EXECUTIVE.email && (
-                    <a href={`mailto:${EXECUTIVE.email}`} dir="ltr" className="text-right"
-                      style={{ color: '#f4a63f', fontWeight: 400, fontSize: '13.5px', textDecoration: 'none', lineHeight: 1.9 }}>
-                      {EXECUTIVE.email}
-                    </a>
-                  )}
-                  {EXECUTIVE.phone && (
-                    <a href={`tel:${String(EXECUTIVE.phone).replace(/\s/g, '')}`} dir="ltr" className="text-right"
-                      style={{ color: '#f4a63f', fontWeight: 400, fontSize: '13.5px', textDecoration: 'none', lineHeight: 1.9 }}>
-                      {EXECUTIVE.phone}
-                    </a>
-                  )}
-                </div>
-              )}
-            </motion.div>
+          {/* بيانات المدير التنفيذي — بطاقات أفقية بأيقونات، تظهر حقولها المعبأة فقط
+             (بلا اسم — الاسم أعلى البطاقة المصورة) */}
+          {EXEC_INFO.length > 0 && (
+            <div className="mt-5 flex flex-col gap-2.5">
+              {EXEC_INFO.map((r, i) => {
+                const inner = (
+                  <>
+                    <span className="flex h-[42px] w-[42px] flex-shrink-0 items-center justify-center rounded-xl"
+                      style={{ background: 'rgba(239,145,34,0.12)', border: '0.5px solid rgba(239,145,34,0.32)' }}>
+                      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#f4a63f" strokeWidth="1.8"
+                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+                        dangerouslySetInnerHTML={{ __html: r.icon }} />
+                    </span>
+                    <span className="flex min-w-0 flex-col gap-0.5 text-right">
+                      <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11px' }}>{r.k}</span>
+                      <span dir={r.ltr ? 'ltr' : undefined} className="text-right"
+                        style={{ color: r.href ? '#f4a63f' : '#dcebf2', fontWeight: 400, fontSize: '13.5px', lineHeight: 1.7,
+                          overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {r.v}
+                      </span>
+                    </span>
+                  </>
+                )
+                const cardStyle = glass({ borderRadius: '16px', padding: '11px 14px' })
+                return (
+                  <motion.div key={r.k} {...rise(0.08 + 0.05 * i)}>
+                    {r.href
+                      ? <a href={r.href} className="flex items-center gap-3" style={{ ...cardStyle, textDecoration: 'none' }}>{inner}</a>
+                      : <div className="flex items-center gap-3" style={cardStyle}>{inner}</div>}
+                  </motion.div>
+                )
+              })}
+            </div>
           )}
         </div>
 
