@@ -42,6 +42,8 @@ const OFFICIAL = official.items
 /* الأشخاص من content/people.json — تُحرَّر من لوحة التحكم.
    البطاقة المصورة PhotoMemberCard تُفعّل تلقائياً لأي عضو له photo */
 const BOARD = people.board
+/* أسطر توضيحية تُعرض متوسطة أسفل أعضاء المجلس (مدة الدورة ونهايتها…) — تُحرَّر من اللوحة */
+const BOARD_NOTES = (people.boardNotes || []).filter(Boolean)
 const ASSEMBLY = people.assembly
 const EXECUTIVE = people.executive
 
@@ -205,6 +207,13 @@ function GovBoard({ onOpenPage }) {
             : <MemberCard key={m.name} name={m.name} role={m.role} delay={0.05 * i} />
         ))}
       </div>
+      {BOARD_NOTES.length > 0 && (
+        <motion.div {...rise(0.1)} className="mt-16 text-center">
+          {BOARD_NOTES.map((t, i) => (
+            <p key={i} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: '0 0 14px' }}>{t}</p>
+          ))}
+        </motion.div>
+      )}
     </GovShell>
   )
 }
