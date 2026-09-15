@@ -64,7 +64,8 @@ const PAGE_TITLES = {
   partners: 'الشراكات', inquiries: 'تواصل معنا', policies: 'الحوكمة',
   'gov-data': 'البيانات الرسمية', 'gov-board': 'مجلس الإدارة',
   'gov-executive': 'الإدارة التنفيذية', 'gov-assembly': 'الجمعية العمومية',
-  'gov-reports': 'التقارير والقوائم المالية', 'gov-policies': 'اللوائح والسياسات',
+  'gov-reports': 'التقارير والقوائم المالية', 'gov-minutes': 'المحاضر',
+  'gov-policies': 'اللوائح والسياسات',
   'gov-complaints': 'الشكاوى والبلاغات',
 }
 

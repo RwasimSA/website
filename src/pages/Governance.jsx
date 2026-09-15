@@ -31,6 +31,7 @@ export const GOV_PAGES = [
   { key: 'gov-executive', label: 'الإدارة التنفيذية' },
   { key: 'gov-assembly', label: 'الجمعية العمومية' },
   { key: 'gov-reports', label: 'التقارير والقوائم المالية' },
+  { key: 'gov-minutes', label: 'المحاضر' },
   { key: 'gov-policies', label: 'اللوائح والسياسات والإفصاحات' },
   { key: 'gov-complaints', label: 'الشكاوى والبلاغات' },
 ]
@@ -267,8 +268,8 @@ function GovAssembly({ onOpenPage }) {
       <div className="grid gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {ASSEMBLY.map((m, i) => (
           m.photo
-            ? <PhotoMemberCard key={m.name} name={m.name} role="عضو مؤسس" photo={m.photo} delay={0.05 * i} />
-            : <MemberCard key={m.name} name={m.name} role="عضو مؤسس" delay={0.05 * i} accent="#7fb8d4" />
+            ? <PhotoMemberCard key={m.name} name={m.name} role={m.role || 'عضو مؤسس'} photo={m.photo} delay={0.05 * i} />
+            : <MemberCard key={m.name} name={m.name} role={m.role || 'عضو مؤسس'} delay={0.05 * i} accent="#7fb8d4" />
         ))}
       </div>
     </GovShell>
@@ -286,6 +287,21 @@ function GovReports({ onOpenPage }) {
       lead="أرشيف التقارير السنوية للجمعية وقوائمها المالية، يُتاح وفق الوثائق المعتمدة والمتطلبات النظامية.">
       <FileCards files={REPORT_FILES} types={REPORT_TYPES}
         emptyNote="تُنشر النسخ المعتمدة للنشر هنا فور اعتمادها." />
+    </GovShell>
+  )
+}
+
+/* ═══════════ 3.5) المحاضر ═══════════ */
+const MINUTES_TYPES = ['محاضر مجلس الإدارة', 'محاضر الجمعية العمومية']
+const MINUTES_FILES = (docs.minutes || []).map((d) => ({ ...d, file: d.file || null }))
+
+function GovMinutes({ onOpenPage }) {
+  return (
+    <GovShell current="gov-minutes" onOpenPage={onOpenPage}
+      title="المحاضر"
+      lead="محاضر اجتماعات مجلس الإدارة والجمعية العمومية، تُنشر نسخها المعتمدة للنشر تباعاً.">
+      <FileCards files={MINUTES_FILES} types={MINUTES_TYPES}
+        emptyNote="تُنشر المحاضر المعتمدة للنشر هنا فور اعتمادها." />
     </GovShell>
   )
 }
@@ -352,6 +368,7 @@ export default function Governance({ section = 'gov-data', onOpenPage = () => {}
     case 'gov-executive': return <GovExecutive onOpenPage={onOpenPage} />
     case 'gov-assembly': return <GovAssembly onOpenPage={onOpenPage} />
     case 'gov-reports': return <GovReports onOpenPage={onOpenPage} />
+    case 'gov-minutes': return <GovMinutes onOpenPage={onOpenPage} />
     case 'gov-policies': return <GovPolicies onOpenPage={onOpenPage} />
     case 'gov-complaints': return <GovComplaints onOpenPage={onOpenPage} />
     default: return <GovData onOpenPage={onOpenPage} />
