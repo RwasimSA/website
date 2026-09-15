@@ -48,7 +48,14 @@ export default {
       return new Response(obj.body, { headers })
     }
 
-    /* كل ما عدا ذلك: أصول الموقع الثابتة */
-    return env.ASSETS.fetch(request)
+    /* كل ما عدا ذلك: أصول الموقع الثابتة —
+       النسخة التجريبية تحمل X-Robots-Tag حتى لا تفهرسها محركات البحث */
+    const res = await env.ASSETS.fetch(request)
+    if (env.DEMO) {
+      const out = new Response(res.body, res)
+      out.headers.set('x-robots-tag', 'noindex, nofollow')
+      return out
+    }
+    return res
   },
 }

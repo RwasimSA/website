@@ -1,0 +1,28 @@
+# النسخة التجريبية: أي دفعة إلى فرع demo تبني الموقع وتنشره على demo.rwasim.sa
+# التعديلات تُعتمد هنا أولاً ثم تُدمج في main لتُنشر على rwasim.sa.
+name: deploy-site-demo
+
+on:
+  push:
+    branches: [demo]
+
+concurrency:
+  group: deploy-site-demo
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: النشر إلى Cloudflare (تجريبي)
+        run: npx --yes wrangler@4 deploy -c wrangler.demo.jsonc
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: bccdf648317c38cfaa576792881e1476
