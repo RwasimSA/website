@@ -250,39 +250,68 @@ function GovExecutive({ onOpenPage }) {
           {/* بيانات المدير التنفيذي — بطاقات أفقية بأيقونات، تظهر حقولها المعبأة فقط
              (بلا اسم — الاسم أعلى البطاقة المصورة) */}
           {EXEC_INFO.length > 0 && (
-            <div className="mt-5 grid grid-cols-2 gap-2.5 lg:flex lg:flex-col">
-              {EXEC_INFO.map((r, i) => {
-                /* الجوال: بطاقة مدمجة عمودية (أيقونة فوق النص) في شبكة عمودين —
-                   سطح المكتب: بطاقة أفقية كاملة العرض */
-                const layout = 'flex h-full flex-col items-center gap-1.5 text-center lg:flex-row lg:gap-3 lg:text-right'
-                const inner = (
-                  <>
-                    <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl lg:h-[42px] lg:w-[42px]"
-                      style={{ background: 'rgba(239,145,34,0.12)', border: '0.5px solid rgba(239,145,34,0.32)' }}>
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#f4a63f" strokeWidth="1.8"
-                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
-                        dangerouslySetInnerHTML={{ __html: r.icon }} />
-                    </span>
-                    <span className="flex w-full min-w-0 flex-col items-center gap-0.5 lg:items-start">
-                      <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '10.5px' }}>{r.k}</span>
-                      <span dir={r.ltr ? 'ltr' : undefined} className="w-full text-center lg:text-right"
-                        style={{ color: r.href ? '#f4a63f' : '#dcebf2', fontWeight: 400, fontSize: '12.5px', lineHeight: 1.65,
-                          overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <>
+              {/* الجوال: بطاقة واحدة مدمجة — صف لكل معلومة بينها خطوط رفيعة */}
+              <motion.div {...rise(0.08)} className="mt-5 flex flex-col lg:hidden"
+                style={glass({ borderRadius: '18px', padding: '4px 16px' })}>
+                {EXEC_INFO.map((r, i) => {
+                  const row = (
+                    <>
+                      <span className="flex flex-shrink-0 items-center gap-2.5">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-lg"
+                          style={{ background: 'rgba(239,145,34,0.12)', border: '0.5px solid rgba(239,145,34,0.32)' }}>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f4a63f" strokeWidth="1.8"
+                            strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+                            dangerouslySetInnerHTML={{ __html: r.icon }} />
+                        </span>
+                        <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11.5px' }}>{r.k}</span>
+                      </span>
+                      <span dir={r.ltr ? 'ltr' : undefined} className="min-w-0 text-left"
+                        style={{ color: r.href ? '#f4a63f' : '#dcebf2', fontWeight: 400, fontSize: '13px', lineHeight: 1.7 }}>
                         {r.v}
                       </span>
-                    </span>
-                  </>
-                )
-                const cardStyle = glass({ borderRadius: '16px', padding: '12px 10px' })
-                return (
-                  <motion.div key={r.k} {...rise(0.08 + 0.05 * i)}>
-                    {r.href
-                      ? <a href={r.href} className={layout} style={{ ...cardStyle, textDecoration: 'none' }}>{inner}</a>
-                      : <div className={layout} style={cardStyle}>{inner}</div>}
-                  </motion.div>
-                )
-              })}
-            </div>
+                    </>
+                  )
+                  const cls = 'flex items-center justify-between gap-3 py-3'
+                  const sep = i > 0 ? { borderTop: '0.5px solid rgba(255,255,255,0.1)' } : {}
+                  return r.href
+                    ? <a key={r.k} href={r.href} className={cls} style={{ ...sep, textDecoration: 'none' }}>{row}</a>
+                    : <div key={r.k} className={cls} style={sep}>{row}</div>
+                })}
+              </motion.div>
+
+              {/* سطح المكتب: بطاقات أفقية مستقلة بأيقونات */}
+              <div className="mt-5 hidden flex-col gap-2.5 lg:flex">
+                {EXEC_INFO.map((r, i) => {
+                  const inner = (
+                    <>
+                      <span className="flex h-[42px] w-[42px] flex-shrink-0 items-center justify-center rounded-xl"
+                        style={{ background: 'rgba(239,145,34,0.12)', border: '0.5px solid rgba(239,145,34,0.32)' }}>
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#f4a63f" strokeWidth="1.8"
+                          strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+                          dangerouslySetInnerHTML={{ __html: r.icon }} />
+                      </span>
+                      <span className="flex min-w-0 flex-col gap-0.5 text-right">
+                        <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11px' }}>{r.k}</span>
+                        <span dir={r.ltr ? 'ltr' : undefined} className="text-right"
+                          style={{ color: r.href ? '#f4a63f' : '#dcebf2', fontWeight: 400, fontSize: '13.5px', lineHeight: 1.7,
+                            overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {r.v}
+                        </span>
+                      </span>
+                    </>
+                  )
+                  const cardStyle = glass({ borderRadius: '16px', padding: '11px 14px' })
+                  return (
+                    <motion.div key={r.k} {...rise(0.08 + 0.05 * i)}>
+                      {r.href
+                        ? <a href={r.href} className="flex items-center gap-3" style={{ ...cardStyle, textDecoration: 'none' }}>{inner}</a>
+                        : <div className="flex items-center gap-3" style={cardStyle}>{inner}</div>}
+                    </motion.div>
+                  )
+                })}
+              </div>
+            </>
           )}
         </div>
 
