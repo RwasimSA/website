@@ -17,7 +17,8 @@
     "directory": "./public",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/files/*", "/api/*"]
+    // في التجريبي كل الطلبات تمر على الـWorker حتى تحمل الصفحات ترويسة منع الفهرسة
+    "run_worker_first": true
   },
   "d1_databases": [
     {
