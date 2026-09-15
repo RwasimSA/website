@@ -46,7 +46,7 @@ const PAGE_KEYS = new Set([
   'about-us', 'barie', 'ashbal', 'saif', 'programs', 'policies',
   'news', 'volunteer', 'partners', 'inquiries', 'impact',
 ])
-const isValidPage = (p) => !!p && (PAGE_KEYS.has(p) || p.startsWith('gov-') || !!COMING_SOON[p])
+const isValidPage = (p) => !!p && (PAGE_KEYS.has(p) || p.startsWith('gov-') || p.startsWith('media-') || !!COMING_SOON[p])
 const pageFromPath = () => {
   const slug = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
   return isValidPage(slug) ? slug : null
@@ -61,6 +61,8 @@ const SITE_NAME = 'جمعية رواسم لتنمية الطفل'
 const PAGE_TITLES = {
   'about-us': 'من نحن', programs: 'برامجنا', barie: 'بارع', ashbal: 'أشبال رواسم',
   saif: 'صيف رواسم', impact: 'أثرنا', news: 'المركز الإعلامي', volunteer: 'التطوع',
+  'media-news': 'آخر الأخبار', 'media-coverage': 'التغطيات',
+  'media-releases': 'المحتوى والإصدارات', 'media-progreports': 'تقارير البرامج والمشاريع',
   partners: 'الشراكات', inquiries: 'تواصل معنا', policies: 'الحوكمة',
   'gov-data': 'البيانات الرسمية', 'gov-board': 'مجلس الإدارة',
   'gov-executive': 'الإدارة التنفيذية', 'gov-assembly': 'الجمعية العمومية',
@@ -292,8 +294,8 @@ export default function App() {
         <div className="relative z-10"><ProgramsPage onOpenPage={openPage} /></div>
       ) : page === 'policies' || (page && page.startsWith('gov-')) ? (
         <div className="relative z-10"><Governance section={page === 'policies' ? 'gov-data' : page} onOpenPage={openPage} /></div>
-      ) : page === 'news' ? (
-        <div className="relative z-10"><MediaCenter onOpenPage={openPage} /></div>
+      ) : page === 'news' || (page && page.startsWith('media-')) ? (
+        <div className="relative z-10"><MediaCenter section={page === 'news' ? 'media-news' : page} onOpenPage={openPage} /></div>
       ) : page === 'volunteer' ? (
         <div className="relative z-10"><VolunteerPage onOpenPage={openPage} /></div>
       ) : page === 'partners' ? (

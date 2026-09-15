@@ -287,7 +287,11 @@ function GovAssembly({ onOpenPage }) {
 }
 
 /* ═══════════ 3) التقارير والقوائم المالية ═══════════ */
-const REPORT_TYPES = ['التقارير السنوية', 'القوائم المالية']
+/* التصنيفات (فلاتر أعلى الملفات) — تُدار من اللوحة، مع قيم افتراضية إن لم تُحفظ */
+const DOC_TYPES = docs.types || {}
+const managed = (k, defs) => ((DOC_TYPES[k] || []).filter(Boolean).length ? DOC_TYPES[k].filter(Boolean) : defs)
+
+const REPORT_TYPES = managed('reports', ['التقارير السنوية', 'القوائم المالية'])
 const REPORT_FILES = docs.reports.map((d) => ({ ...d, file: d.file || null }))
 
 function GovReports({ onOpenPage }) {
@@ -302,7 +306,7 @@ function GovReports({ onOpenPage }) {
 }
 
 /* ═══════════ 3.4) اللجان الدائمة ═══════════ */
-const COMMITTEE_TYPES = ['قرارات التشكيل', 'لوائح عمل اللجان', 'تقارير اللجان']
+const COMMITTEE_TYPES = managed('committees', ['قرارات التشكيل', 'لوائح عمل اللجان', 'تقارير اللجان'])
 const COMMITTEE_FILES = (docs.committees || []).map((d) => ({ ...d, file: d.file || null }))
 
 function GovCommittees({ onOpenPage }) {
@@ -317,7 +321,7 @@ function GovCommittees({ onOpenPage }) {
 }
 
 /* ═══════════ 3.5) المحاضر ═══════════ */
-const MINUTES_TYPES = ['محاضر مجلس الإدارة', 'محاضر الجمعية العمومية']
+const MINUTES_TYPES = managed('minutes', ['محاضر مجلس الإدارة', 'محاضر الجمعية العمومية'])
 const MINUTES_FILES = (docs.minutes || []).map((d) => ({ ...d, file: d.file || null }))
 
 function GovMinutes({ onOpenPage }) {
@@ -332,7 +336,7 @@ function GovMinutes({ onOpenPage }) {
 }
 
 /* ═══════════ 4) اللوائح والسياسات والإفصاحات ═══════════ */
-const POLICY_TYPES = ['اللوائح', 'السياسات', 'الإفصاحات']
+const POLICY_TYPES = managed('policies', ['اللوائح', 'السياسات', 'الإفصاحات'])
 const POLICY_FILES = docs.policies.map((d) => ({ ...d, file: d.file || null }))
 
 function GovPolicies({ onOpenPage }) {

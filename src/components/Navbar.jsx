@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GOV_PAGES } from '../pages/Governance'
+import { MEDIA_PAGES } from '../pages/MediaCenter'
 
-/* تبويبات الهيدر — مسطحة، وتبويب الحوكمة وحده قائمة منسدلة بصفحاتها. */
+/* تبويبات الهيدر — مسطحة، وتبويبا المركز الإعلامي والحوكمة قائمتان منسدلتان بصفحاتهما. */
 const nav = [
   { label: 'الرئيسية', page: null },
   { label: 'عن رواسم', page: 'about-us' },
   { label: 'برامجنا', page: 'programs' },
   { label: 'أثرنا', page: 'impact' },
   { label: 'الشراكات', page: 'partners' },
-  { label: 'المركز الإعلامي', page: 'news' },
+  { label: 'المركز الإعلامي', children: MEDIA_PAGES },
   { label: 'الحوكمة', children: GOV_PAGES },
 ]
 
@@ -31,10 +32,10 @@ const glass = {
 export default function Navbar({ collapsed = false, progress = 0, onOpenPage = () => {} }) {
   const [hovered, setHovered] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [dropOpen, setDropOpen] = useState(false)       // القائمة المنسدلة (سطح المكتب)
-  const [mobileGovOpen, setMobileGovOpen] = useState(false) // فرع الحوكمة في قائمة الجوال
+  const [dropOpen, setDropOpen] = useState(null)       // اسم التبويب المفتوح منسدلته (سطح المكتب)
+  const [mobileBranch, setMobileBranch] = useState(null) // اسم الفرع المفتوح في قائمة الجوال
   const expanded = !collapsed || hovered
-  const go = (page) => { onOpenPage(page); setMobileOpen(false); setHovered(false); setDropOpen(false); setMobileGovOpen(false) }
+  const go = (page) => { onOpenPage(page); setMobileOpen(false); setHovered(false); setDropOpen(null); setMobileBranch(null) }
 
   return (
     <header className="pointer-events-none fixed left-0 right-0 z-50 flex justify-center px-4" style={{ top: '16px' }}>
@@ -64,19 +65,19 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                 <ul className="hidden items-center gap-6 md:flex">
                   {nav.map((tab) => (
                     <li key={tab.label} className="relative"
-                      onMouseEnter={tab.children ? () => setDropOpen(true) : undefined}
-                      onMouseLeave={tab.children ? () => setDropOpen(false) : undefined}>
+                      onMouseEnter={tab.children ? () => setDropOpen(tab.label) : undefined}
+                      onMouseLeave={tab.children ? () => setDropOpen(null) : undefined}>
                       {tab.children ? (
                         <>
                           <a href="#" className="nav-flat-link flex items-center gap-1.5 whitespace-nowrap text-[15px] transition-colors"
-                            style={{ color: dropOpen ? '#ffffff' : '#bcd9e6', fontWeight: 400 }}
-                            onClick={(e) => { e.preventDefault(); setDropOpen((o) => !o) }}>
+                            style={{ color: dropOpen === tab.label ? '#ffffff' : '#bcd9e6', fontWeight: 400 }}
+                            onClick={(e) => { e.preventDefault(); setDropOpen((o) => (o === tab.label ? null : tab.label)) }}>
                             {tab.label}
-                            <Chevron open={dropOpen} />
+                            <Chevron open={dropOpen === tab.label} />
                           </a>
-                          {/* القائمة المنسدلة — صفحات الحوكمة */}
+                          {/* القائمة المنسدلة — صفحات التبويب */}
                           <AnimatePresence>
-                            {dropOpen && (
+                            {dropOpen === tab.label && (
                               <motion.div
                                 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
                                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -169,15 +170,15 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                       tab.children ? (
                         <div key={tab.label}
                           style={{ borderBottom: i < nav.length - 1 ? '0.5px solid rgba(255,255,255,0.08)' : 'none' }}>
-                          <button onClick={() => setMobileGovOpen((o) => !o)}
+                          <button onClick={() => setMobileBranch((o) => (o === tab.label ? null : tab.label))}
                             className="flex w-full items-center justify-between text-right"
                             style={{ color: '#ffffff', fontWeight: 500, fontSize: '15px', padding: '12px 0', cursor: 'pointer',
                               background: 'transparent', border: 'none' }}>
                             {tab.label}
-                            <span style={{ color: '#f4a63f' }}><Chevron open={mobileGovOpen} /></span>
+                            <span style={{ color: '#f4a63f' }}><Chevron open={mobileBranch === tab.label} /></span>
                           </button>
                           <AnimatePresence>
-                            {mobileGovOpen && (
+                            {mobileBranch === tab.label && (
                               <motion.div
                                 initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
