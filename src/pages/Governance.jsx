@@ -30,6 +30,7 @@ export const GOV_PAGES = [
   { key: 'gov-board', label: 'مجلس الإدارة' },
   { key: 'gov-executive', label: 'الإدارة التنفيذية' },
   { key: 'gov-assembly', label: 'الجمعية العمومية' },
+  { key: 'gov-committees', label: 'اللجان الدائمة' },
   { key: 'gov-reports', label: 'التقارير والقوائم المالية' },
   { key: 'gov-minutes', label: 'المحاضر' },
   { key: 'gov-policies', label: 'اللوائح والسياسات والإفصاحات' },
@@ -300,6 +301,21 @@ function GovReports({ onOpenPage }) {
   )
 }
 
+/* ═══════════ 3.4) اللجان الدائمة ═══════════ */
+const COMMITTEE_TYPES = ['قرارات التشكيل', 'لوائح عمل اللجان', 'تقارير اللجان']
+const COMMITTEE_FILES = (docs.committees || []).map((d) => ({ ...d, file: d.file || null }))
+
+function GovCommittees({ onOpenPage }) {
+  return (
+    <GovShell current="gov-committees" onOpenPage={onOpenPage}
+      title="اللجان الدائمة"
+      lead="اللجان الدائمة المنبثقة عن مجلس الإدارة، ووثائقها المعتمدة للنشر من قرارات تشكيل ولوائح عمل وتقارير.">
+      <FileCards files={COMMITTEE_FILES} types={COMMITTEE_TYPES}
+        emptyNote="تُنشر وثائق اللجان المعتمدة للنشر هنا فور اعتمادها." />
+    </GovShell>
+  )
+}
+
 /* ═══════════ 3.5) المحاضر ═══════════ */
 const MINUTES_TYPES = ['محاضر مجلس الإدارة', 'محاضر الجمعية العمومية']
 const MINUTES_FILES = (docs.minutes || []).map((d) => ({ ...d, file: d.file || null }))
@@ -377,6 +393,7 @@ export default function Governance({ section = 'gov-data', onOpenPage = () => {}
     case 'gov-executive': return <GovExecutive onOpenPage={onOpenPage} />
     case 'gov-assembly': return <GovAssembly onOpenPage={onOpenPage} />
     case 'gov-reports': return <GovReports onOpenPage={onOpenPage} />
+    case 'gov-committees': return <GovCommittees onOpenPage={onOpenPage} />
     case 'gov-minutes': return <GovMinutes onOpenPage={onOpenPage} />
     case 'gov-policies': return <GovPolicies onOpenPage={onOpenPage} />
     case 'gov-complaints': return <GovComplaints onOpenPage={onOpenPage} />
