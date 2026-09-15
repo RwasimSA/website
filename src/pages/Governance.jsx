@@ -49,8 +49,6 @@ const ASSEMBLY = people.assembly
 const EXECUTIVE = people.executive
 /* بطاقات بيانات المدير التنفيذي — بطاقة أفقية بأيقونة لكل معلومة معبأة */
 const EXEC_INFO = [
-  { k: 'المنصب', v: EXECUTIVE.role,
-    icon: '<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>' },
   { k: 'المؤهل', v: EXECUTIVE.qualification,
     icon: '<path d="M22 10v6"/><path d="m2 10 10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>' },
   { k: 'البريد الإلكتروني', v: EXECUTIVE.email, ltr: true,
