@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { glass, color } from '../theme'
 import { text } from '../typography'
@@ -32,6 +33,26 @@ const GOALS = [
   { verb: 'ابتكار', body: 'حلول وبرامج جديدة في التوجيه التربوي تناسب احتياجات الأطفال بمختلف فئاتهم.' },
   { verb: 'بناء', body: 'منظومة معرفية تربوية متكاملة تسهم في تعزيز القيم والمهارات لدى الأطفال والناشئة.' },
   { verb: 'تمكين', body: 'الأطفال والناشئة بمهارات الحياة والقيادة بما يعزز ثقتهم بأنفسهم وقدرتهم على التأثير.' },
+]
+
+/* الأهداف التشغيلية — نص معتمد حرفياً، تُعرض مدمجة مرقمة
+   (وعلى الجوال أول خمسة مع زر لعرض البقية حتى لا تطول الصفحة) */
+const OPERATIONAL_GOALS = [
+  'تطوير المنظومة المعرفية والتربوية وإدارة المعرفة بما يعزز جودة العمل واستدامة أثره.',
+  'تطوير المناهج والخطط التربوية بما يتوافق مع احتياجات المستفيدين ومتطلبات مراحلهم العمرية.',
+  'تعزيز التحصيل الدراسي وتنمية القدرات المعرفية والمهارية لدى المستفيدين.',
+  'تصميم وتطوير برامج تربوية متكاملة تسهم في بناء الشخصية وتعزيز القيم والمهارات والمعرفة والقيادة.',
+  'ابتكار وتطوير نماذج وأساليب العمل التربوي بما يسهم في تحسين تجربة المستفيد وتوسيع نطاق الوصول إليه.',
+  'رفع كفاءة الأداء التربوي وبناء وتأهيل كفاءات تربوية متميزة قادرة على تحقيق أهداف الجمعية.',
+  'تنمية روح القيادة والطموح لدى النشء، وتعزيز قدراتهم على المبادرة وتحمل المسؤولية.',
+  'تمكين الشباب من المهارات المهنية والمعرفية ومساعدتهم على التعرف على الخيارات والتخصصات المناسبة لهم.',
+  'تطوير وتوحيد الأنظمة والنماذج الإدارية والمالية والتشغيلية بما يرفع كفاءة الأداء المؤسسي.',
+  'تعزيز الحوكمة والجودة والرقابة الداخلية وتطوير السياسات واللوائح المنظمة للعمل المؤسسي.',
+  'تعزيز وضوح التوجه المؤسسي وترسيخ ثقافة الالتزام والتميز وتحقيق المستهدفات.',
+  'تنمية الموارد المالية وتعزيز الاستدامة من خلال تنويع مصادر الدخل وتطوير المشاريع ذات العائد.',
+  'بناء وتطوير شراكات استراتيجية فاعلة مع الجهات ذات العلاقة بما يدعم تحقيق أهداف الجمعية وتوسيع أثرها.',
+  'تعزيز الصورة الذهنية للجمعية وإبراز أثرها التربوي والمجتمعي.',
+  'تعزيز الانتماء المؤسسي وتطوير التواصل الفاعل بين العاملين وأصحاب العلاقة.',
 ]
 
 const APPROACH = [
@@ -72,6 +93,8 @@ const SectionTitle = ({ children, delay = 0 }) => (
 )
 
 export default function AboutUs({ onOpenPage = () => {} }) {
+  /* الجوال: أول خمسة أهداف تشغيلية ثم زر يعرض البقية */
+  const [showAllOps, setShowAllOps] = useState(false)
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28 pt-36">
 
@@ -179,6 +202,37 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 1.95, margin: '10px 0 0' }}>{g.body}</p>
             </motion.div>
           ))}
+        </div>
+
+        {/* ═══ الأهداف التشغيلية — 15 هدفاً في بطاقات مدمجة مرقمة ═══ */}
+        <SectionTitle>الأهداف التشغيلية</SectionTitle>
+        <div className="mb-24">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {OPERATIONAL_GOALS.map((t, i) => (
+              <motion.div key={i} {...rise(0.03 * (i % 6))}
+                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                className={`items-start gap-3 ${i >= 5 && !showAllOps ? 'hidden sm:flex' : 'flex'}`}
+                style={glass({ borderRadius: '18px', padding: '15px 16px' })}>
+                <span className="flex h-[26px] w-[26px] flex-shrink-0 items-center justify-center rounded-full"
+                  style={{ background: 'rgba(239,145,34,0.14)', border: '0.5px solid rgba(239,145,34,0.4)',
+                    color: '#f4a63f', fontWeight: 600, fontSize: '11.5px', direction: 'ltr', marginTop: '2px' }}>
+                  {i + 1}
+                </span>
+                <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>{t}</p>
+              </motion.div>
+            ))}
+          </div>
+          {/* زر عرض البقية — يظهر على الجوال فقط */}
+          {!showAllOps && (
+            <div className="mt-5 flex justify-center sm:hidden">
+              <button type="button" onClick={() => setShowAllOps(true)}
+                className="cursor-pointer"
+                style={{ ...glass({ borderRadius: '999px', padding: '11px 26px' }), color: 'white', fontWeight: 500,
+                  fontSize: '13.5px', border: '0.5px solid rgba(239,145,34,0.35)' }}>
+                عرض بقية الأهداف (10)
+              </button>
+            </div>
+          )}
         </div>
 
         {/* ═══ نهج رواسم ═══ */}
