@@ -1,81 +1,75 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 /* ─────────────────────────────────────────────────────────────
-   فهرس أقسام الرئيسية — شريط جانبي ثابت (سطح المكتب فقط):
-   نقطة لكل قسم، والنقطة النشطة تتمدد إلى حبة برتقالية يرافقها
-   اسم القسم بحركة انزلاق، مع خيط ضوئي يتتبع الموضع الحالي.
-   الضغط على أي نقطة ينقل إلى قسمها مباشرة.
+   فهرس أقسام الرئيسية — بَكَرة عناوين مقوّسة على يمين الشاشة
+   (سطح المكتب فقط): العنوان الحالي أكبر وأوضح ويقترب من الحافة،
+   وما قبله وما بعده يتدرّجان حجماً وشفافية وينحنيان للداخل على
+   قوس دائري، فتبدو العناوين وكأنها تدور حول محور عند التنقل.
    ───────────────────────────────────────────────────────────── */
 
 const ACCENT = '#ef9122'
+
+/* هندسة القوس: نصف القطر وزاوية الخطوة بين عنوان وآخر */
+const R = 210
+const STEP = 15 * (Math.PI / 180)
+const VISIBLE = 3 // كم عنواناً يظهر فوق الحالي وتحته
+
+/* خصائص كل عنوان حسب بُعده عن العنوان الحالي */
+const placement = (offset) => {
+  const a = offset * STEP
+  const abs = Math.abs(offset)
+  return {
+    y: R * Math.sin(a),
+    x: -R * (1 - Math.cos(a)), // كلما ابتعد العنوان انحنى للداخل
+    rotate: offset * 5,
+    opacity: abs > VISIBLE ? 0 : [1, 0.5, 0.28, 0.14][abs],
+    fontSize: [17.5, 14, 12.5, 11.5][Math.min(abs, 3)],
+    fontWeight: abs === 0 ? 600 : 400,
+    color: abs === 0 ? '#ffffff' : '#bcd9e6',
+  }
+}
 
 export default function SectionIndex({ items = [], current, onGo = () => {} }) {
   const idx = Math.max(items.findIndex((s) => s.key === current), 0)
 
   return (
     <nav aria-label="فهرس الأقسام"
-      className="pointer-events-none fixed left-7 top-1/2 z-40 hidden -translate-y-1/2 lg:block">
-      {/* الخيط الخلفي + الخيط المضيء المتحرك */}
-      <div className="absolute right-[5.5px] top-0 h-full w-px"
-        style={{ background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.14) 12%, rgba(255,255,255,0.14) 88%, transparent)' }} />
+      className="pointer-events-none fixed right-9 top-1/2 z-40 hidden -translate-y-1/2 lg:block"
+      style={{ width: '190px', height: '360px' }}>
 
-      <ul className="relative flex list-none flex-col gap-6 p-0" style={{ margin: 0 }}>
-        {items.map((s, i) => {
-          const active = i === idx
-          const passed = i < idx
-          return (
-            <li key={s.key} className="pointer-events-auto relative flex items-center">
-              <button type="button" onClick={() => onGo(s.key)} aria-label={s.label}
-                aria-current={active ? 'true' : undefined}
-                className="group flex cursor-pointer items-center gap-3 border-none bg-transparent p-0">
-                {/* النقطة/الحبة */}
-                <span className="relative flex h-3 w-3 items-center justify-center">
-                  <motion.span
-                    animate={{
-                      width: active ? 11 : 7,
-                      height: active ? 11 : 7,
-                      backgroundColor: active ? ACCENT : passed ? 'rgba(239,145,34,0.45)' : 'rgba(255,255,255,0.28)',
-                      boxShadow: active ? `0 0 14px ${ACCENT}` : '0 0 0 rgba(0,0,0,0)',
-                    }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ borderRadius: '999px', display: 'block' }}
-                  />
-                  {/* هالة نابضة حول النقطة النشطة */}
-                  {active && (
-                    <motion.span aria-hidden="true" className="absolute"
-                      initial={{ opacity: 0.55, scale: 0.7 }}
-                      animate={{ opacity: 0, scale: 2.2 }}
-                      transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
-                      style={{ width: '11px', height: '11px', borderRadius: '999px', border: `1px solid ${ACCENT}` }} />
-                  )}
-                </span>
+      {/* مؤشر برتقالي عند موضع العنوان الحالي */}
+      <motion.span aria-hidden="true" className="absolute"
+        style={{ right: '-14px', top: '50%', width: '2px', height: '26px', marginTop: '-13px',
+          borderRadius: '2px', background: `linear-gradient(180deg, transparent, ${ACCENT}, transparent)`,
+          boxShadow: `0 0 12px ${ACCENT}` }}
+        animate={{ opacity: [0.55, 1, 0.55] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }} />
 
-                {/* اسم القسم — يظهر للنشط دائماً، ولغيره عند المرور بالفأرة */}
-                <AnimatePresence mode="wait" initial={false}>
-                  {active ? (
-                    <motion.span key={s.key}
-                      initial={{ opacity: 0, x: 10, filter: 'blur(4px)' }}
-                      animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                      exit={{ opacity: 0, x: -10, filter: 'blur(4px)' }}
-                      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-                      className="whitespace-nowrap"
-                      style={{ color: '#ffffff', fontWeight: 500, fontSize: '13px', letterSpacing: '0.01em',
-                        textShadow: '0 2px 10px rgba(3,15,21,0.8)' }}>
-                      {s.label}
-                    </motion.span>
-                  ) : (
-                    <span className="whitespace-nowrap opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      style={{ color: '#bcd9e6', fontWeight: 400, fontSize: '12.5px',
-                        textShadow: '0 2px 10px rgba(3,15,21,0.8)' }}>
-                      {s.label}
-                    </span>
-                  )}
-                </AnimatePresence>
-              </button>
-            </li>
-          )
-        })}
-      </ul>
+      {items.map((s, i) => {
+        const offset = i - idx
+        const p = placement(offset)
+        const hidden = Math.abs(offset) > VISIBLE
+        return (
+          <motion.button
+            key={s.key}
+            type="button"
+            onClick={() => onGo(s.key)}
+            aria-current={offset === 0 ? 'true' : undefined}
+            tabIndex={hidden ? -1 : 0}
+            className={`absolute right-0 top-1/2 block whitespace-nowrap border-none bg-transparent p-0 text-right ${hidden ? '' : 'pointer-events-auto cursor-pointer'}`}
+            style={{ transformOrigin: '100% 50%', textShadow: '0 2px 12px rgba(3,15,21,0.9)' }}
+            animate={{
+              x: p.x, y: p.y - 11, rotate: p.rotate,
+              opacity: p.opacity, fontSize: p.fontSize,
+              fontWeight: p.fontWeight, color: p.color,
+            }}
+            whileHover={offset === 0 ? undefined : { opacity: Math.min(p.opacity + 0.35, 1) }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {s.label}
+          </motion.button>
+        )
+      })}
     </nav>
   )
 }
