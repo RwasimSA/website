@@ -67,12 +67,6 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     className="relative w-full max-w-[290px] flex-1"
     style={{ minWidth: 0, cursor: 'pointer', willChange: 'transform' }}
   >
-    {/* توهج خلفي بلون البرنامج — تدرّج ناعم بلا مرشّح blur:
-        المرشّح على أربع بطاقات كان يثقل ظهور القسم ويسبّب التقطّع */}
-    <div className="pointer-events-none absolute" aria-hidden="true"
-      style={{ inset: '-10% -20%', borderRadius: '50%',
-        background: `radial-gradient(ellipse at 50% 30%, ${program.accent} 0%, transparent 62%)` }} />
-
     {/* البطاقة الزجاجية */}
     <div className="relative flex h-full flex-col items-center text-center"
       style={{
