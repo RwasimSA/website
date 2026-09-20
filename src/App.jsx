@@ -22,6 +22,7 @@ import VolunteerPage from './pages/VolunteerPage'
 import ComingSoon from './pages/ComingSoon'
 import CrystalLights from './components/CrystalLights'
 import Navbar from './components/Navbar'
+import SectionIndex from './components/SectionIndex'
 
 const backgrounds = {
   hero:     'radial-gradient(ellipse 65% 55% at 78% 78%, rgba(239,145,34,0.18) 0%, transparent 60%), radial-gradient(ellipse 90% 85% at 50% 42%, #2d7d99 0%, #175b75 32%, #0d3a4d 58%, #082633 80%, #041720 100%)',
@@ -35,6 +36,18 @@ const backgrounds = {
 }
 
 const order = ['hero', 'programs', 'numbers', 'how', 'news', 'partners', 'cta', 'footer']
+
+/* أسماء أقسام الرئيسية — يعرضها الفهرس الجانبي (سطح المكتب) */
+const SECTION_INDEX = [
+  { key: 'hero', label: 'الرئيسية' },
+  { key: 'programs', label: 'برامجنا' },
+  { key: 'numbers', label: 'أثرنا بالأرقام' },
+  { key: 'how', label: 'كيف نصنع الأثر' },
+  { key: 'news', label: 'رواسم اليوم' },
+  { key: 'partners', label: 'شركاء النجاح' },
+  { key: 'cta', label: 'كن جزءاً من الأثر' },
+  { key: 'footer', label: 'تواصل معنا' },
+]
 
 // الصفحات قيد الإعداد مستقبلاً — تُعرض بشاشة «قريباً» (فارغة حالياً)
 const COMING_SOON = {}
@@ -281,6 +294,11 @@ export default function App() {
         progress={isMobile || page ? 0 : order.indexOf(section) / (order.length - 1)}
         onOpenPage={openPage}
       />
+
+      {/* فهرس أقسام الرئيسية — سطح المكتب فقط وخارج الصفحات الداخلية */}
+      {!page && !isMobile && (
+        <SectionIndex items={SECTION_INDEX} current={section} onGo={goTo} />
+      )}
 
       {page === 'about-us' ? (
         <div className="relative z-10"><AboutUs onOpenPage={openPage} /></div>

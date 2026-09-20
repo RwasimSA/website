@@ -10,47 +10,14 @@ import partnersData from '../../content/partners.json'
    static/images/partners/).
    ───────────────────────────────────────────────────────────── */
 
-const COLS = 9
 const logos = partnersData.logos.map((l) => l.image)
 
-/* خانة شعار — خلفية بيضاء + ظهور تدريجي + طفو خفيف متتابع + تكبير عند المرور */
-const LogoCell = ({ src, index }) => {
-  const col = index % COLS
-  const row = Math.floor(index / COLS)
-  return (
-    <motion.div
-      style={{ width: '112px' }}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 + index * 0.012 }}
-    >
-      <motion.div
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: (col * 0.18 + row * 0.12) }}
-      >
-        <motion.div
-          whileHover={{ scale: 1.08 }}
-          transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="partner-cell"
-          style={{
-            borderRadius: '12px', aspectRatio: '1 / 1', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            padding: '14px', background: '#ffffff', border: '0.5px solid rgba(255,255,255,0.6)', cursor: 'pointer',
-          }}
-        >
-          <img src={src} alt="شريك" draggable="false" loading="lazy"
-            className="h-full w-full object-contain" />
-        </motion.div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-/* خانة شعار للشريط المتحرك على الجوال */
+/* خانة شعار للشريط المتحرك — حجمها يتبع مقاس الشاشة عبر متغيّر CSS */
 const MarqueeCell = ({ src }) => (
   <div className="partner-cell flex-shrink-0"
     style={{
-      width: '96px', height: '96px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      width: 'var(--partner-size, 96px)', height: 'var(--partner-size, 96px)',
+      borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: '12px', background: '#ffffff', border: '0.5px solid rgba(255,255,255,0.6)',
     }}>
     <img src={src} alt="شريك" draggable="false" loading="lazy" className="h-full w-full object-contain" />
@@ -61,15 +28,30 @@ const MarqueeCell = ({ src }) => (
 const fillRow = (row) => {
   if (!row.length) return row
   let out = [...row]
-  while (out.length < 10) out = [...out, ...row]
+  while (out.length < 12) out = [...out, ...row]
   return out
 }
 
 /* سطر متحرّك أفقياً بلا نهاية */
-const MarqueeRow = ({ logos, anim: animName }) => (
+const MarqueeRow = ({ logos, anim: animName, speed = 26 }) => (
   <div className="overflow-hidden">
-    <div className="flex w-max gap-3" style={{ animation: `${animName} 26s linear infinite` }}>
+    <div className="flex w-max gap-3" style={{ animation: `${animName} ${speed}s linear infinite` }}>
       {[...logos, ...logos].map((src, i) => <MarqueeCell key={i} src={src} />)}
+    </div>
+  </div>
+)
+
+/* صفّان متعاكسان بلا نهاية، وحواف القسم الجانبية تتلاشى تدريجياً */
+const EDGE_FADE = {
+  maskImage: 'linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%)',
+  WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%)',
+}
+
+const TwoRowMarquee = ({ speed, size, className = '' }) => (
+  <div className={className} style={{ ...EDGE_FADE, '--partner-size': size }}>
+    <div className="flex flex-col gap-3">
+      <MarqueeRow logos={fillRow(logos.slice(0, Math.ceil(logos.length / 2)))} anim="partners-right" speed={speed} />
+      <MarqueeRow logos={fillRow(logos.slice(Math.ceil(logos.length / 2)))} anim="partners-left" speed={speed} />
     </div>
   </div>
 )
@@ -105,27 +87,13 @@ export default function Partners({ onOpenPage = () => {} }) {
           نفخر بشبكة من الشركاء الذين أسهموا في دعم البرامج وتوسيع الأثر.
         </motion.p>
 
-        {/* سطح المكتب: صفان متوسطان — العدد الزوجي يتوزع بالتساوي،
-            والفردي: الصف الأعلى أكثر بواحد والأسفل شعاراته موسّطة */}
-        <div className="hidden w-full max-w-6xl flex-col items-center md:flex" style={{ gap: '12px' }}>
-          {[logos.slice(0, Math.ceil(logos.length / 2)), logos.slice(Math.ceil(logos.length / 2))]
-            .filter((row) => row.length > 0)
-            .map((row, r) => (
-              <div key={r} className="flex w-full flex-wrap justify-center" style={{ gap: '12px' }}>
-                {row.map((src, i) => (
-                  <LogoCell key={i} src={src} index={r * Math.ceil(logos.length / 2) + i} />
-                ))}
-              </div>
-            ))}
-        </div>
+        {/* سطح المكتب: صفان بلوب لا نهائي في اتجاهين متعاكسين،
+            والحواف الجانبية تتلاشى تدريجياً */}
+        <TwoRowMarquee className="-mx-6 hidden w-screen md:block md:-mx-16" speed={42} size="112px" />
 
-        {/* الجوال: سطران ظاهران دائماً يتحركان باتجاهين متعاكسين بلا نهاية.
-            كل سطر يُكرَّر شعاراته حتى يفيض عرضه عن الشاشة مهما قلّ عددها.
+        {/* الجوال: نفس الصفين بحجم أصغر وسرعة أعلى.
             ‎-mx-6 تلغي حشوة القسم الجانبية فتصل الشعارات لحافتي الشاشة */}
-        <div className="-mx-6 flex flex-col gap-3 md:hidden">
-          <MarqueeRow logos={fillRow(logos.slice(0, Math.ceil(logos.length / 2)))} anim="partners-right" />
-          <MarqueeRow logos={fillRow(logos.slice(Math.ceil(logos.length / 2)))} anim="partners-left" />
-        </div>
+        <TwoRowMarquee className="-mx-6 w-screen md:hidden" speed={26} size="96px" />
       </div>
     </motion.section>
   )

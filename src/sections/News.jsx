@@ -19,8 +19,23 @@ import site from '../../content/site.json'
 const MEDIA = mediaData.coverage.map((v) => ({ type: 'video', id: v.id, title: v.title }))
 const START_INDEX = Math.min(2, Math.max(0, MEDIA.length - 1))
 
-/* مصغرات الفيديو محفوظة محلياً حتى لا تعتمد الشبكة */
-const thumb = (m) => (m.type === 'video' ? `https://i.ytimg.com/vi/${m.id}/hqdefault.jpg` : m.src)
+/* مصغّر الفيديو: maxresdefault عريض بلا أشرطة سوداء.
+   وإن لم يوفّره يوتيوب لهذا الفيديو نرجع إلى hqdefault مع قصّ
+   الشريطين الأسودين المدمجين فيه (صورته 4:3 والمحتوى 16:9 في وسطها) */
+const thumb = (m) => (m.type === 'video' ? `https://i.ytimg.com/vi/${m.id}/maxresdefault.jpg` : m.src)
+const HQ_CROP = 'scale(1.34)' // 360/270 — يدفع الشريطين خارج الإطار
+
+const Thumb = ({ item, alt = '', style = {}, className, loading }) => {
+  const [fallback, setFallback] = useState(false)
+  const src = fallback ? `https://i.ytimg.com/vi/${item.id}/hqdefault.jpg` : thumb(item)
+  return (
+    <img
+      src={src} alt={alt} draggable="false" loading={loading} className={className}
+      onError={() => { if (item.type === 'video' && !fallback) setFallback(true) }}
+      style={{ ...style, objectFit: 'cover', transform: fallback ? HQ_CROP : undefined }}
+    />
+  )
+}
 
 /* أيقونة تشغيل بيضاء في منتصف الصورة */
 const PlayBadge = () => (
@@ -195,8 +210,8 @@ function MediaStage({ onOpen, lightboxOpen, onActive = () => {} }) {
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), 0 18px 40px rgba(3,15,21,0.4)',
                 }}>
                   <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '1 / 1' }}>
-                    <img src={thumb(item)} alt={item.title} loading="lazy" draggable="false"
-                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <Thumb item={item} alt={item.title} loading="lazy"
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
                     {item.type === 'video' && <PlayBadge />}
                     {/* تعتيم متدرّج مع البعد عن الواجهة */}
                     <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,23,32,0.6)',
@@ -317,8 +332,7 @@ export default function News({ onOpenPage = () => {} }) {
             transition={{ duration: 0.9, ease: 'easeInOut' }}
           >
             {/* مصغّر فورية تسدّ فجوة تحميل المشغّل */}
-            <img src={thumb(bgItem)} alt="" aria-hidden="true" draggable="false"
-              className="absolute inset-0 h-full w-full object-cover" />
+            <Thumb item={bgItem} className="absolute inset-0 h-full w-full" />
             {!narrow && <iframe
               src={`https://www.youtube.com/embed/${bgItem.id}?autoplay=1&mute=1&loop=1&playlist=${bgItem.id}&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&start=20`}
               title="" aria-hidden="true" tabIndex={-1}
