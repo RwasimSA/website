@@ -59,7 +59,7 @@ const PAGE_KEYS = new Set([
   'about-us', 'barie', 'ashbal', 'saif', 'programs', 'policies',
   'news', 'volunteer', 'partners', 'inquiries', 'impact',
 ])
-const isValidPage = (p) => !!p && (PAGE_KEYS.has(p) || p.startsWith('gov-') || p.startsWith('media-') || !!COMING_SOON[p])
+const isValidPage = (p) => !!p && (PAGE_KEYS.has(p) || p.startsWith('gov-') || p.startsWith('media-') || p.startsWith('news-') || !!COMING_SOON[p])
 const pageFromPath = () => {
   const slug = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
   return isValidPage(slug) ? slug : null
@@ -145,7 +145,12 @@ export default function App() {
 
   // مع كل صفحة تُعرض: عنوان متصفح خاص بها + تسجيل زيارة
   useEffect(() => {
-    document.title = page && PAGE_TITLES[page] ? `${PAGE_TITLES[page]} — ${SITE_NAME}` : SITE_NAME
+    /* عنوان صفحة الخبر يُشتق من رابطه، وبقية الصفحات من الجدول أعلاه */
+    const newsTitle = page && page.startsWith('news-')
+      ? decodeURIComponent(page.slice('news-'.length)).replace(/-/g, ' ')
+      : null
+    const name = newsTitle || PAGE_TITLES[page]
+    document.title = page && name ? `${name} — ${SITE_NAME}` : SITE_NAME
     trackHit(page)
   }, [page])
   const lockRef = useRef(false)
@@ -312,7 +317,7 @@ export default function App() {
         <div className="relative z-10"><ProgramsPage onOpenPage={openPage} /></div>
       ) : page === 'policies' || (page && page.startsWith('gov-')) ? (
         <div className="relative z-10"><Governance section={page === 'policies' ? 'gov-data' : page} onOpenPage={openPage} /></div>
-      ) : page === 'news' || (page && page.startsWith('media-')) ? (
+      ) : page === 'news' || (page && (page.startsWith('media-') || page.startsWith('news-'))) ? (
         <div className="relative z-10"><MediaCenter section={page === 'news' ? 'media-news' : page} onOpenPage={openPage} /></div>
       ) : page === 'volunteer' ? (
         <div className="relative z-10"><VolunteerPage onOpenPage={openPage} /></div>

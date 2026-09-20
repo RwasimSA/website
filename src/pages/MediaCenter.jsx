@@ -29,6 +29,15 @@ export const MEDIA_PAGES = [
 const COVERAGE = mediaData.coverage
 const NEWS = mediaData.news
 
+/* معرّف الخبر في الرابط: يُشتق من العنوان ليكون رابطاً مقروءاً وقابلاً للمشاركة
+   (‎/news-افتتاح-البرنامج)، ويعود لترتيبه إن خلا العنوان */
+export const newsSlug = (n, i) =>
+  `news-${(n.slug || n.title || '').trim().replace(/\s+/g, '-').replace(/[/?#&]/g, '') || `item-${i + 1}`}`
+export const findNews = (slug) => {
+  const i = NEWS.findIndex((n, k) => newsSlug(n, k) === slug)
+  return i < 0 ? null : { item: NEWS[i], index: i }
+}
+
 /* التصنيفات تُدار من اللوحة، مع قيم افتراضية إن لم تُحفظ */
 const RELEASE_TYPES = (mediaData.releaseTypes || []).filter(Boolean).length
   ? mediaData.releaseTypes.filter(Boolean)
@@ -141,7 +150,8 @@ function MediaNews({ onOpenPage }) {
           {NEWS.map((n, i) => (
             <motion.article key={n.title + i} {...rise(0.05 * i)}
               whileHover={{ y: -5, transition: { duration: 0.25 } }}
-              className="relative flex flex-col overflow-hidden"
+              onClick={() => onOpenPage(newsSlug(n, i))}
+              className="relative flex cursor-pointer flex-col overflow-hidden"
               style={glass({ borderRadius: '24px' })}>
               {n.image && (
                 <div className="relative" style={{ aspectRatio: '16 / 9' }}>
@@ -157,6 +167,14 @@ function MediaNews({ onOpenPage }) {
                 </div>
                 <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '17px', lineHeight: 1.7, margin: '0 0 8px' }}>{n.title}</h3>
                 {n.summary && <p style={{ color: '#c9dde8', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.95, margin: 0 }}>{n.summary}</p>}
+                <span className="mt-4 flex items-center gap-1.5"
+                  style={{ color: '#f4a63f', fontWeight: 500, fontSize: '12.5px' }}>
+                  اقرأ الخبر
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"
+                    strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M19 12H5" /><path d="m12 19-7-7 7-7" />
+                  </svg>
+                </span>
               </div>
             </motion.article>
           ))}
@@ -189,6 +207,112 @@ function MediaNews({ onOpenPage }) {
         </motion.div>
       )}
     </MediaShell>
+  )
+}
+
+/* ═══════════ صفحة الخبر — المحتوى الكامل ═══════════ */
+function NewsArticle({ slug, onOpenPage }) {
+  const found = findNews(slug)
+  if (!found) return <MediaNews onOpenPage={onOpenPage} />
+  const { item: n, index } = found
+  /* نص الخبر الكامل: فقرات مفصولة بأسطر فارغة، وإن لم يُكتب يُعرض الملخص */
+  const paragraphs = String(n.body || n.summary || '').split(/\n{1,}/).map((p) => p.trim()).filter(Boolean)
+  const others = NEWS.map((x, i) => ({ x, i })).filter(({ i }) => i !== index).slice(0, 3)
+
+  return (
+    <div dir="rtl" className="relative w-full overflow-hidden pb-28">
+      {/* رأس الصفحة بصورة الخبر */}
+      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '70px' }}>
+        <div className="pointer-events-none absolute inset-0">
+          {n.image
+            ? <img src={n.image} alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />
+            : <img src="https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg" alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />}
+          <div style={{ position: 'absolute', inset: 0,
+            background: 'linear-gradient(180deg, rgba(8,38,51,0.93) 0%, rgba(13,58,77,0.86) 45%, rgba(4,23,32,0.97) 100%)' }} />
+        </div>
+        <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
+          <motion.button {...rise(0)} type="button" onClick={() => onOpenPage('media-news')}
+            className="mb-5 flex cursor-pointer items-center gap-1.5 border-none bg-transparent"
+            style={{ color: '#f4a63f', fontWeight: 500, fontSize: '13px' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"
+              strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+            </svg>
+            آخر الأخبار
+          </motion.button>
+          <motion.h1 {...rise(0.05)} className="mb-5 text-white"
+            style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(26px, 3.6vw, 44px)', lineHeight: 1.5 }}>
+            {n.title}
+          </motion.h1>
+          <motion.div {...rise(0.09)} className="flex flex-wrap items-center justify-center gap-3">
+            {n.tag && (
+              <span style={{ ...glass({ borderRadius: '999px', padding: '6px 16px' }),
+                color: '#f4a63f', fontWeight: 600, fontSize: '12px', border: '0.5px solid rgba(239,145,34,0.32)' }}>
+                {n.tag}
+              </span>
+            )}
+            {n.date && <span dir="ltr" style={{ color: '#8fb0c1', fontWeight: 300, fontSize: '12.5px' }}>{n.date}</span>}
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="relative mx-auto w-full max-w-3xl px-6 pt-12 md:px-10 md:pt-16">
+        {/* صورة الخبر كاملة */}
+        {n.image && (
+          <motion.div {...rise(0.05)} className="mb-10 overflow-hidden"
+            style={{ borderRadius: '24px', border: '0.5px solid rgba(255,255,255,0.16)', boxShadow: '0 22px 50px rgba(3,15,21,0.35)' }}>
+            <img src={n.image} alt={n.title} draggable="false" className="block w-full" />
+          </motion.div>
+        )}
+
+        {/* نص الخبر */}
+        <motion.div {...rise(0.1)}>
+          {paragraphs.length > 0 ? paragraphs.map((p, i) => (
+            <p key={i} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.15, margin: '0 0 18px' }}>{p}</p>
+          )) : (
+            <p style={{ color: '#a2becf', fontWeight: 300, fontSize: '15px', lineHeight: 2.1, margin: 0 }}>
+              يُنشر نص هذا الخبر كاملاً قريباً.
+            </p>
+          )}
+        </motion.div>
+
+        {/* أخبار أخرى */}
+        {others.length > 0 && (
+          <div className="mt-20">
+            <h2 className="mb-6 text-center text-white"
+              style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '22px' }}>أخبار أخرى</h2>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {others.map(({ x, i }) => (
+                <motion.article key={i} {...rise(0.05)}
+                  whileHover={{ y: -4, transition: { duration: 0.22 } }}
+                  onClick={() => onOpenPage(newsSlug(x, i))}
+                  className="flex cursor-pointer flex-col overflow-hidden"
+                  style={glass({ borderRadius: '18px' })}>
+                  {x.image && (
+                    <div style={{ aspectRatio: '16 / 9' }}>
+                      <img src={x.image} alt="" draggable="false" className="h-full w-full object-cover" />
+                    </div>
+                  )}
+                  <div className="px-4 pb-4 pt-3">
+                    {x.date && <span dir="ltr" style={{ color: '#8fb0c1', fontWeight: 300, fontSize: '11px' }}>{x.date}</span>}
+                    <h3 style={{ color: 'white', fontWeight: 600, fontSize: '13.5px', lineHeight: 1.75, margin: '4px 0 0' }}>{x.title}</h3>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* العودة */}
+        <div className="mt-16 flex justify-center">
+          <button type="button" onClick={() => onOpenPage('media-news')} className="cursor-pointer"
+            style={{ ...glass({ borderRadius: '999px', padding: '11px 26px' }), color: 'white', fontWeight: 500,
+              fontSize: '13.5px', border: '0.5px solid rgba(239,145,34,0.3)' }}>
+            العودة إلى آخر الأخبار
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -277,6 +401,7 @@ function MediaProgReports({ onOpenPage }) {
 
 /* المدخل: يختار صفحة المركز الإعلامي حسب القسم المطلوب */
 export default function MediaCenter({ section = 'media-news', onOpenPage = () => {} }) {
+  if (section.startsWith('news-')) return <NewsArticle slug={section} onOpenPage={onOpenPage} />
   switch (section) {
     case 'media-coverage': return <MediaCoverage onOpenPage={onOpenPage} />
     case 'media-releases': return <MediaReleases onOpenPage={onOpenPage} />
