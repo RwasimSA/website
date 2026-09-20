@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Hero from './sections/Hero'
 import Programs from './sections/Programs'
@@ -8,18 +8,20 @@ import Numbers from './sections/Numbers'
 import News from './sections/News'
 import Partners from './sections/Partners'
 import Footer from './sections/Footer'
-import AboutUs from './pages/AboutUs'
-import Barie from './pages/Barie'
-import Ashbal from './pages/Ashbal'
-import Saif from './pages/Saif'
-import ProgramsPage from './pages/ProgramsPage'
-import Impact from './pages/Impact'
-import MediaCenter from './pages/MediaCenter'
-import Governance from './pages/Governance'
-import Partnerships from './pages/Partnerships'
-import Contact from './pages/Contact'
-import VolunteerPage from './pages/VolunteerPage'
-import ComingSoon from './pages/ComingSoon'
+/* الصفحات الداخلية تُحمَّل عند فتحها فقط (تقسيم الحزمة) —
+   فلا تُثقل أول تحميل للصفحة الرئيسية */
+const AboutUs = lazy(() => import('./pages/AboutUs'))
+const Barie = lazy(() => import('./pages/Barie'))
+const Ashbal = lazy(() => import('./pages/Ashbal'))
+const Saif = lazy(() => import('./pages/Saif'))
+const ProgramsPage = lazy(() => import('./pages/ProgramsPage'))
+const Impact = lazy(() => import('./pages/Impact'))
+const MediaCenter = lazy(() => import('./pages/MediaCenter'))
+const Governance = lazy(() => import('./pages/Governance'))
+const Partnerships = lazy(() => import('./pages/Partnerships'))
+const Contact = lazy(() => import('./pages/Contact'))
+const VolunteerPage = lazy(() => import('./pages/VolunteerPage'))
+const ComingSoon = lazy(() => import('./pages/ComingSoon'))
 import CrystalLights from './components/CrystalLights'
 import Navbar from './components/Navbar'
 import SectionIndex from './components/SectionIndex'
@@ -305,6 +307,8 @@ export default function App() {
         <SectionIndex items={SECTION_INDEX} current={section} onGo={goTo} />
       )}
 
+      {/* الصفحات الداخلية تُجلب عند الطلب — لوحة فارغة أثناء جلبها (أجزاء من الثانية) */}
+      <Suspense fallback={<div className="relative z-10" style={{ minHeight: '100vh' }} />}>
       {page === 'about-us' ? (
         <div className="relative z-10"><AboutUs onOpenPage={openPage} /></div>
       ) : page === 'barie' ? (
@@ -329,7 +333,10 @@ export default function App() {
         <div className="relative z-10"><Impact onOpenPage={openPage} /></div>
       ) : COMING_SOON[page] ? (
         <div className="relative z-10"><ComingSoon {...COMING_SOON[page]} /></div>
-      ) : isMobile ? (
+      ) : null}
+      </Suspense>
+
+      {!page && (isMobile ? (
         // الجوال: كل الأقسام متتالية بتمرير طبيعي — بلا فجوات بينها،
         // فخلفية كل قسم تغطيه بالكامل وتلتحم بالتي تليها
         <div className="relative z-10 flex flex-col">
@@ -381,7 +388,7 @@ export default function App() {
             />
           </motion.div>
         </AnimatePresence>
-      )}
+      ))}
     </motion.div>
   )
 }

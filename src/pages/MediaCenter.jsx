@@ -17,13 +17,9 @@ import mediaData from '../../content/media.json'
 const titleFont = "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif"
 const ACCENT = '#ef9122'
 
-/* صفحات المركز الإعلامي — تُستخدم أيضاً في القائمة المنسدلة بالهيدر */
-export const MEDIA_PAGES = [
-  { key: 'media-news', label: 'آخر الأخبار' },
-  { key: 'media-coverage', label: 'التغطيات' },
-  { key: 'media-releases', label: 'المحتوى والإصدارات' },
-  { key: 'media-progreports', label: 'تقارير البرامج والمشاريع' },
-]
+/* صفحات المركز الإعلامي — معرّفة في navPages.js ليستوردها الهيدر وحده */
+export { MEDIA_PAGES } from './navPages'
+import { MEDIA_PAGES } from './navPages'
 
 /* المحتوى من content/media.json — يُحرَّر من لوحة التحكم */
 const COVERAGE = mediaData.coverage

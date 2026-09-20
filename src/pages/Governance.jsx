@@ -24,18 +24,9 @@ import site from '../../content/site.json'
 const titleFont = "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif"
 const ACCENT = '#ef9122'
 
-/* روابط صفحات الحوكمة — تُستخدم أيضاً في القائمة المنسدلة بالهيدر */
-export const GOV_PAGES = [
-  { key: 'gov-data', label: 'البيانات الرسمية' },
-  { key: 'gov-board', label: 'مجلس الإدارة' },
-  { key: 'gov-executive', label: 'الإدارة التنفيذية' },
-  { key: 'gov-assembly', label: 'الجمعية العمومية' },
-  { key: 'gov-committees', label: 'اللجان الدائمة' },
-  { key: 'gov-reports', label: 'التقارير والقوائم المالية' },
-  { key: 'gov-minutes', label: 'المحاضر' },
-  { key: 'gov-policies', label: 'اللوائح والسياسات والإفصاحات' },
-  { key: 'gov-complaints', label: 'الشكاوى والبلاغات' },
-]
+/* روابط صفحات الحوكمة — معرّفة في navPages.js ليستوردها الهيدر وحده */
+export { GOV_PAGES } from './navPages'
+import { GOV_PAGES } from './navPages'
 
 /* البيانات الرسمية من content/official.json — تُحرَّر من لوحة ديوان */
 const OFFICIAL = official.items

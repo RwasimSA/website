@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import site from '../../content/site.json'
 
@@ -77,17 +78,36 @@ const GradWord = ({ children }) => (
 )
 
 export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
+  /* فيديو الخلفية: لا يُحمّل مع أول رسم للصفحة، بل بعد أن تهدأ
+     (وقت الخمول) وعلى الشاشات العريضة فقط — فالجوال تكفيه صورة الغلاف */
+  const [showVideo, setShowVideo] = useState(false)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (window.matchMedia('(max-width: 767px)').matches) return
+    const conn = navigator.connection
+    if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return
+    const start = () => setShowVideo(true)
+    const idle = window.requestIdleCallback
+      ? window.requestIdleCallback(start, { timeout: 2500 })
+      : setTimeout(start, 1200)
+    return () => (window.cancelIdleCallback ? window.cancelIdleCallback(idle) : clearTimeout(idle))
+  }, [])
+
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
 
       {/* فيديو «ليلة الختام» مستضاف محلياً — أقصى الخلف، مكتوم ويعيد نفسه،
           وخلفه صورة غطاء احتياطية لحين تحميله */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
-        {site.heroImage && <img src={site.heroImage} alt="" aria-hidden="true" draggable="false"
+        {(site.heroImage || site.heroPoster) && <img src={site.heroImage || site.heroPoster} alt="" aria-hidden="true" draggable="false"
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover" />}
-        {site.heroVideo && <video
+        {/* الفيديو يُحمّل بعد أن تستقر الصفحة (وليس مع أول تحميل)، وعلى
+            الجوال لا يُحمّل إطلاقاً — تكفيه صورة الغلاف توفيراً للبيانات */}
+        {site.heroVideo && showVideo && <video
           src={site.heroVideo}
-          autoPlay muted loop playsInline preload="auto"
+          poster={site.heroPoster || site.heroImage || undefined}
+          autoPlay muted loop playsInline preload="none"
           aria-hidden="true" tabIndex={-1}
           className="absolute inset-0 h-full w-full object-cover"
         />}

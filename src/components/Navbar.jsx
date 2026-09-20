@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { GOV_PAGES } from '../pages/Governance'
-import { MEDIA_PAGES } from '../pages/MediaCenter'
+import { GOV_PAGES, MEDIA_PAGES } from '../pages/navPages'
 
 /* تبويبات الهيدر — مسطحة، وتبويبا المركز الإعلامي والحوكمة قائمتان منسدلتان بصفحاتهما. */
 const nav = [

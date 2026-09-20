@@ -11,14 +11,14 @@
 /* خط عبارة الهيرو — عام الحِرف اليدوية */
 @font-face {
   font-family: 'TheYearofHandicrafts';
-  src: url('/fonts/TheYearofHandicrafts-Regular.otf') format('opentype');
+  src: url('/fonts/TheYearofHandicrafts-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'TheYearofHandicrafts';
-  src: url('/fonts/TheYearofHandicrafts-Bold.otf') format('opentype');
+  src: url('/fonts/TheYearofHandicrafts-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
