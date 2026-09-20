@@ -44,18 +44,6 @@ const baseCards = [
     tagline: 'موسم صيفي سنوي',
     desc: 'أندية وبرامج لفئات متعددة',
   },
-  /* البطاقة الرابعة — تُملأ بياناتها من اللوحة، وحتى ذلك الحين
-     تعرض بيانات البطاقة الأولى مؤقتاً (يُحدَّد ذلك أدناه) */
-  {
-    key: 'fourth',
-    name: '',
-    logo: '',
-    pattern: '',
-    img: '',
-    accent: 'rgba(127,184,212,0.22)',
-    tagline: '',
-    desc: '',
-  },
 ]
 
 const programs = baseCards.map((p, i) => {
@@ -64,11 +52,6 @@ const programs = baseCards.map((p, i) => {
   for (const k of Object.keys(live)) if (live[k]) merged[k] = live[k]
   return merged
 })
-
-/* البطاقة الرابعة بلا محتوى بعد؟ تُكرَّر الأولى مؤقتاً حتى تُدخل بياناتها من اللوحة */
-if (!programs[3].tagline && !programs[3].logo && !programs[3].name) {
-  programs[3] = { ...programs[0], key: 'fourth' }
-}
 
 const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) => (
   <motion.div
@@ -81,7 +64,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     onHoverEnd={() => onHover(null)}
     // رابط مخصص من اللوحة يفتح في تبويب جديد؛ وإلا تُفتح صفحة البرنامج الداخلية
     onClick={() => (program.link ? window.open(program.link, '_blank', 'noopener') : onOpen(program.key))}
-    className="relative w-full max-w-[250px] flex-1"
+    className="relative w-full max-w-[290px] flex-1"
     style={{ minWidth: 0, cursor: 'pointer', willChange: 'transform' }}
   >
     {/* توهج خلفي بلون البرنامج — تدرّج ناعم بلا مرشّح blur:
@@ -93,9 +76,9 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     {/* البطاقة الزجاجية */}
     <div className="relative flex h-full flex-col items-center text-center"
       style={{
-        borderRadius: '82px',
-        padding: '86px 20px 38px',
-        minHeight: '344px',
+        borderRadius: '100px',
+        padding: '104px 24px 46px',
+        minHeight: '400px',
         background: 'linear-gradient(155deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.015) 70%, rgba(255,255,255,0.05) 100%)',
         border: '1px solid rgba(255,255,255,0.20)',
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(255,255,255,0.06), 0 24px 48px rgba(3,15,21,0.22)',
@@ -105,21 +88,21 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
       {/* شعار البرنامج — وإن لم يُرفع بعد يظهر الاسم نصاً */}
       {program.logo ? (
         <img src={program.logo} alt={program.name} draggable="false"
-          className="relative mb-6 h-[70px] w-auto object-contain"
+          className="relative mb-8 h-[82px] w-auto object-contain"
           style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.3))', zIndex: 1 }} />
       ) : (
-        <span className="relative mb-6 flex h-[70px] items-center"
-          style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: 'white', fontWeight: 700, fontSize: '26px', zIndex: 1,
+        <span className="relative mb-8 flex h-[82px] items-center"
+          style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: 'white', fontWeight: 700, fontSize: '30px', zIndex: 1,
             filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.3))' }}>{program.name}</span>
       )}
 
       {/* السطر التعريفي */}
-      <h3 style={{ position: 'relative', zIndex: 1, color: 'white', fontWeight: 600, fontSize: '16px', lineHeight: 1.75, margin: '0 0 8px' }}>
+      <h3 style={{ position: 'relative', zIndex: 1, color: 'white', fontWeight: 600, fontSize: '18px', lineHeight: 1.8, margin: '0 0 10px' }}>
         {program.tagline}
       </h3>
 
       {/* الوصف */}
-      <p style={{ position: 'relative', zIndex: 1, color: '#dcebf2', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.9, margin: 0 }}>
+      <p style={{ position: 'relative', zIndex: 1, color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>
         {program.desc}
       </p>
     </div>
@@ -128,7 +111,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     {program.pattern && <motion.img
       src={program.pattern} alt="" aria-hidden="true" draggable="false"
       className="pointer-events-none absolute"
-      style={{ top: '-44px', left: '-13%', width: '94%', maxWidth: 'none', zIndex: 2 }}
+      style={{ top: '-52px', left: '-13%', width: '94%', maxWidth: 'none', zIndex: 2 }}
       animate={{ y: [0, -6, 0], rotate: [0, 1, 0] }}
       transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
     />}
@@ -191,8 +174,8 @@ export default function Programs({ onOpenPage = () => {} }) {
           نبني من خلالها تجارب تجمع بين القيم والمهارات، وتراعي احتياجات المستفيدين ومراحلهم العمرية.
         </motion.p>
 
-        {/* البطاقات الأربع — متراصة أفقياً */}
-        <div className="flex w-full max-w-[1180px] flex-col items-center gap-24 md:flex-row md:items-stretch md:justify-center md:gap-8">
+        {/* البطاقات الثلاث — متراصة أفقياً */}
+        <div className="flex w-full max-w-6xl flex-col items-center gap-24 md:flex-row md:items-stretch md:justify-center md:gap-14">
           {programs.map((p, i) => (
             <ProgramCard key={p.key} program={p} delay={0.2 + i * 0.12} onHover={setHovered} onOpen={onOpenPage} />
           ))}
