@@ -41,12 +41,21 @@ const MarqueeRow = ({ logos, anim: animName, speed = 26 }) => (
   </div>
 )
 
-/* صفّان متعاكسان بلا نهاية، وحواف القسم الجانبية تتلاشى تدريجياً
-   على مسافة واسعة فيبدو الذوبان ناعماً وطويلاً */
-const EDGE_FADE = {
-  maskImage: 'linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 8%, #000 26%, #000 74%, rgba(0,0,0,0.35) 92%, transparent 100%)',
-  WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 8%, #000 26%, #000 74%, rgba(0,0,0,0.35) 92%, transparent 100%)',
+/* صفّان متعاكسان بلا نهاية، وحواف القسم الجانبية تذوب تدريجياً.
+   التدرّج الخطي البسيط يبدو حادّاً للعين، فيُبنى هنا منحنى مُيسَّر
+   (ease-in-out) بمحطات متعددة على ثلث عرض الشريط فيصير الذوبان
+   ناعماً وطويلاً بلا حافة ظاهرة */
+const FADE = 0.3 // نسبة عرض منطقة التلاشي من كل جانب
+const EASE_STOPS = [0, 0.02, 0.08, 0.18, 0.32, 0.5, 0.68, 0.82, 0.92, 0.98, 1]
+const fadeGradient = () => {
+  const n = EASE_STOPS.length - 1
+  const inside = EASE_STOPS.map((a, i) => `rgba(0,0,0,${a}) ${((i / n) * FADE * 100).toFixed(2)}%`)
+  const outside = [...EASE_STOPS].reverse().map((a, i) =>
+    `rgba(0,0,0,${a}) ${(100 - FADE * 100 + (i / n) * FADE * 100).toFixed(2)}%`)
+  return `linear-gradient(90deg, ${[...inside, ...outside].join(', ')})`
 }
+const MASK = fadeGradient()
+const EDGE_FADE = { maskImage: MASK, WebkitMaskImage: MASK }
 
 const TwoRowMarquee = ({ speed, size, className = '' }) => (
   <div className={className} style={{ ...EDGE_FADE, '--partner-size': size }}>
