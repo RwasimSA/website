@@ -41,10 +41,11 @@ const MarqueeRow = ({ logos, anim: animName, speed = 26 }) => (
   </div>
 )
 
-/* صفّان متعاكسان بلا نهاية، وحواف القسم الجانبية تتلاشى تدريجياً */
+/* صفّان متعاكسان بلا نهاية، وحواف القسم الجانبية تتلاشى تدريجياً
+   على مسافة واسعة فيبدو الذوبان ناعماً وطويلاً */
 const EDGE_FADE = {
-  maskImage: 'linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%)',
-  WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%)',
+  maskImage: 'linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 8%, #000 26%, #000 74%, rgba(0,0,0,0.35) 92%, transparent 100%)',
+  WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 8%, #000 26%, #000 74%, rgba(0,0,0,0.35) 92%, transparent 100%)',
 }
 
 const TwoRowMarquee = ({ speed, size, className = '' }) => (
@@ -89,7 +90,7 @@ export default function Partners({ onOpenPage = () => {} }) {
 
         {/* سطح المكتب: صفان بلوب لا نهائي في اتجاهين متعاكسين،
             والحواف الجانبية تتلاشى تدريجياً */}
-        <TwoRowMarquee className="mx-auto hidden w-full max-w-4xl md:block" speed={42} size="112px" />
+        <TwoRowMarquee className="mx-auto hidden w-full max-w-6xl md:block" speed={42} size="112px" />
 
         {/* الجوال: نفس الصفين بحجم أصغر وسرعة أعلى.
             ‎-mx-6 تلغي حشوة القسم الجانبية فتصل الشعارات لحافتي الشاشة */}
