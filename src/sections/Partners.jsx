@@ -16,9 +16,9 @@ const logos = partnersData.logos.map((l) => l.image)
 const MarqueeCell = ({ src }) => (
   <div className="partner-cell flex-shrink-0"
     style={{
-      width: 'var(--partner-size, 78px)', height: 'var(--partner-size, 78px)',
-      borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '9px', background: '#ffffff', border: '0.5px solid rgba(255,255,255,0.6)',
+      width: 'var(--partner-size, 96px)', height: 'var(--partner-size, 96px)',
+      borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '12px', background: '#ffffff', border: '0.5px solid rgba(255,255,255,0.6)',
     }}>
     <img src={src} alt="شريك" draggable="false" loading="lazy" className="h-full w-full object-contain" />
   </div>
@@ -35,7 +35,7 @@ const fillRow = (row) => {
 /* سطر متحرّك أفقياً بلا نهاية */
 const MarqueeRow = ({ logos, anim: animName, speed = 26 }) => (
   <div className="overflow-hidden">
-    <div className="flex w-max gap-2" style={{ animation: `${animName} ${speed}s linear infinite` }}>
+    <div className="flex w-max gap-3" style={{ animation: `${animName} ${speed}s linear infinite` }}>
       {[...logos, ...logos].map((src, i) => <MarqueeCell key={i} src={src} />)}
     </div>
   </div>
@@ -49,7 +49,7 @@ const EDGE_FADE = {
 
 const TwoRowMarquee = ({ speed, size, className = '' }) => (
   <div className={className} style={{ ...EDGE_FADE, '--partner-size': size }}>
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       <MarqueeRow logos={fillRow(logos.slice(0, Math.ceil(logos.length / 2)))} anim="partners-right" speed={speed} />
       <MarqueeRow logos={fillRow(logos.slice(Math.ceil(logos.length / 2)))} anim="partners-left" speed={speed} />
     </div>
@@ -89,11 +89,11 @@ export default function Partners({ onOpenPage = () => {} }) {
 
         {/* سطح المكتب: صفان بلوب لا نهائي في اتجاهين متعاكسين،
             والحواف الجانبية تتلاشى تدريجياً */}
-        <TwoRowMarquee className="-mx-6 hidden w-screen md:block md:-mx-16" speed={42} size="86px" />
+        <TwoRowMarquee className="mx-auto hidden w-full max-w-4xl md:block" speed={42} size="112px" />
 
         {/* الجوال: نفس الصفين بحجم أصغر وسرعة أعلى.
             ‎-mx-6 تلغي حشوة القسم الجانبية فتصل الشعارات لحافتي الشاشة */}
-        <TwoRowMarquee className="-mx-6 w-screen md:hidden" speed={26} size="72px" />
+        <TwoRowMarquee className="-mx-6 w-screen md:hidden" speed={26} size="96px" />
       </div>
     </motion.section>
   )
