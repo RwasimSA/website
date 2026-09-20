@@ -44,7 +44,7 @@ const rise = (delay = 0) => ({
 })
 
 /* هيكل موحد لصفحات المركز الإعلامي — افتتاحية + محتوى + روابط بقية الصفحات */
-function MediaShell({ title, lead, children, current, onOpenPage }) {
+function MediaShell({ title, children, current, onOpenPage }) {
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '76px' }}>
@@ -64,12 +64,6 @@ function MediaShell({ title, lead, children, current, onOpenPage }) {
           </motion.h1>
           <motion.span {...rise(0.08)} aria-hidden="true" className="mb-7 block h-[3px] w-16 rounded-full"
             style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66` }} />
-          {lead && (
-            <motion.p {...rise(0.12)} className="max-w-3xl"
-              style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: 0 }}>
-              {lead}
-            </motion.p>
-          )}
         </div>
       </div>
 
@@ -141,8 +135,7 @@ function Lightbox({ video, onClose }) {
 function MediaNews({ onOpenPage }) {
   return (
     <MediaShell current="media-news" onOpenPage={onOpenPage}
-      title="آخر الأخبار"
-      lead="أحدث ما تنشره رواسم من أخبار وتحديثات عن برامجها ومبادراتها وفعالياتها.">
+      title="آخر الأخبار">
       {NEWS.length > 0 ? (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {NEWS.map((n, i) => (
@@ -204,8 +197,7 @@ function MediaCoverage({ onOpenPage }) {
   const [playing, setPlaying] = useState(null)
   return (
     <MediaShell current="media-coverage" onOpenPage={onOpenPage}
-      title="التغطيات"
-      lead="ألبومات وفيديوهات مختارة من البرامج والمواسم والفعاليات، من قناة رواسم الرسمية.">
+      title="التغطيات">
       <div className="mb-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {COVERAGE.map((v, i) => (
           <motion.button key={v.id} type="button" {...rise(0.05 * i)}
@@ -265,8 +257,7 @@ function MediaCoverage({ onOpenPage }) {
 function MediaReleases({ onOpenPage }) {
   return (
     <MediaShell current="media-releases" onOpenPage={onOpenPage}
-      title="المحتوى والإصدارات"
-      lead="أدلة وحقائب وإصدارات تربوية تنتجها رواسم للمستفيدين والأسرة والمربي، صدرت ضمن برامجها ومواسمها.">
+      title="المحتوى والإصدارات">
       <FileCards files={RELEASES} types={RELEASE_TYPES}
         emptyNote="تُنشر إصدارات هذا التصنيف هنا فور توفر نسخها الرقمية." />
     </MediaShell>
@@ -277,8 +268,7 @@ function MediaReleases({ onOpenPage }) {
 function MediaProgReports({ onOpenPage }) {
   return (
     <MediaShell current="media-progreports" onOpenPage={onOpenPage}
-      title="تقارير البرامج والمشاريع"
-      lead="تقارير موثّقة لبرامج رواسم ومشاريعها ومواسمها، تُنشر نسخها المعتمدة للنشر تباعاً.">
+      title="تقارير البرامج والمشاريع">
       <FileCards files={PROG_REPORTS}
         emptyNote="تُنشر تقارير البرامج والمشاريع هنا فور اعتماد نسخها للنشر." />
     </MediaShell>

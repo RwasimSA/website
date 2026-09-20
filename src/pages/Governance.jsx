@@ -124,7 +124,7 @@ const MemberCard = ({ name, role, delay = 0, accent = ACCENT }) => (
 )
 
 /* هيكل الصفحة الموحد: افتتاحية + محتوى + روابط بقية صفحات الحوكمة */
-function GovShell({ title, lead, children, current, onOpenPage }) {
+function GovShell({ title, children, current, onOpenPage }) {
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '76px' }}>
@@ -144,12 +144,6 @@ function GovShell({ title, lead, children, current, onOpenPage }) {
           </motion.h1>
           <motion.span {...rise(0.08)} aria-hidden="true" className="mb-7 block h-[3px] w-16 rounded-full"
             style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66` }} />
-          {lead && (
-            <motion.p {...rise(0.12)} className="max-w-3xl"
-              style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: 0 }}>
-              {lead}
-            </motion.p>
-          )}
         </div>
       </div>
 
@@ -179,8 +173,7 @@ function GovShell({ title, lead, children, current, onOpenPage }) {
 function GovData({ onOpenPage }) {
   return (
     <GovShell current="gov-data" onOpenPage={onOpenPage}
-      title="البيانات الرسمية للجمعية"
-      lead="تلتزم رواسم بالشفافية والإفصاح، وتتيح في صفحات الحوكمة أبرز بياناتها المؤسسية ووثائقها وتقاريرها ذات العلاقة.">
+      title="البيانات الرسمية للجمعية">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {OFFICIAL.map((o, i) => (
           <motion.div key={o.k} {...rise(0.04 * i)}
@@ -210,8 +203,7 @@ function GovData({ onOpenPage }) {
 function GovBoard({ onOpenPage }) {
   return (
     <GovShell current="gov-board" onOpenPage={onOpenPage}
-      title="مجلس الإدارة"
-      lead="أعضاء مجلس الإدارة وفق التقرير السنوي 2025، وتُراجع الأسماء والصفات مع أحدث كشف معتمد قبل الإطلاق.">
+      title="مجلس الإدارة">
       <div className="grid gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {BOARD.map((m, i) => (
           m.photo
@@ -237,8 +229,7 @@ const EXEC_WORD = people.execWord
 function GovExecutive({ onOpenPage }) {
   return (
     <GovShell current="gov-executive" onOpenPage={onOpenPage}
-      title="الإدارة التنفيذية"
-      lead="تتولى الإدارة التنفيذية إدارة أعمال الجمعية اليومية وتنفيذ توجهات مجلس الإدارة وخططها المعتمدة.">
+      title="الإدارة التنفيذية">
       <SectionTitle>كلمة المدير التنفيذي</SectionTitle>
       <div className="mt-14 grid items-start gap-10 lg:grid-cols-[300px_1fr]">
         {/* بطاقة المدير التنفيذي */}
@@ -351,8 +342,7 @@ function GovExecutive({ onOpenPage }) {
 function GovAssembly({ onOpenPage }) {
   return (
     <GovShell current="gov-assembly" onOpenPage={onOpenPage}
-      title="الجمعية العمومية"
-      lead="الأعضاء المؤسسون الواردون في التقرير السنوي 2025.">
+      title="الجمعية العمومية">
       <div className="grid gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {ASSEMBLY.map((m, i) => (
           m.photo
@@ -375,8 +365,7 @@ const REPORT_FILES = docs.reports.map((d) => ({ ...d, file: d.file || null }))
 function GovReports({ onOpenPage }) {
   return (
     <GovShell current="gov-reports" onOpenPage={onOpenPage}
-      title="التقارير والقوائم المالية"
-      lead="أرشيف التقارير السنوية للجمعية وقوائمها المالية، يُتاح وفق الوثائق المعتمدة والمتطلبات النظامية.">
+      title="التقارير والقوائم المالية">
       <FileCards files={REPORT_FILES} types={REPORT_TYPES}
         emptyNote="تُنشر النسخ المعتمدة للنشر هنا فور اعتمادها." />
     </GovShell>
@@ -390,8 +379,7 @@ const COMMITTEE_FILES = (docs.committees || []).map((d) => ({ ...d, file: d.file
 function GovCommittees({ onOpenPage }) {
   return (
     <GovShell current="gov-committees" onOpenPage={onOpenPage}
-      title="اللجان الدائمة"
-      lead="اللجان الدائمة المنبثقة عن مجلس الإدارة، ووثائقها المعتمدة للنشر من قرارات تشكيل ولوائح عمل وتقارير.">
+      title="اللجان الدائمة">
       <FileCards files={COMMITTEE_FILES} types={COMMITTEE_TYPES}
         emptyNote="تُنشر وثائق اللجان المعتمدة للنشر هنا فور اعتمادها." />
     </GovShell>
@@ -405,8 +393,7 @@ const MINUTES_FILES = (docs.minutes || []).map((d) => ({ ...d, file: d.file || n
 function GovMinutes({ onOpenPage }) {
   return (
     <GovShell current="gov-minutes" onOpenPage={onOpenPage}
-      title="المحاضر"
-      lead="محاضر اجتماعات مجلس الإدارة والجمعية العمومية، تُنشر نسخها المعتمدة للنشر تباعاً.">
+      title="المحاضر">
       <FileCards files={MINUTES_FILES} types={MINUTES_TYPES}
         emptyNote="تُنشر المحاضر المعتمدة للنشر هنا فور اعتمادها." />
     </GovShell>
@@ -420,8 +407,7 @@ const POLICY_FILES = docs.policies.map((d) => ({ ...d, file: d.file || null }))
 function GovPolicies({ onOpenPage }) {
   return (
     <GovShell current="gov-policies" onOpenPage={onOpenPage}
-      title="اللوائح والسياسات والإفصاحات"
-      lead="مكتبة منظمة للوثائق المعتمدة فعلياً لدى الجمعية، تُضاف وثائقها تباعاً بعد اعتماد نسخها الرسمية.">
+      title="اللوائح والسياسات والإفصاحات">
       <FileCards files={POLICY_FILES} types={POLICY_TYPES}
         emptyNote="تُنشر الوثائق المعتمدة هنا فور اعتماد نسخها الرسمية." />
     </GovShell>
@@ -432,8 +418,7 @@ function GovPolicies({ onOpenPage }) {
 function GovComplaints({ onOpenPage }) {
   return (
     <GovShell current="gov-complaints" onOpenPage={onOpenPage}
-      title="الشكاوى والبلاغات"
-      lead="قناة مستقلة عن نموذج التواصل العام، تستقبل الشكاوى والبلاغات وتعالجها وفق الآلية الرسمية المعتمدة.">
+      title="الشكاوى والبلاغات">
       <motion.div {...rise(0.05)} className="relative mx-auto max-w-3xl overflow-hidden text-center"
         style={glass({ borderRadius: '30px', padding: 'clamp(34px, 5vw, 54px)' })}>
         <div aria-hidden="true" className="pointer-events-none absolute"
