@@ -10,8 +10,8 @@ import { motion } from 'framer-motion'
 const ACCENT = '#ef9122'
 
 /* هندسة القوس: نصف القطر وزاوية الخطوة بين عنوان وآخر */
-const R = 210
-const STEP = 15 * (Math.PI / 180)
+const R = 230
+const STEP = 16 * (Math.PI / 180)
 const VISIBLE = 3 // كم عنواناً يظهر فوق الحالي وتحته
 
 /* خصائص كل عنوان حسب بُعده عن العنوان الحالي */
@@ -23,8 +23,8 @@ const placement = (offset) => {
     x: -R * (1 - Math.cos(a)), // كلما ابتعد العنوان انحنى للداخل
     rotate: offset * 5,
     opacity: abs > VISIBLE ? 0 : [1, 0.5, 0.28, 0.14][abs],
-    fontSize: [17.5, 14, 12.5, 11.5][Math.min(abs, 3)],
-    fontWeight: abs === 0 ? 600 : 400,
+    fontSize: `${[19.5, 14, 12, 11][Math.min(abs, 3)]}px`,
+    fontWeight: abs === 0 ? 700 : 400,
     color: abs === 0 ? '#ffffff' : '#bcd9e6',
   }
 }
@@ -57,7 +57,8 @@ export default function SectionIndex({ items = [], current, onGo = () => {} }) {
             aria-current={offset === 0 ? 'true' : undefined}
             tabIndex={hidden ? -1 : 0}
             className={`absolute right-0 top-1/2 block whitespace-nowrap border-none bg-transparent p-0 text-right ${hidden ? '' : 'pointer-events-auto cursor-pointer'}`}
-            style={{ transformOrigin: '100% 50%', textShadow: '0 2px 12px rgba(3,15,21,0.9)' }}
+            style={{ transformOrigin: '100% 50%', textShadow: '0 2px 12px rgba(3,15,21,0.9)',
+              fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif" }}
             animate={{
               x: p.x, y: p.y - 11, rotate: p.rotate,
               opacity: p.opacity, fontSize: p.fontSize,
