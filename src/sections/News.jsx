@@ -22,17 +22,21 @@ const START_INDEX = Math.min(2, Math.max(0, MEDIA.length - 1))
 /* مصغّر الفيديو: maxresdefault عريض بلا أشرطة سوداء.
    وإن لم يوفّره يوتيوب لهذا الفيديو نرجع إلى hqdefault مع قصّ
    الشريطين الأسودين المدمجين فيه (صورته 4:3 والمحتوى 16:9 في وسطها) */
-const thumb = (m) => (m.type === 'video' ? `https://i.ytimg.com/vi/${m.id}/maxresdefault.jpg` : m.src)
-const HQ_CROP = 'scale(1.34)' // 360/270 — يدفع الشريطين خارج الإطار
+const HQ_CROP = 'scale(1.34)' // 360/270 — يدفع الشريطين الأسودين خارج الإطار
+const thumb = (m, full) => (m.type !== 'video' ? m.src
+  : `https://i.ytimg.com/vi/${m.id}/${full ? 'maxresdefault' : 'hqdefault'}.jpg`)
 
-const Thumb = ({ item, alt = '', style = {}, className, loading }) => {
+/* البطاقات الصغيرة تكتفي بمصغّر 480px (‎~20KB) مع قصّ الشريطين،
+   وخلفية القسم وحدها تجلب النسخة العريضة — فرق يقارب نصف ميغابايت */
+const Thumb = ({ item, alt = '', style = {}, className, loading, full = false }) => {
   const [fallback, setFallback] = useState(false)
-  const src = fallback ? `https://i.ytimg.com/vi/${item.id}/hqdefault.jpg` : thumb(item)
+  const useCrop = !full || fallback
+  const src = fallback ? thumb(item, false) : thumb(item, full)
   return (
     <img
       src={src} alt={alt} draggable="false" loading={loading} className={className}
       onError={() => { if (item.type === 'video' && !fallback) setFallback(true) }}
-      style={{ ...style, objectFit: 'cover', transform: fallback ? HQ_CROP : undefined }}
+      style={{ ...style, objectFit: 'cover', transform: useCrop && item.type === 'video' ? HQ_CROP : undefined }}
     />
   )
 }
@@ -332,7 +336,7 @@ export default function News({ onOpenPage = () => {} }) {
             transition={{ duration: 0.9, ease: 'easeInOut' }}
           >
             {/* مصغّر فورية تسدّ فجوة تحميل المشغّل */}
-            <Thumb item={bgItem} className="absolute inset-0 h-full w-full" />
+            <Thumb item={bgItem} full className="absolute inset-0 h-full w-full" />
             {!narrow && <iframe
               src={`https://www.youtube.com/embed/${bgItem.id}?autoplay=1&mute=1&loop=1&playlist=${bgItem.id}&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&start=20`}
               title="" aria-hidden="true" tabIndex={-1}
