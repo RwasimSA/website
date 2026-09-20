@@ -243,16 +243,21 @@ export default function App() {
       if (dir > 0) return el.scrollTop + el.clientHeight >= el.scrollHeight - 4
       return el.scrollTop <= 4
     }
-    const navigate = (dir) => {
+    /* lockMs: زمن التهدئة بين نقلتين. عجلة الفأرة ولمس الشاشة يطلقان
+       عشرات الأحداث للحركة الواحدة فيلزمهما تهدئة، أما ضغطة المفتاح
+       فمقصودة ومنفصلة — لذا تهدئتها شبه معدومة والانتقال فوري */
+    const navigate = (dir, lockMs = 480) => {
       if (lockRef.current) return
       if (!atEdge(dir)) return // اترك التمرير الداخلي يعمل أولاً
       const idx = order.indexOf(currentRef.current)
       const next = idx + dir
       if (next < 0 || next >= order.length) return
-      lockRef.current = true
+      if (lockMs > 0) {
+        lockRef.current = true
+        setTimeout(() => { lockRef.current = false }, lockMs)
+      }
       setDirection(dir)
       setSection(order[next])
-      setTimeout(() => { lockRef.current = false }, 1200)
     }
 
     const onWheel = (e) => {
@@ -269,10 +274,13 @@ export default function App() {
       touchStartY = e.touches[0].clientY
     }
 
-    // التنقّل بسهمي الكيبورد (أعلى/أسفل) — وكذلك PageUp/PageDown
+    // التنقّل بسهمي الكيبورد (أعلى/أسفل) — وكذلك PageUp/PageDown، بلا انتظار
     const onKeyDown = (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); navigate(1) }
-      else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); navigate(-1) }
+      const k = e.key
+      if (k === 'ArrowDown' || k === 'PageDown') { e.preventDefault(); navigate(1, e.repeat ? 140 : 0) }
+      else if (k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); navigate(-1, e.repeat ? 140 : 0) }
+      else if (k === 'Home') { e.preventDefault(); goTo(order[0]) }
+      else if (k === 'End') { e.preventDefault(); goTo(order[order.length - 1]) }
     }
 
     window.addEventListener('wheel', onWheel, { passive: true })
@@ -291,7 +299,7 @@ export default function App() {
     <motion.div
       className={`relative ${isMobile || page ? 'min-h-screen' : 'h-screen overflow-hidden'}`}
       animate={{ background: page ? mobileBg : isMobile ? mobileBg : backgrounds[section] }}
-      transition={{ duration: 1.2, ease: 'easeInOut' }}
+      transition={{ duration: 0.65, ease: 'easeInOut' }}
     >
       {/* أضواء تدور حول حواف الشاشة */}
       <CrystalLights />
@@ -354,7 +362,7 @@ export default function App() {
         </div>
       ) : (
         // سطح المكتب: قسم واحد بملء الشاشة، حركته تتبع اتجاه التمرير
-        <AnimatePresence mode="wait" custom={direction}>
+        <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={section}
             ref={scrollerRef}
@@ -365,7 +373,7 @@ export default function App() {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             {section === 'hero' && <Hero onPrograms={() => goTo('programs')} onAbout={() => openPage('about-us')} />}
             {section === 'programs' && <Programs onOpenPage={openPage} />}
@@ -384,7 +392,7 @@ export default function App() {
               style={{ background: backgrounds[section], zIndex: 40 }}
               initial={{ opacity: 1 }}
               animate={{ opacity: 0 }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
             />
           </motion.div>
         </AnimatePresence>
