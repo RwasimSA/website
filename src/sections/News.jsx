@@ -356,7 +356,7 @@ export default function News({ onOpenPage = () => {} }) {
         )}
         {/* تظليل الهوية فوق الفيديو */}
         <div style={{ position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.78) 40%, rgba(8,38,51,0.84) 72%, rgba(4,23,32,0.95) 100%)' }} />
+          background: 'var(--img-overlay)' }} />
       </div>
 
       {/* توهجات جانبية */}

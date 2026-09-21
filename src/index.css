@@ -85,6 +85,7 @@
   --img-overlay: linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.8) 45%, rgba(4,23,32,0.97) 100%);
   --img-overlay-soft: linear-gradient(180deg, rgba(8,38,51,0.28) 0%, rgba(8,38,51,0.55) 62%, rgba(10,42,56,0.96) 100%);
   --cta-card: linear-gradient(160deg, rgba(13,58,77,0.62) 0%, rgba(8,38,51,0.68) 100%);
+  --card-body: linear-gradient(165deg, rgba(21,81,108,0.92) 0%, rgba(13,58,77,0.94) 55%, rgba(10,46,62,0.96) 100%);
   --page-bg: #041720;
 }
 
@@ -109,6 +110,7 @@
   --img-overlay: linear-gradient(180deg, rgba(241,247,250,0.92) 0%, rgba(228,239,245,0.86) 45%, rgba(246,250,252,0.98) 100%);
   --img-overlay-soft: linear-gradient(180deg, rgba(241,247,250,0.55) 0%, rgba(232,241,246,0.72) 62%, rgba(243,248,250,0.97) 100%);
   --cta-card: linear-gradient(160deg, rgba(255,255,255,0.82) 0%, rgba(236,244,248,0.88) 100%);
+  --card-body: linear-gradient(165deg, rgba(255,255,255,0.96) 0%, rgba(240,246,249,0.97) 100%);
   --page-bg: #f3f8fa;
 }
 /* نصوص Tailwind البيضاء تتبع الحبر في الوضع الفاتح، وأيقونات الخطوط البيضاء كذلك */

@@ -106,20 +106,20 @@ const ProgramCard = ({ p, delay, onOpen }) => {
         {p.img && <img src={p.img} alt="" aria-hidden="true" draggable="false"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
         <div style={{ position: 'absolute', inset: 0,
-          background: 'var(--img-overlay-soft)' }} />
-        {p.logo ? <img src={p.logo} alt={p.name} draggable="false" data-logo="program"
+          background: 'linear-gradient(180deg, rgba(8,38,51,0.28) 0%, rgba(8,38,51,0.55) 62%, rgba(10,42,56,0.96) 100%)' }} />
+        {p.logo ? <img src={p.logo} alt={p.name} draggable="false"
           className="absolute bottom-4 right-5 h-[54px] w-auto object-contain"
           style={{ filter: 'drop-shadow(0 4px 10px var(--shadow))' }} />
         : p.name && <span className="absolute bottom-4 right-5"
-          style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '26px', lineHeight: 1.4,
+          style={{ fontFamily: titleFont, color: 'var(--on-accent)', fontWeight: 700, fontSize: '26px', lineHeight: 1.4,
             filter: 'drop-shadow(0 4px 10px var(--shadow))' }}>{p.name}</span>}
       </div>
       {/* متن البطاقة */}
       <div className="relative flex flex-1 flex-col px-6 pb-7 pt-5 text-right"
-        style={{ background: 'linear-gradient(165deg, rgba(21,81,108,0.92) 0%, rgba(13,58,77,0.94) 55%, rgba(10,46,62,0.96) 100%)' }}>
+        style={{ background: 'var(--card-body)' }}>
         <div className="mb-3.5 flex flex-wrap items-center gap-2">
           <span style={{ color: p.color, fontWeight: 600, fontSize: '12px' }}>{p.nature}</span>
-          <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.35)' }} />
+          <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--line-strong)' }} />
           <span style={{ color: 'var(--ink-3)', fontWeight: 400, fontSize: '12px' }}>{p.stage}</span>
         </div>
         <p className="flex-1" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14px', lineHeight: 2, margin: 0 }}>{p.desc}</p>
@@ -155,7 +155,7 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
           {programsContent.pageBack && <img src={programsContent.pageBack} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.8) 45%, rgba(4,23,32,0.97) 100%)' }} />
+            background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
           <motion.h1 {...rise(0)} className="mb-6 text-white"

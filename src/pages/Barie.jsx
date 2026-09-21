@@ -140,7 +140,7 @@ export default function Barie({ onOpenPage = () => {} }) {
           {PROG.img && <img src={PROG.img} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.78) 45%, rgba(4,23,32,0.96) 100%)' }} />
+            background: 'var(--img-overlay)' }} />
         </div>
         {/* نودل بارع يتدلى من أعلى الصفحة */}
         {PROG.pattern && <motion.img src={PROG.pattern} alt="" aria-hidden="true" draggable="false"
