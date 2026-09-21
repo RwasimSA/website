@@ -52,7 +52,7 @@ export default function ThemeToggle() {
       <span className="relative flex h-8 w-8 items-center justify-center rounded-full"
         style={{ background: light ? 'rgba(13,58,77,0.08)' : 'rgba(239,145,34,0.16)',
           border: `0.5px solid ${light ? 'rgba(13,58,77,0.16)' : 'rgba(239,145,34,0.4)'}`,
-          color: light ? '#0b2a38' : '#f4a63f' }}>
+          color: light ? '#0E4156' : '#f4a63f' }}>
         <AnimatePresence mode="wait" initial={false}>
           <motion.span key={theme} className="flex"
             initial={{ rotate: -90, opacity: 0, scale: 0.6 }}

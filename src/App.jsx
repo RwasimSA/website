@@ -41,7 +41,7 @@ const backgrounds = {
 
 
 /* الوضع الفاتح: خلفية مسطحة نظيفة لكل الأقسام والصفحات — بلا تدرجات ولا توهجات */
-const FLAT_LIGHT = '#f3f8fa'
+const FLAT_LIGHT = '#EDF0F3' // رمادي الهوية الفاتح
 const backgroundsLight = Object.fromEntries(['hero','programs','how','numbers','news','partners','cta','footer'].map((k) => [k, FLAT_LIGHT]))
 const mobileBgLight = FLAT_LIGHT
 

@@ -17,7 +17,7 @@ const styleFor = (abs, light) => ({
   opacity: [1, 0.6, 0.34, 0.2][Math.min(abs, 3)],
   fontSize: `${[19.5, 14, 12, 11][Math.min(abs, 3)]}px`,
   fontWeight: abs === 0 ? 700 : 400,
-  color: abs === 0 ? (light ? '#0b2a38' : '#ffffff') : (light ? '#3d5f6e' : '#bcd9e6'),
+  color: abs === 0 ? (light ? '#0E4156' : '#ffffff') : (light ? '#336E7C' : '#bcd9e6'),
   letterSpacing: abs === 0 ? '0.02em' : '0em',
   /* عمق ميداني: ما بعُد عن القسم الحالي يخفت ويميل للضبابية */
   filter: abs === 0 ? 'blur(0px)' : `blur(${Math.min(abs, 3) * 0.45}px)`,
