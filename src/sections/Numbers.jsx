@@ -230,7 +230,7 @@ export default function Numbers({ onOpenPage = () => {} }) {
         {site.backNumbers && <img src={site.backNumbers} alt="" aria-hidden="true" draggable="false"
           className="h-full w-full object-cover" />}
         <div style={{ position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(8,38,51,0.88) 0%, rgba(13,58,77,0.72) 40%, rgba(8,38,51,0.78) 72%, rgba(4,23,32,0.94) 100%)' }} />
+          background: 'var(--img-overlay)' }} />
       </div>
 
       {/* توهجات جانبية */}
@@ -275,24 +275,24 @@ export default function Numbers({ onOpenPage = () => {} }) {
                 borderRadius: '36px',
                 display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '13px',
                 textAlign: 'right', overflow: 'hidden',
-                background: 'linear-gradient(150deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.07) 100%)',
+                background: 'linear-gradient(150deg, var(--glass-a) 0%, var(--glass-b) 55%, var(--glass-a) 100%)',
                 backdropFilter: 'var(--glass, blur(30px) saturate(150%))', WebkitBackdropFilter: 'var(--glass, blur(30px) saturate(150%))',
-                border: '1px solid rgba(255,255,255,0.22)',
-                borderTop: '1px solid rgba(255,255,255,0.32)',
-                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), 0 20px 44px rgba(3,15,21,0.3)',
+                border: '1px solid var(--line)',
+                borderTop: '1px solid var(--line-strong)',
+                boxShadow: 'inset 0 1px 0 var(--line-strong), 0 20px 44px var(--shadow)',
               })}
             >
               <CardGlow color={s.glow} />
               <StatIcon src={s.img} glow={s.iconGlow} />
               {/* marginTop: auto يدفع الرقم والعنوان لأسفل البطاقة والأيقونة تبقى أعلى */}
-              <span className="stat-number" style={{ position: 'relative', zIndex: 1, marginTop: 'auto', color: 'white', fontWeight: 600, fontSize: '34px', lineHeight: 1, whiteSpace: 'nowrap' }}>
+              <span className="stat-number" style={{ position: 'relative', zIndex: 1, marginTop: 'auto', color: 'var(--ink)', fontWeight: 600, fontSize: '34px', lineHeight: 1, whiteSpace: 'nowrap' }}>
                 <CountUp value={s.value} suffix={s.suffix} plus={s.plus} />
               </span>
               <span style={{
                 position: 'relative', zIndex: 1, width: '26px', height: '2px', borderRadius: '2px',
                 background: 'linear-gradient(90deg, transparent, #ef9122, transparent)',
               }} />
-              <span style={{ position: 'relative', zIndex: 1, width: '100%', ...text.body, color: '#b6ccd6', fontWeight: 300, lineHeight: 1.5 }}>
+              <span style={{ position: 'relative', zIndex: 1, width: '100%', ...text.body, color: 'var(--ink-3)', fontWeight: 300, lineHeight: 1.5 }}>
                 {s.label}
               </span>
             </motion.div>

@@ -60,9 +60,66 @@
   font-display: swap;
 }
 
+/* ══ رموز الألوان — الوضع الداكن (الافتراضي) ══
+   كل نص وسطح في المكوّنات يقرأ من هذه المتغيرات، فتبديل الوضع
+   يكون بإعادة تعريفها فقط تحت [data-theme="light"] أدناه. */
 :root {
   font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  color-scheme: dark;
+  --ink: #ffffff;        /* العناوين والنصوص الأساسية */
+  --ink-2: #dcebf2;      /* الفقرات */
+  --ink-3: #b6ccd6;      /* نص البطاقات وروابط التنقل */
+  --muted: #a2becf;      /* التسميات الثانوية */
+  --accent-text: #f4a63f;/* النص البرتقالي (على الفاتح يُغمَّق للتباين) */
+  --gold: #d8c8a4;
+  --on-accent: #ffffff;  /* نص فوق البرتقالي/الأسطح الداكنة الثابتة — لا يتبدل */
+  --glass-a: rgba(255,255,255,0.08);
+  --glass-b: rgba(255,255,255,0.03);
+  --line: rgba(255,255,255,0.16);
+  --line-strong: rgba(255,255,255,0.28);
+  --pill: linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%);
+  --panel: linear-gradient(160deg, rgba(11,39,51,0.98) 0%, rgba(6,26,35,0.98) 100%);
+  --shadow: rgba(3,15,21,0.4);
+  --card-shadow: none;
+  --text-shadow: 0 2px 12px rgba(3,15,21,0.9);
+  --img-overlay: linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.8) 45%, rgba(4,23,32,0.97) 100%);
+  --img-overlay-soft: linear-gradient(180deg, rgba(8,38,51,0.28) 0%, rgba(8,38,51,0.55) 62%, rgba(10,42,56,0.96) 100%);
+  --cta-card: linear-gradient(160deg, rgba(13,58,77,0.62) 0%, rgba(8,38,51,0.68) 100%);
+  --page-bg: #041720;
 }
+
+/* ══ الوضع الفاتح ══ */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ink: #0b2a38;
+  --ink-2: #2b4a58;
+  --ink-3: #3d5f6e;
+  --muted: #5c7b89;
+  --accent-text: #c46a0a;
+  --gold: #8a6a2a;
+  --glass-a: rgba(255,255,255,0.88);
+  --glass-b: rgba(255,255,255,0.62);
+  --line: rgba(13,58,77,0.14);
+  --line-strong: rgba(13,58,77,0.22);
+  --pill: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(232,241,246,0.92) 100%);
+  --panel: linear-gradient(160deg, rgba(255,255,255,0.98) 0%, rgba(240,246,249,0.98) 100%);
+  --shadow: rgba(13,58,77,0.14);
+  --card-shadow: 0 14px 34px rgba(13,58,77,0.08);
+  --text-shadow: none;
+  --img-overlay: linear-gradient(180deg, rgba(241,247,250,0.92) 0%, rgba(228,239,245,0.86) 45%, rgba(246,250,252,0.98) 100%);
+  --img-overlay-soft: linear-gradient(180deg, rgba(241,247,250,0.55) 0%, rgba(232,241,246,0.72) 62%, rgba(243,248,250,0.97) 100%);
+  --cta-card: linear-gradient(160deg, rgba(255,255,255,0.82) 0%, rgba(236,244,248,0.88) 100%);
+  --page-bg: #f3f8fa;
+}
+/* نصوص Tailwind البيضاء تتبع الحبر في الوضع الفاتح، وأيقونات الخطوط البيضاء كذلك */
+:root[data-theme="light"] .text-white { color: var(--ink); }
+:root[data-theme="light"] svg[stroke="white"]:not(.on-accent, .on-accent *) { stroke: var(--ink); }
+:root[data-theme="light"] .hero-doodles { opacity: 0.55; }
+:root[data-theme="light"] .sub-input::placeholder { color: #6f8a97; }
+:root[data-theme="light"] .post-body h2, :root[data-theme="light"] .post-body h3, :root[data-theme="light"] .post-body h4 { color: var(--ink); }
+:root[data-theme="light"] .post-body blockquote { color: var(--ink-3); }
+:root[data-theme="light"] .skeleton { background: rgba(13,58,77,0.05); border-color: rgba(13,58,77,0.1); }
+
 
 html,
 body,
@@ -98,7 +155,7 @@ html, body {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: var(--page-bg);
 }
 
 @keyframes cellBlink {

@@ -90,9 +90,9 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
         <div className="relative overflow-hidden"
           style={{
             borderRadius: '52px',
-            border: '1px solid rgba(255,255,255,0.22)',
-            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.30), 0 34px 70px rgba(3,15,21,0.45)',
-            background: 'linear-gradient(160deg, rgba(13,58,77,0.62) 0%, rgba(8,38,51,0.68) 100%)',
+            border: '1px solid var(--line)',
+            boxShadow: 'inset 0 1px 0 var(--line-strong), 0 34px 70px var(--shadow)',
+            background: 'var(--cta-card)',
             backdropFilter: 'var(--glass, blur(22px) saturate(150%))', WebkitBackdropFilter: 'var(--glass, blur(22px) saturate(150%))',
           }}
         >
@@ -118,7 +118,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
           {/* المحتوى */}
           <div className="relative flex flex-col items-center px-7 py-16 text-center md:px-16 md:py-20">
             <motion.span {...rise(0.25)}
-              style={{ color: '#f4a63f', fontSize: '13.5px', fontWeight: 500, letterSpacing: '0.22em', marginBottom: '16px' }}>
+              style={{ color: 'var(--accent-text)', fontSize: '13.5px', fontWeight: 500, letterSpacing: '0.22em', marginBottom: '16px' }}>
               رحلة جيلٍ كامل تبدأ بخطوتك
             </motion.span>
 
@@ -130,7 +130,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
 
             <motion.p {...rise(0.45)}
               className="mb-11 max-w-xl"
-              style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2 }}>
+              style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2 }}>
               للجهات شراكاتٌ نوعية تدعم البرامج وتوسّع دائرة الأثر،
               وللأفراد تطوّعٌ يصنع فرقاً حقيقياً.
             </motion.p>
@@ -155,11 +155,11 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
               >
                 <span className="flex flex-col items-start" style={{ lineHeight: 1.35 }}>
                   <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '10.5px', fontWeight: 400, letterSpacing: '0.1em' }}>للجهات</span>
-                  <span style={{ color: 'white', fontWeight: 700, fontSize: '17px' }}>كن شريكًا</span>
+                  <span style={{ color: 'var(--on-accent)', fontWeight: 700, fontSize: '17px' }}>كن شريكًا</span>
                 </span>
                 <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                   background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.35)' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="on-accent" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 5 12 12 19" />
                   </svg>
                 </span>
@@ -172,19 +172,19 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
                 className="flex items-center gap-4"
                 style={{
                   borderRadius: '999px', padding: '9px 30px 9px 9px', cursor: 'pointer',
-                  background: 'linear-gradient(150deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 100%)',
+                  background: 'linear-gradient(150deg, var(--line) 0%, var(--glass-a) 100%)',
                   backdropFilter: 'var(--glass, blur(18px))', WebkitBackdropFilter: 'var(--glass, blur(18px))',
                   border: '1px solid rgba(77,179,212,0.55)',
-                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25)',
+                  boxShadow: 'inset 0 1px 0 var(--line-strong)',
                 }}
               >
                 <span className="flex flex-col items-start" style={{ lineHeight: 1.35 }}>
                   <span style={{ color: '#8fd0e8', fontSize: '10.5px', fontWeight: 400, letterSpacing: '0.1em' }}>للأفراد</span>
-                  <span style={{ color: 'white', fontWeight: 700, fontSize: '17px' }}>تطوّع معنا</span>
+                  <span style={{ color: 'var(--ink)', fontWeight: 700, fontSize: '17px' }}>تطوّع معنا</span>
                 </span>
                 <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                   background: 'linear-gradient(135deg, #4db3d4 0%, #2fa7cc 100%)', boxShadow: '0 0 16px rgba(77,179,212,0.5)' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="on-accent" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 5 12 12 19" />
                   </svg>
                 </span>
@@ -197,9 +197,9 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.85 }}
               whileHover={{ scale: 1.03 }}
               className="mt-9 cursor-pointer border-none bg-transparent"
-              style={{ color: '#a2becf', fontSize: '14px', fontWeight: 300 }}
+              style={{ color: 'var(--muted)', fontSize: '14px', fontWeight: 300 }}
             >
-              لديك استفسار؟ <span style={{ color: '#f4a63f', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تواصل معنا</span>
+              لديك استفسار؟ <span style={{ color: 'var(--accent-text)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تواصل معنا</span>
             </motion.button>
           </div>
         </div>

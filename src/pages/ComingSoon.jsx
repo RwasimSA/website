@@ -22,9 +22,9 @@ export default function ComingSoon({ eyebrow = 'المركز الإعلامي', 
       </motion.div>
 
       <motion.h1 style={{ ...text.sectionTitle, fontSize: '34px' }} className="mb-4" {...rise(0.1)}>{title}</motion.h1>
-      <motion.p style={{ color: '#b6ccd6', fontWeight: 300, fontSize: '15px', maxWidth: '420px' }} {...rise(0.16)}>{subtitle}</motion.p>
+      <motion.p style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '15px', maxWidth: '420px' }} {...rise(0.16)}>{subtitle}</motion.p>
 
-      <motion.span {...rise(0.22)} style={{ marginTop: '26px', color: '#d8c8a4', fontSize: '12px', fontWeight: 500, padding: '6px 18px', borderRadius: '999px', background: 'rgba(239,145,34,0.16)', border: '0.5px solid rgba(239,145,34,0.3)' }}>قريباً</motion.span>
+      <motion.span {...rise(0.22)} style={{ marginTop: '26px', color: 'var(--gold)', fontSize: '12px', fontWeight: 500, padding: '6px 18px', borderRadius: '999px', background: 'rgba(239,145,34,0.16)', border: '0.5px solid rgba(239,145,34,0.3)' }}>قريباً</motion.span>
     </div>
   )
 }

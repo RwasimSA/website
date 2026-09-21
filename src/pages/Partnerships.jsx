@@ -58,7 +58,7 @@ const SectionTitle = ({ children, delay = 0 }) => (
 
 const Lead = ({ children, delay = 0.08 }) => (
   <motion.p {...rise(delay)} className="mx-auto mb-12 max-w-3xl text-center"
-    style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
+    style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
     {children}
   </motion.p>
 )
@@ -73,7 +73,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
           {site.backCta && <img src={site.backCta} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(8,38,51,0.92) 0%, rgba(13,58,77,0.82) 45%, rgba(4,23,32,0.97) 100%)' }} />
+            background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
           <motion.h1 {...rise(0)} className="mb-6 text-white"
@@ -87,7 +87,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
             }}>توسّع الأثر</span>
           </motion.h1>
           <motion.p {...rise(0.1)} className="max-w-3xl"
-            style={{ color: '#dcebf2', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
+            style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
             تعمل رواسم مع شركائها على دعم البرامج والتجارب التربوية، وتوسيع نطاق الوصول والأثر، من خلال
             تعاون يجمع الإمكانات والخبرات حول فرص تخدم الطفل وتدعم رسالة الجمعية.
           </motion.p>
@@ -113,8 +113,8 @@ export default function Partnerships({ onOpenPage = () => {} }) {
                 style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
                 <img src={w.icon} alt="" aria-hidden="true" draggable="false" style={{ width: '35px', height: '35px' }} />
               </div>
-              <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '21px', margin: '0 0 10px' }}>{w.title}</h3>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{w.body}</p>
+              <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '21px', margin: '0 0 10px' }}>{w.title}</h3>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{w.body}</p>
             </motion.div>
           ))}
         </div>
@@ -139,7 +139,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
             <div aria-hidden="true" className="pointer-events-none absolute"
               style={{ top: '-40%', right: '-10%', width: '45%', height: '110%', borderRadius: '50%',
                 background: 'radial-gradient(ellipse, rgba(239,145,34,0.14) 0%, transparent 65%)', filter: 'blur(55px)' }} />
-            <p className="relative" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: 0 }}>
+            <p className="relative" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: 0 }}>
               20 شراكة في أحدث بيانات رواسم المعتمدة —
               <br />
               تُعرض شعارات شركائنا هنا فور اعتمادها للنشر.
@@ -154,8 +154,8 @@ export default function Partnerships({ onOpenPage = () => {} }) {
             style={{ top: '-40%', right: '-8%', width: '42%', height: '120%', borderRadius: '50%',
               background: 'radial-gradient(ellipse, rgba(239,145,34,0.18) 0%, transparent 65%)', filter: 'blur(55px)' }} />
           <div className="flex flex-col items-center text-center">
-            <span style={{ color: '#f4a63f', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.04em' }}>ابدأ شراكة مع رواسم</span>
-            <h3 className="mt-3" style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: 'clamp(26px, 3.2vw, 40px)', margin: '12px 0 0' }}>
+            <span style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.04em' }}>ابدأ شراكة مع رواسم</span>
+            <h3 className="mt-3" style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: 'clamp(26px, 3.2vw, 40px)', margin: '12px 0 0' }}>
               لنبنِ{' '}
               <span style={{
                 backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)',
@@ -164,7 +164,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
                 padding: '0.35em 0.1em', margin: '-0.35em -0.1em',
               }}>فرصة مشتركة</span>
             </h3>
-            <p className="mt-5 max-w-2xl" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: '20px 0 0' }}>
+            <p className="mt-5 max-w-2xl" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: '20px 0 0' }}>
               إذا كانت لدى جهتك فرصة للتعاون مع رواسم في برنامج أو مبادرة أو مشروع، يسعدنا التعرف عليها
               وبحث إمكانات العمل المشترك.
             </p>
@@ -175,8 +175,8 @@ export default function Partnerships({ onOpenPage = () => {} }) {
               style={{ borderRadius: '999px', padding: '14px 30px', border: 'none',
                 background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)',
                 boxShadow: '0 10px 26px rgba(239,145,34,0.35)' }}>
-              <span style={{ color: 'white', fontWeight: 600, fontSize: '15px' }}>اقترح شراكة</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <span style={{ color: 'var(--on-accent)', fontWeight: 600, fontSize: '15px' }}>اقترح شراكة</span>
+              <svg className="on-accent" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </motion.button>

@@ -144,7 +144,7 @@ const SectionTitle = ({ children, delay = 0 }) => (
 
 const Lead = ({ children, delay = 0.08 }) => (
   <motion.p {...rise(delay)} className="mx-auto mb-12 max-w-3xl text-center"
-    style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
+    style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
     {children}
   </motion.p>
 )
@@ -178,7 +178,7 @@ export default function Saif({ onOpenPage = () => {} }) {
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
           {PROG.logo && <motion.img {...rise(0)} src={PROG.logo} alt="صيف رواسم" draggable="false"
             className="mb-8 h-[110px] w-auto object-contain"
-            style={{ filter: 'drop-shadow(0 6px 16px rgba(3,15,21,0.4))' }} />}
+            style={{ filter: 'drop-shadow(0 6px 16px var(--shadow))' }} />}
           <motion.h1 {...rise(0.08)} className="mb-6 text-white"
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(30px, 4vw, 52px)', lineHeight: 1.45 }}>
             صيفٌ تتحول فيه الأيام إلى تجارب{' '}
@@ -190,7 +190,7 @@ export default function Saif({ onOpenPage = () => {} }) {
             }}>تصنع أثرًا</span>
           </motion.h1>
           <motion.p {...rise(0.16)} className="mb-9 max-w-3xl"
-            style={{ color: '#dcebf2', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
+            style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
             {HERO_TEXT}
           </motion.p>
           {/* بطاقتا الفئة والطبيعة */}
@@ -202,8 +202,8 @@ export default function Saif({ onOpenPage = () => {} }) {
               <div key={c.k} className="flex items-center gap-3"
                 style={glass({ borderRadius: '999px', padding: '11px 22px' })}>
                 <span style={{ color: ACCENT, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.08em' }}>{c.k}</span>
-                <span style={{ width: '1px', height: '14px', background: 'rgba(255,255,255,0.25)' }} />
-                <span style={{ color: 'white', fontWeight: 400, fontSize: '13.5px' }}>{c.v}</span>
+                <span style={{ width: '1px', height: '14px', background: 'var(--line-strong)' }} />
+                <span style={{ color: 'var(--ink)', fontWeight: 400, fontSize: '13.5px' }}>{c.v}</span>
               </div>
             ))}
           </motion.div>
@@ -224,7 +224,7 @@ export default function Saif({ onOpenPage = () => {} }) {
           <span aria-hidden="true" className="mb-6 block h-[3px] w-14 rounded-full"
             style={{ background: `linear-gradient(90deg, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66`, marginTop: '-16px' }} />
           {ABOUT.map((p, i) => (
-            <p key={i} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, marginBottom: i === 0 ? '14px' : 0 }}>{p}</p>
+            <p key={i} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, marginBottom: i === 0 ? '14px' : 0 }}>{p}</p>
           ))}
         </motion.div>
 
@@ -235,7 +235,7 @@ export default function Saif({ onOpenPage = () => {} }) {
             <motion.div key={i} {...rise(0.08 + i * 0.08)} className="relative overflow-hidden"
               style={glass({ borderRadius: '24px', padding: '30px 28px' })}>
               <div style={{ position: 'absolute', top: 0, right: 0, width: '4px', height: '100%', background: `linear-gradient(180deg, ${ACCENT}, transparent)` }} />
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2.05, margin: 0 }}>{p}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2.05, margin: 0 }}>{p}</p>
             </motion.div>
           ))}
         </div>
@@ -254,9 +254,9 @@ export default function Saif({ onOpenPage = () => {} }) {
               <IconChip src={c.icon} />
               <div className="mb-4 mt-5 flex items-center gap-3">
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 12px ${ACCENT}` }} />
-                <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '21px', margin: 0 }}>{c.title}</h3>
+                <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '21px', margin: 0 }}>{c.title}</h3>
               </div>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{c.body}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{c.body}</p>
             </motion.div>
           ))}
         </div>
@@ -265,7 +265,7 @@ export default function Saif({ onOpenPage = () => {} }) {
         <motion.div {...rise(0.1)} className="mb-12 flex flex-wrap items-center justify-center gap-2.5">
           {LOGIC.map((step, i) => (
             <div key={step} className="flex items-center gap-2.5">
-              <span style={{ ...glass({ borderRadius: '999px', padding: '10px 20px' }), color: 'white', fontWeight: 400, fontSize: '13.5px',
+              <span style={{ ...glass({ borderRadius: '999px', padding: '10px 20px' }), color: 'var(--ink)', fontWeight: 400, fontSize: '13.5px',
                 border: '0.5px solid rgba(93,184,164,0.32)' }}>
                 {step}
               </span>
@@ -289,14 +289,14 @@ export default function Saif({ onOpenPage = () => {} }) {
               border: '0.5px solid rgba(93,184,164,0.4)' }}>
               أحدث نسخة
             </span>
-            <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '22px', margin: 0 }}>{SEASON_LABEL}</h3>
+            <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '22px', margin: 0 }}>{SEASON_LABEL}</h3>
           </div>
           <div className="grid gap-x-8 gap-y-4 md:grid-cols-2">
             {SEASON_ROWS.map((r) => (
               <div key={r.k} className="flex items-start gap-3">
                 <span className="mt-2.5 flex-shrink-0" style={{ width: '7px', height: '7px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 10px ${ACCENT}` }} />
-                <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 1.9, margin: 0 }}>
-                  <span style={{ color: 'white', fontWeight: 500 }}>{r.k}: </span>{r.v}
+                <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 1.9, margin: 0 }}>
+                  <span style={{ color: 'var(--ink)', fontWeight: 500 }}>{r.k}: </span>{r.v}
                 </p>
               </div>
             ))}
@@ -315,8 +315,8 @@ export default function Saif({ onOpenPage = () => {} }) {
                 style={{ top: '-40%', left: '-15%', width: '55%', height: '100%', borderRadius: '50%',
                   background: 'radial-gradient(ellipse, rgba(93,184,164,0.14) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <IconChip src={b.icon} size={58} />
-              <h3 className="mt-5" style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '21px', margin: '20px 0 0' }}>{b.title}</h3>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: '14px 0 0' }}>{b.body}</p>
+              <h3 className="mt-5" style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '21px', margin: '20px 0 0' }}>{b.title}</h3>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: '14px 0 0' }}>{b.body}</p>
             </motion.div>
           ))}
         </div>
@@ -334,9 +334,9 @@ export default function Saif({ onOpenPage = () => {} }) {
                   background: 'radial-gradient(ellipse, rgba(93,184,164,0.14) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <div className="flex items-center gap-4">
                 <IconChip src={d.icon} size={58} />
-                <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '22px', margin: 0 }}>{d.title}</h3>
+                <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '22px', margin: 0 }}>{d.title}</h3>
               </div>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: '16px 0 0' }}>{d.body}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: '16px 0 0' }}>{d.body}</p>
             </motion.div>
           ))}
         </div>
@@ -355,7 +355,7 @@ export default function Saif({ onOpenPage = () => {} }) {
                 backgroundImage: 'linear-gradient(120deg, #a9e2d3, #5db8a4)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{s.value}</span>
               <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
-              <span style={{ color: '#b6ccd6', fontWeight: 300, fontSize: '14px', marginTop: '10px' }}>{s.label}</span>
+              <span style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '14px', marginTop: '10px' }}>{s.label}</span>
             </motion.div>
           ))}
         </div>
@@ -366,8 +366,8 @@ export default function Saif({ onOpenPage = () => {} }) {
             onClick={() => onOpenPage('inquiries')}
             whileHover={{ scale: 1.03 }}
             className="cursor-pointer border-none bg-transparent"
-            style={{ color: '#a2becf', fontSize: '14.5px', fontWeight: 300 }}>
-            للاستفسار عن صيف رواسم؟ <span style={{ color: '#f4a63f', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تواصل معنا</span>
+            style={{ color: 'var(--muted)', fontSize: '14.5px', fontWeight: 300 }}>
+            للاستفسار عن صيف رواسم؟ <span style={{ color: 'var(--accent-text)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تواصل معنا</span>
           </motion.button>
         </div>
       </div>

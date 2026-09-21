@@ -120,7 +120,7 @@ const SectionTitle = ({ children, delay = 0 }) => (
 
 const Lead = ({ children, delay = 0.08 }) => (
   <motion.p {...rise(delay)} className="mx-auto mb-12 max-w-3xl text-center"
-    style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
+    style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
     {children}
   </motion.p>
 )
@@ -154,7 +154,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
           {PROG.logo && <motion.img {...rise(0)} src={PROG.logo} alt="أشبال رواسم" draggable="false"
             className="mb-8 h-[110px] w-auto object-contain"
-            style={{ filter: 'drop-shadow(0 6px 16px rgba(3,15,21,0.4))' }} />}
+            style={{ filter: 'drop-shadow(0 6px 16px var(--shadow))' }} />}
           <motion.h1 {...rise(0.08)} className="mb-6 text-white"
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(30px, 4vw, 52px)', lineHeight: 1.45 }}>
             قيمٌ يعيشها الطفل في تجارب قريبة من{' '}
@@ -166,7 +166,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
             }}>عالمه</span>
           </motion.h1>
           <motion.p {...rise(0.16)} className="mb-9 max-w-3xl"
-            style={{ color: '#dcebf2', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
+            style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
             {HERO_TEXT}
           </motion.p>
           {/* بطاقتا الفئة والطبيعة */}
@@ -178,8 +178,8 @@ export default function Ashbal({ onOpenPage = () => {} }) {
               <div key={c.k} className="flex items-center gap-3"
                 style={glass({ borderRadius: '999px', padding: '11px 22px' })}>
                 <span style={{ color: ACCENT, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.08em' }}>{c.k}</span>
-                <span style={{ width: '1px', height: '14px', background: 'rgba(255,255,255,0.25)' }} />
-                <span style={{ color: 'white', fontWeight: 400, fontSize: '13.5px' }}>{c.v}</span>
+                <span style={{ width: '1px', height: '14px', background: 'var(--line-strong)' }} />
+                <span style={{ color: 'var(--ink)', fontWeight: 400, fontSize: '13.5px' }}>{c.v}</span>
               </div>
             ))}
           </motion.div>
@@ -200,7 +200,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
           <span aria-hidden="true" className="mb-6 block h-[3px] w-14 rounded-full"
             style={{ background: `linear-gradient(90deg, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66`, marginTop: '-16px' }} />
           {ABOUT.map((p, i) => (
-            <p key={i} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, marginBottom: i === 0 ? '14px' : 0 }}>{p}</p>
+            <p key={i} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, marginBottom: i === 0 ? '14px' : 0 }}>{p}</p>
           ))}
         </motion.div>
 
@@ -209,7 +209,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
         <motion.div {...rise(0.08)} className="relative mx-auto mb-24 max-w-3xl overflow-hidden"
           style={glass({ borderRadius: '24px', padding: '32px 30px' })}>
           <div style={{ position: 'absolute', top: 0, right: 0, width: '4px', height: '100%', background: `linear-gradient(180deg, ${ACCENT}, transparent)` }} />
-          <p className="text-center" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>{FOR_WHO}</p>
+          <p className="text-center" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>{FOR_WHO}</p>
         </motion.div>
 
         {/* ═══ كيف يعمل أشبال رواسم؟ — المشاريع ═══ */}
@@ -228,9 +228,9 @@ export default function Ashbal({ onOpenPage = () => {} }) {
               <IconChip src={h.icon} />
               <div className="mb-4 mt-5 flex items-center gap-3">
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 12px ${ACCENT}` }} />
-                <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '22px', margin: 0 }}>{h.title}</h3>
+                <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '22px', margin: 0 }}>{h.title}</h3>
               </div>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>{h.body}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>{h.body}</p>
             </motion.div>
           ))}
         </div>
@@ -245,8 +245,8 @@ export default function Ashbal({ onOpenPage = () => {} }) {
               className="flex flex-col items-center gap-4 text-center"
               style={glass({ borderRadius: '24px', padding: '28px 20px' })}>
               <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 10px ${ACCENT}` }} />
-              <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '18.5px', lineHeight: 1.7, margin: 0 }}>{b.value}</h3>
-              <span className="mt-auto" style={{ color: '#a2becf', fontWeight: 300, fontSize: '12.5px' }}>
+              <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '18.5px', lineHeight: 1.7, margin: 0 }}>{b.value}</h3>
+              <span className="mt-auto" style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '12.5px' }}>
                 يظهر في <span style={{ color: ACCENT, fontWeight: 500 }}>{b.project}</span>
               </span>
             </motion.div>
@@ -265,8 +265,8 @@ export default function Ashbal({ onOpenPage = () => {} }) {
                 style={{ top: '-40%', left: '-15%', width: '55%', height: '100%', borderRadius: '50%',
                   background: 'radial-gradient(ellipse, rgba(127,184,212,0.14) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <IconChip src={d.icon} size={58} />
-              <h3 className="mt-5" style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '21px', margin: '20px 0 0' }}>{d.title}</h3>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: '14px 0 0' }}>{d.body}</p>
+              <h3 className="mt-5" style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '21px', margin: '20px 0 0' }}>{d.title}</h3>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: '14px 0 0' }}>{d.body}</p>
             </motion.div>
           ))}
         </div>
@@ -284,7 +284,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
                 backgroundImage: 'linear-gradient(120deg, #cfe8f5, #7fb8d4)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{s.value}</span>
               <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
-              <span style={{ color: '#b6ccd6', fontWeight: 300, fontSize: '14px', marginTop: '10px' }}>{s.label}</span>
+              <span style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '14px', marginTop: '10px' }}>{s.label}</span>
             </motion.div>
           ))}
         </div>
@@ -300,7 +300,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
               color: 'transparent', WebkitTextFillColor: 'transparent' }}>
               من التجربة إلى السلوك
             </h3>
-            <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: '12px auto 0', maxWidth: '640px' }}>
+            <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: '12px auto 0', maxWidth: '640px' }}>
               تبنى المشاريع بصورة تنتقل بالمعنى من القيمة إلى التطبيق العملي والسلوك.
             </p>
           </div>
@@ -312,8 +312,8 @@ export default function Ashbal({ onOpenPage = () => {} }) {
             onClick={() => onOpenPage('inquiries')}
             whileHover={{ scale: 1.03 }}
             className="cursor-pointer border-none bg-transparent"
-            style={{ color: '#a2becf', fontSize: '14.5px', fontWeight: 300 }}>
-            للاستفسار عن أشبال رواسم؟ <span style={{ color: '#f4a63f', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تواصل معنا</span>
+            style={{ color: 'var(--muted)', fontSize: '14.5px', fontWeight: 300 }}>
+            للاستفسار عن أشبال رواسم؟ <span style={{ color: 'var(--accent-text)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تواصل معنا</span>
           </motion.button>
         </div>
       </div>

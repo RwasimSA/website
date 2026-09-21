@@ -6,13 +6,14 @@
  * بل تُتدرّج الدرجة عبر لون صلب. (ألوان النص أدناه كلها صلبة.)
  */
 
-/* ───────────── الألوان ───────────── */
+/* ───────────── الألوان ─────────────
+ * ألوان النص والأسطح متغيرات CSS (index.css) تتبدل بين الوضع الداكن والفاتح. */
 export const color = {
   // النحاسي — لون التمييز والدعوة للفعل (CTA)
   copper:      '#ef9122',
   copperHover: '#f4a63f',
   copperDeep:  '#c9760f',
-  gold:        '#d8c8a4', // وسوم التصنيف
+  gold:        'var(--gold)', // وسوم التصنيف
 
   // التدرّج البنفسجي — الخلفيات والتوهّجات
   purple100: '#2fa7cc',
@@ -23,12 +24,12 @@ export const color = {
   purpleAccent: '#12719a',
 
   // النصوص — جميعها معتمة 100%
-  textPrimary: '#ffffff', // عناوين ونصوص أساسية
-  textLead:    '#d2e9f2', // فقرة الهيرو التمهيدية
-  textSoft:    '#a2becf', // نص ثانوي ليّن (أسئلة/تلميحات)
-  textMuted:   '#8fa6b0', // تسميات صغيرة / overline داخل البطاقات
-  textBody:    '#b6ccd6', // فقرات البطاقات — أقل وضوحاً من الأبيض (معتم 100%)
-  textNav:     '#bcd9e6', // روابط شريط التنقّل
+  textPrimary: 'var(--ink)',   // عناوين ونصوص أساسية
+  textLead:    'var(--ink-2)', // فقرة الهيرو التمهيدية
+  textSoft:    'var(--muted)', // نص ثانوي ليّن (أسئلة/تلميحات)
+  textMuted:   'var(--muted)', // تسميات صغيرة / overline داخل البطاقات
+  textBody:    'var(--ink-3)', // فقرات البطاقات — أقل وضوحاً من الأبيض (معتم 100%)
+  textNav:     'var(--ink-3)', // روابط شريط التنقّل
 }
 
 /* ───────────── تدرّجات جاهزة ───────────── */
@@ -50,9 +51,10 @@ export const blur = { glass: 20 }
 /* ───────────── الزجاج: النمط الموحّد للأسطح ─────────────
  * ملاحظة: بلا ظلال صندوقية — الاعتماد على الحدود الزجاجية الرفيعة فقط. */
 export const glass = (extra = {}) => ({
-  background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
-  border: '0.5px solid rgba(255,255,255,0.12)',
-  borderTop: '0.5px solid rgba(255,255,255,0.20)',
+  background: 'linear-gradient(145deg, var(--glass-a) 0%, var(--glass-b) 100%)',
+  border: '0.5px solid var(--line)',
+  borderTop: '0.5px solid var(--line-strong)',
+  boxShadow: 'var(--card-shadow)',
   backdropFilter: 'var(--glass, blur(20px))',
   WebkitBackdropFilter: 'var(--glass, blur(20px))',
   borderRadius: radius.md,

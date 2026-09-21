@@ -57,10 +57,10 @@ function MediaShell({ title, children, current, onOpenPage }) {
           <img src="https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg" alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />
           <div style={{ position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(8,38,51,0.92) 0%, rgba(13,58,77,0.82) 45%, rgba(4,23,32,0.97) 100%)' }} />
+            background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
-          <motion.span {...rise(0)} style={{ color: '#f4a63f', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.05em', marginBottom: '14px' }}>
+          <motion.span {...rise(0)} style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.05em', marginBottom: '14px' }}>
             المركز الإعلامي
           </motion.span>
           <motion.h1 {...rise(0.05)} className="mb-6 text-white"
@@ -77,12 +77,12 @@ function MediaShell({ title, children, current, onOpenPage }) {
 
         {/* بقية صفحات المركز الإعلامي */}
         <div className="mt-24 flex flex-col items-center">
-          <span className="mb-5" style={{ color: '#a2becf', fontWeight: 300, fontSize: '13.5px' }}>المزيد في المركز الإعلامي:</span>
+          <span className="mb-5" style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '13.5px' }}>المزيد في المركز الإعلامي:</span>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {MEDIA_PAGES.filter((g) => g.key !== current).map((g) => (
               <button key={g.key} type="button" onClick={() => onOpenPage(g.key)}
                 className="cursor-pointer"
-                style={{ ...glass({ borderRadius: '999px', padding: '10px 22px' }), color: 'white', fontWeight: 400, fontSize: '13px',
+                style={{ ...glass({ borderRadius: '999px', padding: '10px 22px' }), color: 'var(--ink)', fontWeight: 400, fontSize: '13px',
                   border: '0.5px solid rgba(239,145,34,0.28)' }}>
                 {g.label}
               </button>
@@ -92,8 +92,8 @@ function MediaShell({ title, children, current, onOpenPage }) {
             onClick={() => onOpenPage('inquiries')}
             whileHover={{ scale: 1.03 }}
             className="mt-10 cursor-pointer border-none bg-transparent"
-            style={{ color: '#a2becf', fontSize: '14.5px', fontWeight: 300 }}>
-            لطلبات التغطية والمحتوى الإعلامي؟ <span style={{ color: '#f4a63f', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تواصل معنا</span>
+            style={{ color: 'var(--muted)', fontSize: '14.5px', fontWeight: 300 }}>
+            لطلبات التغطية والمحتوى الإعلامي؟ <span style={{ color: 'var(--accent-text)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تواصل معنا</span>
           </motion.button>
         </div>
       </div>
@@ -111,19 +111,19 @@ function Lightbox({ video, onClose }) {
   return (
     <motion.div
       className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
-      style={{ background: 'rgba(3,15,21,0.88)', backdropFilter: 'var(--glass, blur(14px))', WebkitBackdropFilter: 'var(--glass, blur(14px))' }}
+      style={{ background: 'var(--shadow)', backdropFilter: 'var(--glass, blur(14px))', WebkitBackdropFilter: 'var(--glass, blur(14px))' }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       onClick={onClose}>
       <button type="button" onClick={onClose} aria-label="إغلاق"
         className="absolute left-5 top-5 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full"
-        style={{ background: 'rgba(255,255,255,0.08)', border: '0.5px solid rgba(255,255,255,0.2)' }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+        style={{ background: 'var(--glass-a)', border: '0.5px solid var(--line)' }}>
+        <svg className="on-accent" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
           <line x1="6" y1="6" x2="18" y2="18" /><line x1="6" y1="18" x2="18" y2="6" />
         </svg>
       </button>
       <motion.div
         className="w-full max-w-4xl overflow-hidden"
-        style={{ borderRadius: '22px', aspectRatio: '16 / 9', border: '0.5px solid rgba(255,255,255,0.2)', boxShadow: '0 40px 100px rgba(0,0,0,0.6)' }}
+        style={{ borderRadius: '22px', aspectRatio: '16 / 9', border: '0.5px solid var(--line)', boxShadow: '0 40px 100px rgba(0,0,0,0.6)' }}
         initial={{ scale: 0.94, y: 14 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.94, y: 14 }}
         onClick={(e) => e.stopPropagation()}>
         <iframe
@@ -158,13 +158,13 @@ function MediaNews({ onOpenPage }) {
               )}
               <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
                 <div className="mb-2.5 flex flex-wrap items-center gap-2">
-                  {n.tag && <span style={{ color: '#f4a63f', fontWeight: 600, fontSize: '11.5px' }}>{n.tag}</span>}
-                  {n.date && <span style={{ color: '#8fb0c1', fontWeight: 300, fontSize: '11.5px' }} dir="ltr">{n.date}</span>}
+                  {n.tag && <span style={{ color: 'var(--accent-text)', fontWeight: 600, fontSize: '11.5px' }}>{n.tag}</span>}
+                  {n.date && <span style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '11.5px' }} dir="ltr">{n.date}</span>}
                 </div>
-                <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '17px', lineHeight: 1.7, margin: '0 0 8px' }}>{n.title}</h3>
-                {n.summary && <p style={{ color: '#c9dde8', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.95, margin: 0 }}>{n.summary}</p>}
+                <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '17px', lineHeight: 1.7, margin: '0 0 8px' }}>{n.title}</h3>
+                {n.summary && <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.95, margin: 0 }}>{n.summary}</p>}
                 <span className="mt-4 flex items-center gap-1.5"
-                  style={{ color: '#f4a63f', fontWeight: 500, fontSize: '12.5px' }}>
+                  style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '12.5px' }}>
                   اقرأ الخبر
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"
                     strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -181,7 +181,7 @@ function MediaNews({ onOpenPage }) {
           <div aria-hidden="true" className="pointer-events-none absolute"
             style={{ top: '-40%', right: '-10%', width: '45%', height: '110%', borderRadius: '50%',
               background: 'radial-gradient(ellipse, rgba(239,145,34,0.14) 0%, transparent 65%)', filter: 'blur(55px)' }} />
-          <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>
+          <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>
             تُنشر أخبار رواسم وتحديثاتها هنا فور صدورها.
             <br />
             حتى ذلك الحين، تابع جديدنا لحظة بلحظة عبر حساباتنا الرسمية.
@@ -194,7 +194,7 @@ function MediaNews({ onOpenPage }) {
               { label: 'سناب شات', href: 'https://www.snapchat.com/add/RwasimSA' },
             ].map((s) => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                style={{ ...glass({ borderRadius: '999px', padding: '9px 20px' }), color: 'white', fontWeight: 500, fontSize: '13px',
+                style={{ ...glass({ borderRadius: '999px', padding: '9px 20px' }), color: 'var(--ink)', fontWeight: 500, fontSize: '13px',
                   textDecoration: 'none', border: '0.5px solid rgba(239,145,34,0.32)' }}>
                 {s.label}
               </a>
@@ -224,12 +224,12 @@ function NewsArticle({ slug, onOpenPage }) {
             ? <img src={n.image} alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />
             : <img src="https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg" alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(8,38,51,0.93) 0%, rgba(13,58,77,0.86) 45%, rgba(4,23,32,0.97) 100%)' }} />
+            background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
           <motion.button {...rise(0)} type="button" onClick={() => onOpenPage('media-news')}
             className="mb-5 flex cursor-pointer items-center gap-1.5 border-none bg-transparent"
-            style={{ color: '#f4a63f', fontWeight: 500, fontSize: '13px' }}>
+            style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13px' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"
               strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
@@ -243,11 +243,11 @@ function NewsArticle({ slug, onOpenPage }) {
           <motion.div {...rise(0.09)} className="flex flex-wrap items-center justify-center gap-3">
             {n.tag && (
               <span style={{ ...glass({ borderRadius: '999px', padding: '6px 16px' }),
-                color: '#f4a63f', fontWeight: 600, fontSize: '12px', border: '0.5px solid rgba(239,145,34,0.32)' }}>
+                color: 'var(--accent-text)', fontWeight: 600, fontSize: '12px', border: '0.5px solid rgba(239,145,34,0.32)' }}>
                 {n.tag}
               </span>
             )}
-            {n.date && <span dir="ltr" style={{ color: '#8fb0c1', fontWeight: 300, fontSize: '12.5px' }}>{n.date}</span>}
+            {n.date && <span dir="ltr" style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '12.5px' }}>{n.date}</span>}
           </motion.div>
         </div>
       </div>
@@ -256,7 +256,7 @@ function NewsArticle({ slug, onOpenPage }) {
         {/* صورة الخبر كاملة */}
         {n.image && (
           <motion.div {...rise(0.05)} className="mb-10 overflow-hidden"
-            style={{ borderRadius: '24px', border: '0.5px solid rgba(255,255,255,0.16)', boxShadow: '0 22px 50px rgba(3,15,21,0.35)' }}>
+            style={{ borderRadius: '24px', border: '0.5px solid var(--line)', boxShadow: '0 22px 50px var(--shadow)' }}>
             <img src={n.image} alt={n.title} draggable="false" className="block w-full" />
           </motion.div>
         )}
@@ -264,9 +264,9 @@ function NewsArticle({ slug, onOpenPage }) {
         {/* نص الخبر */}
         <motion.div {...rise(0.1)}>
           {paragraphs.length > 0 ? paragraphs.map((p, i) => (
-            <p key={i} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.15, margin: '0 0 18px' }}>{p}</p>
+            <p key={i} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.15, margin: '0 0 18px' }}>{p}</p>
           )) : (
-            <p style={{ color: '#a2becf', fontWeight: 300, fontSize: '15px', lineHeight: 2.1, margin: 0 }}>
+            <p style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '15px', lineHeight: 2.1, margin: 0 }}>
               يُنشر نص هذا الخبر كاملاً قريباً.
             </p>
           )}
@@ -290,8 +290,8 @@ function NewsArticle({ slug, onOpenPage }) {
                     </div>
                   )}
                   <div className="px-4 pb-4 pt-3">
-                    {x.date && <span dir="ltr" style={{ color: '#8fb0c1', fontWeight: 300, fontSize: '11px' }}>{x.date}</span>}
-                    <h3 style={{ color: 'white', fontWeight: 600, fontSize: '13.5px', lineHeight: 1.75, margin: '4px 0 0' }}>{x.title}</h3>
+                    {x.date && <span dir="ltr" style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '11px' }}>{x.date}</span>}
+                    <h3 style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '13.5px', lineHeight: 1.75, margin: '4px 0 0' }}>{x.title}</h3>
                   </div>
                 </motion.article>
               ))}
@@ -302,7 +302,7 @@ function NewsArticle({ slug, onOpenPage }) {
         {/* العودة */}
         <div className="mt-16 flex justify-center">
           <button type="button" onClick={() => onOpenPage('media-news')} className="cursor-pointer"
-            style={{ ...glass({ borderRadius: '999px', padding: '11px 26px' }), color: 'white', fontWeight: 500,
+            style={{ ...glass({ borderRadius: '999px', padding: '11px 26px' }), color: 'var(--ink)', fontWeight: 500,
               fontSize: '13.5px', border: '0.5px solid rgba(239,145,34,0.3)' }}>
             العودة إلى آخر الأخبار
           </button>
@@ -325,7 +325,7 @@ function MediaCoverage({ onOpenPage }) {
             onClick={() => setPlaying(v)}
             className="group relative cursor-pointer overflow-hidden border-none p-0 text-right"
             style={{ borderRadius: '22px', background: 'transparent',
-              border: '0.5px solid rgba(255,255,255,0.16)', boxShadow: '0 18px 40px rgba(3,15,21,0.3)' }}>
+              border: '0.5px solid var(--line)', boxShadow: '0 18px 40px var(--shadow)' }}>
             <div className="relative" style={{ aspectRatio: '16 / 9' }}>
               <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt={v.title} draggable="false"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
@@ -334,21 +334,21 @@ function MediaCoverage({ onOpenPage }) {
               {/* شارة التشغيل */}
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="flex h-14 w-14 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: 'rgba(255,255,255,0.16)', backdropFilter: 'var(--glass, blur(10px))', WebkitBackdropFilter: 'var(--glass, blur(10px))',
+                  style={{ background: 'var(--line)', backdropFilter: 'var(--glass, blur(10px))', WebkitBackdropFilter: 'var(--glass, blur(10px))',
                     border: '0.5px solid rgba(255,255,255,0.45)' }}>
                   <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"
-                    style={{ marginRight: '2px', filter: 'drop-shadow(0 2px 6px rgba(3,15,21,0.35))' }}>
+                    style={{ marginRight: '2px', filter: 'drop-shadow(0 2px 6px var(--shadow))' }}>
                     <path d="M8.5 6.2v11.6L18.5 12z" fill="white" stroke="white" strokeWidth="3.2" strokeLinejoin="round" strokeLinecap="round" />
                   </svg>
                 </span>
               </span>
               {/* التصنيف */}
               <span className="absolute right-3 top-3" style={{ ...glass({ borderRadius: '999px', padding: '5px 12px' }),
-                color: 'white', fontWeight: 500, fontSize: '11px' }}>
+                color: 'var(--on-accent)', fontWeight: 500, fontSize: '11px' }}>
                 {v.tag}
               </span>
               <h3 className="absolute bottom-3.5 right-4 left-4"
-                style={{ color: 'white', fontWeight: 500, fontSize: '14px', lineHeight: 1.8, margin: 0 }}>
+                style={{ color: 'var(--on-accent)', fontWeight: 500, fontSize: '14px', lineHeight: 1.8, margin: 0 }}>
                 {v.title}
               </h3>
             </div>
@@ -359,7 +359,7 @@ function MediaCoverage({ onOpenPage }) {
       <motion.div {...rise(0.08)} className="flex justify-center">
         <a href="https://www.youtube.com/@RwasimSA" target="_blank" rel="noopener noreferrer"
           className="flex items-center gap-2.5"
-          style={{ ...glass({ borderRadius: '999px', padding: '11px 24px' }), color: 'white', fontWeight: 500, fontSize: '13.5px', textDecoration: 'none' }}>
+          style={{ ...glass({ borderRadius: '999px', padding: '11px 24px' }), color: 'var(--ink)', fontWeight: 500, fontSize: '13.5px', textDecoration: 'none' }}>
           <svg width="17" height="17" viewBox="0 0 24 24" fill="#f4a63f" aria-hidden="true">
             <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12z" />
           </svg>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GOV_PAGES, MEDIA_PAGES } from '../pages/navPages'
+import { useThemeMode } from '../themeMode'
 
 /* تبويبات الهيدر — مسطحة، وتبويبا المركز الإعلامي والحوكمة قائمتان منسدلتان بصفحاتهما. */
 const nav = [
@@ -22,10 +23,10 @@ const Chevron = ({ open }) => (
 )
 
 const glass = {
-  background: 'rgba(255, 255, 255, 0.05)',
+  background: 'var(--glass-b)',
   backdropFilter: 'var(--glass, blur(20px))',
   WebkitBackdropFilter: 'var(--glass, blur(20px))',
-  border: '0.5px solid rgba(255, 255, 255, 0.18)',
+  border: '0.5px solid var(--line)',
 }
 
 export default function Navbar({ collapsed = false, progress = 0, onOpenPage = () => {} }) {
@@ -33,6 +34,8 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropOpen, setDropOpen] = useState(null)       // اسم التبويب المفتوح منسدلته (سطح المكتب)
   const [mobileBranch, setMobileBranch] = useState(null) // اسم الفرع المفتوح في قائمة الجوال
+  const theme = useThemeMode()
+  const logo = theme === 'light' ? '/images/rawasim-logo-dark.svg' : '/images/rawasim-logo-white.svg'
   const expanded = !collapsed || hovered
   const go = (page) => { onOpenPage(page); setMobileOpen(false); setHovered(false); setDropOpen(null); setMobileBranch(null) }
 
@@ -56,9 +59,9 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
               {/* الشريط */}
               <nav
                 className="flex w-[min(60rem,calc(100vw-2rem))] items-center justify-between gap-6 rounded-full px-6 py-4"
-                style={{ ...glass, boxShadow: '0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.08)' }}
+                style={{ ...glass, boxShadow: '0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 var(--glass-a)' }}
               >
-                <img src="/images/rawasim-logo-white.svg" alt="جمعية رواسم" className="h-8 w-auto cursor-pointer object-contain"
+                <img src={logo} alt="جمعية رواسم" className="h-8 w-auto cursor-pointer object-contain"
                   onClick={() => go(null)} />
 
                 <ul className="hidden items-center gap-6 md:flex">
@@ -69,7 +72,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                       {tab.children ? (
                         <>
                           <a href="#" className="nav-flat-link flex items-center gap-1.5 whitespace-nowrap text-[15px] transition-colors"
-                            style={{ color: dropOpen === tab.label ? '#ffffff' : '#bcd9e6', fontWeight: 400 }}
+                            style={{ color: dropOpen === tab.label ? '#ffffff' : 'var(--ink-3)', fontWeight: 400 }}
                             onClick={(e) => { e.preventDefault(); setDropOpen((o) => (o === tab.label ? null : tab.label)) }}>
                             {tab.label}
                             <Chevron open={dropOpen === tab.label} />
@@ -86,14 +89,14 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                                 }}>
                                 <div style={{
                                   minWidth: '250px', borderRadius: '20px', padding: '10px',
-                                  background: 'linear-gradient(160deg, rgba(11,39,51,0.98) 0%, rgba(6,26,35,0.98) 100%)',
+                                  background: 'var(--panel)',
                                   backdropFilter: 'var(--glass, blur(24px))', WebkitBackdropFilter: 'var(--glass, blur(24px))',
-                                  border: '0.5px solid rgba(255,255,255,0.16)', boxShadow: '0 22px 60px rgba(0,0,0,0.55)',
+                                  border: '0.5px solid var(--line)', boxShadow: '0 22px 60px rgba(0,0,0,0.55)',
                                 }}>
                                   {tab.children.map((c) => (
                                     <a key={c.key} href="#"
                                       className="nav-box block whitespace-nowrap text-right"
-                                      style={{ display: 'block', color: '#bcd9e6', fontWeight: 400, fontSize: '13.5px',
+                                      style={{ display: 'block', color: 'var(--ink-3)', fontWeight: 400, fontSize: '13.5px',
                                         padding: '11px 16px', borderRadius: '13px', textDecoration: 'none',
                                         border: '0.5px solid transparent', transition: 'all 0.2s ease' }}
                                       onClick={(e) => { e.preventDefault(); go(c.key) }}>
@@ -107,7 +110,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                         </>
                       ) : (
                         <a href="#" className="nav-flat-link block whitespace-nowrap text-[15px] transition-colors"
-                          style={{ color: '#bcd9e6', fontWeight: 400 }}
+                          style={{ color: 'var(--ink-3)', fontWeight: 400 }}
                           onClick={(e) => { e.preventDefault(); go(tab.page) }}>
                           {tab.label}
                         </a>
@@ -124,22 +127,22 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                   className="flex flex-shrink-0 items-center gap-2.5"
                   style={{
                     borderRadius: '999px', padding: '5px 16px 5px 5px',
-                    background: 'linear-gradient(135deg, rgba(13,58,77,0.55) 0%, rgba(8,38,51,0.55) 100%)',
+                    background: 'var(--pill)',
                     backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
-                    border: '0.5px solid rgba(255,255,255,0.18)', cursor: 'pointer',
+                    border: '0.5px solid var(--line)', cursor: 'pointer',
                   }}
                 >
-                  <span style={{ color: 'white', fontWeight: 500, fontSize: '13px' }}>تواصل معنا</span>
+                  <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '13px' }}>تواصل معنا</span>
                   <span style={{ width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)', boxShadow: '0 0 12px rgba(239,145,34,0.5)' }}>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="on-accent" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
                   </span>
                 </motion.button>
                   <button type="button" onClick={() => setMobileOpen((o) => !o)} aria-label="القائمة"
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full md:hidden"
-                    style={{ background: 'rgba(255,255,255,0.06)', border: '0.5px solid rgba(255,255,255,0.18)', cursor: 'pointer' }}>
+                    style={{ background: 'var(--glass-a)', border: '0.5px solid var(--line)', cursor: 'pointer' }}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
                       {mobileOpen
                         ? <><line x1="6" y1="6" x2="18" y2="18" /><line x1="6" y1="18" x2="18" y2="6" /></>
@@ -159,22 +162,22 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                     style={{
                       position: 'absolute', top: '100%', insetInline: 0, marginTop: '10px', zIndex: 60,
                       maxHeight: '70vh', overflowY: 'auto', borderRadius: '22px', padding: '16px 22px',
-                      background: 'linear-gradient(160deg, rgba(11,39,51,0.99) 0%, rgba(6,26,35,0.99) 100%)',
+                      background: 'var(--panel)',
                       backdropFilter: 'var(--glass, blur(24px))', WebkitBackdropFilter: 'var(--glass, blur(24px))',
-                      border: '0.5px solid rgba(255,255,255,0.16)', boxShadow: '0 22px 60px rgba(0,0,0,0.6)',
+                      border: '0.5px solid var(--line)', boxShadow: '0 22px 60px rgba(0,0,0,0.6)',
                       textAlign: 'right',
                     }}
                   >
                     {nav.map((tab, i) => (
                       tab.children ? (
                         <div key={tab.label}
-                          style={{ borderBottom: i < nav.length - 1 ? '0.5px solid rgba(255,255,255,0.08)' : 'none' }}>
+                          style={{ borderBottom: i < nav.length - 1 ? '0.5px solid var(--glass-a)' : 'none' }}>
                           <button onClick={() => setMobileBranch((o) => (o === tab.label ? null : tab.label))}
                             className="flex w-full items-center justify-between text-right"
-                            style={{ color: '#ffffff', fontWeight: 500, fontSize: '15px', padding: '12px 0', cursor: 'pointer',
+                            style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '15px', padding: '12px 0', cursor: 'pointer',
                               background: 'transparent', border: 'none' }}>
                             {tab.label}
-                            <span style={{ color: '#f4a63f' }}><Chevron open={mobileBranch === tab.label} /></span>
+                            <span style={{ color: 'var(--accent-text)' }}><Chevron open={mobileBranch === tab.label} /></span>
                           </button>
                           <AnimatePresence>
                             {mobileBranch === tab.label && (
@@ -185,7 +188,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                                 {tab.children.map((c) => (
                                   <button key={c.key} onClick={() => go(c.key)}
                                     className="block w-full text-right"
-                                    style={{ color: '#bcd9e6', fontWeight: 400, fontSize: '13.5px', padding: '9px 18px 9px 0',
+                                    style={{ color: 'var(--ink-3)', fontWeight: 400, fontSize: '13.5px', padding: '9px 18px 9px 0',
                                       cursor: 'pointer', background: 'transparent', border: 'none' }}>
                                     {c.label}
                                   </button>
@@ -198,9 +201,9 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                       ) : (
                         <button key={tab.label} onClick={() => go(tab.page)}
                           className="block w-full text-right"
-                          style={{ color: '#ffffff', fontWeight: 500, fontSize: '15px', padding: '12px 0', cursor: 'pointer',
+                          style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '15px', padding: '12px 0', cursor: 'pointer',
                             background: 'transparent', border: 'none',
-                            borderBottom: i < nav.length - 1 ? '0.5px solid rgba(255,255,255,0.08)' : 'none' }}>
+                            borderBottom: i < nav.length - 1 ? '0.5px solid var(--glass-a)' : 'none' }}>
                           {tab.label}
                         </button>
                       )
@@ -221,7 +224,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
               className="flex cursor-pointer items-center justify-center"
               style={{ padding: '12px 28px', background: 'transparent', border: 'none' }}
             >
-              <span style={{ position: 'relative', display: 'block', overflow: 'hidden', width: '140px', height: '6px', borderRadius: '999px', background: 'rgba(255,255,255,0.18)' }}>
+              <span style={{ position: 'relative', display: 'block', overflow: 'hidden', width: '140px', height: '6px', borderRadius: '999px', background: 'var(--line)' }}>
                 <motion.span
                   style={{ position: 'absolute', insetInlineStart: 0, top: 0, bottom: 0, borderRadius: '999px',
                     background: 'linear-gradient(90deg, #1c81a4 0%, #2fa7cc 45%, #ef9122 100%)', boxShadow: '0 0 10px rgba(239,145,34,0.5)' }}

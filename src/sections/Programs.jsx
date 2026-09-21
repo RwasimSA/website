@@ -73,9 +73,9 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
         borderRadius: '100px',
         padding: '104px 24px 46px',
         minHeight: '400px',
-        background: 'linear-gradient(155deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.015) 70%, rgba(255,255,255,0.05) 100%)',
-        border: '1px solid rgba(255,255,255,0.20)',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(255,255,255,0.06), 0 24px 48px rgba(3,15,21,0.22)',
+        background: 'linear-gradient(155deg, var(--glass-a) 0%, var(--glass-b) 45%, rgba(255,255,255,0.015) 70%, var(--glass-b) 100%)',
+        border: '1px solid var(--line)',
+        boxShadow: 'inset 0 1px 0 var(--line-strong), inset 0 -1px 0 var(--glass-a), 0 24px 48px var(--shadow)',
         backdropFilter: 'var(--glass, blur(26px) saturate(160%))', WebkitBackdropFilter: 'var(--glass, blur(26px) saturate(160%))',
       }}
     >
@@ -83,20 +83,20 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
       {program.logo ? (
         <img src={program.logo} alt={program.name} draggable="false"
           className="relative mb-8 h-[82px] w-auto object-contain"
-          style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.3))', zIndex: 1 }} />
+          style={{ filter: 'drop-shadow(0 4px 10px var(--shadow))', zIndex: 1 }} />
       ) : (
         <span className="relative mb-8 flex h-[82px] items-center"
-          style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: 'white', fontWeight: 700, fontSize: '30px', zIndex: 1,
-            filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.3))' }}>{program.name}</span>
+          style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: 'var(--ink)', fontWeight: 700, fontSize: '30px', zIndex: 1,
+            filter: 'drop-shadow(0 4px 10px var(--shadow))' }}>{program.name}</span>
       )}
 
       {/* السطر التعريفي */}
-      <h3 style={{ position: 'relative', zIndex: 1, color: 'white', fontWeight: 600, fontSize: '18px', lineHeight: 1.8, margin: '0 0 10px' }}>
+      <h3 style={{ position: 'relative', zIndex: 1, color: 'var(--ink)', fontWeight: 600, fontSize: '18px', lineHeight: 1.8, margin: '0 0 10px' }}>
         {program.tagline}
       </h3>
 
       {/* الوصف */}
-      <p style={{ position: 'relative', zIndex: 1, color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>
+      <p style={{ position: 'relative', zIndex: 1, color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>
         {program.desc}
       </p>
     </div>
@@ -140,7 +140,7 @@ export default function Programs({ onOpenPage = () => {} }) {
             )}
         </AnimatePresence>
         <div style={{ position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(8,38,51,0.88) 0%, rgba(13,58,77,0.74) 40%, rgba(8,38,51,0.8) 72%, rgba(4,23,32,0.94) 100%)' }} />
+          background: 'var(--img-overlay)' }} />
       </div>
 
       {/* توهجات جانبية — تدرّجات ناعمة بلا blur (أخفّ بكثير أثناء التمرير) */}
@@ -164,7 +164,7 @@ export default function Programs({ onOpenPage = () => {} }) {
         <motion.h2 className="mb-4 text-white" style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", fontWeight: 700, fontSize: 'clamp(30px, 3.4vw, 44px)', lineHeight: 1.3 }} {...fade(0.07)}>
           برامج تربوية متنوعة
         </motion.h2>
-        <motion.p className="mb-16 max-w-2xl text-center text-[15px] leading-loose md:mb-24" style={{ color: '#c9dde8', fontWeight: 300 }} {...fade(0.14)}>
+        <motion.p className="mb-16 max-w-2xl text-center text-[15px] leading-loose md:mb-24" style={{ color: 'var(--ink-2)', fontWeight: 300 }} {...fade(0.14)}>
           نبني من خلالها تجارب تجمع بين القيم والمهارات، وتراعي احتياجات المستفيدين ومراحلهم العمرية.
         </motion.p>
 

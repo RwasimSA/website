@@ -73,8 +73,8 @@ const SectionTitle = ({ children, delay = 0 }) => (
 
 const inputStyle = {
   width: '100%', borderRadius: '16px', padding: '14px 18px',
-  background: 'rgba(255,255,255,0.06)', border: '0.5px solid rgba(255,255,255,0.18)',
-  color: 'white', fontWeight: 300, fontSize: '14.5px', outline: 'none',
+  background: 'var(--glass-a)', border: '0.5px solid var(--line)',
+  color: 'var(--ink)', fontWeight: 300, fontSize: '14.5px', outline: 'none',
   fontFamily: "'IBM Plex Sans Arabic', system-ui, sans-serif",
 }
 
@@ -99,7 +99,7 @@ export default function Contact({ onOpenPage = () => {} }) {
           {site.heroImage && <img src={site.heroImage} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(8,38,51,0.92) 0%, rgba(13,58,77,0.84) 45%, rgba(4,23,32,0.97) 100%)' }} />
+            background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
           <motion.h1 {...rise(0)} className="mb-6 text-white"
@@ -109,7 +109,7 @@ export default function Contact({ onOpenPage = () => {} }) {
           <motion.span {...rise(0.05)} aria-hidden="true" className="mb-7 block h-[3px] w-16 rounded-full"
             style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66` }} />
           <motion.p {...rise(0.1)} className="max-w-3xl"
-            style={{ color: '#dcebf2', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
+            style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
             نسعد بتواصلك، ويسعدنا توجيه رسالتك إلى الفريق المعني في رواسم. للاستفسارات العامة والملاحظات
             المتعلقة بالجمعية وبرامجها، يمكنك التواصل معنا عبر القنوات التالية.
           </motion.p>
@@ -132,25 +132,25 @@ export default function Contact({ onOpenPage = () => {} }) {
                   {c.icon}
                 </svg>
               </span>
-              <span className="mb-1.5 block" style={{ color: '#a2becf', fontWeight: 400, fontSize: '12.5px' }}>{c.k}</span>
+              <span className="mb-1.5 block" style={{ color: 'var(--muted)', fontWeight: 400, fontSize: '12.5px' }}>{c.k}</span>
               {c.href ? (
                 <a href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
                   className="footer-link" dir={c.ltr ? 'ltr' : undefined}
-                  style={{ color: 'white', fontWeight: 600, fontSize: '15.5px', textDecoration: 'none' }}>
+                  style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '15.5px', textDecoration: 'none' }}>
                   {c.v}
                 </a>
               ) : (
-                <span style={{ color: 'white', fontWeight: 600, fontSize: '15.5px' }}>{c.v}</span>
+                <span style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '15.5px' }}>{c.v}</span>
               )}
             </motion.div>
           ))}
         </div>
         {/* الحسابات الرسمية */}
         <motion.div {...rise(0.1)} className="mb-24 flex flex-wrap items-center justify-center gap-3">
-          <span style={{ color: '#a2becf', fontWeight: 300, fontSize: '13.5px' }}>حساباتنا الرسمية:</span>
+          <span style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '13.5px' }}>حساباتنا الرسمية:</span>
           {SOCIALS.map((s) => (
             <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-              style={{ ...glass({ borderRadius: '999px', padding: '8px 18px' }), color: 'white', fontWeight: 500, fontSize: '13px',
+              style={{ ...glass({ borderRadius: '999px', padding: '8px 18px' }), color: 'var(--ink)', fontWeight: 500, fontSize: '13px',
                 textDecoration: 'none', border: '0.5px solid rgba(239,145,34,0.3)' }}>
               {s.label}
             </a>
@@ -180,7 +180,7 @@ export default function Contact({ onOpenPage = () => {} }) {
                 cursor: filled ? 'pointer' : 'not-allowed', opacity: filled ? 1 : 0.45,
                 background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)',
                 boxShadow: filled ? '0 10px 26px rgba(239,145,34,0.35)' : 'none' }}>
-              <span style={{ color: 'white', fontWeight: 600, fontSize: '14.5px' }}>أرسل عبر واتساب</span>
+              <span style={{ color: 'var(--on-accent)', fontWeight: 600, fontSize: '14.5px' }}>أرسل عبر واتساب</span>
             </motion.button>
             <motion.button
               type="button" onClick={sendEmail} disabled={!filled}
@@ -188,10 +188,10 @@ export default function Contact({ onOpenPage = () => {} }) {
               className="flex items-center gap-2.5"
               style={{ ...glass({ borderRadius: '999px', padding: '13px 26px' }),
                 cursor: filled ? 'pointer' : 'not-allowed', opacity: filled ? 1 : 0.45 }}>
-              <span style={{ color: 'white', fontWeight: 500, fontSize: '14.5px' }}>أو أرسل بريدًا إلكترونيًا</span>
+              <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '14.5px' }}>أو أرسل بريدًا إلكترونيًا</span>
             </motion.button>
           </div>
-          <p className="relative mt-5 text-center" style={{ color: '#8fb0c1', fontWeight: 300, fontSize: '12px', margin: '18px 0 0' }}>
+          <p className="relative mt-5 text-center" style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '12px', margin: '18px 0 0' }}>
             تُرسل الرسالة من جهازك مباشرة عبر واتساب أو بريدك الإلكتروني.
           </p>
         </motion.div>
@@ -204,9 +204,9 @@ export default function Contact({ onOpenPage = () => {} }) {
               whileHover={{ y: -4, transition: { duration: 0.22 } }}
               className="cursor-pointer border-none text-right"
               style={glass({ borderRadius: '22px', padding: '22px 24px' })}>
-              <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '17px', margin: '0 0 6px' }}>{r.title}</h3>
-              <p style={{ color: '#c9dde8', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: '0 0 10px' }}>{r.desc}</p>
-              <span className="flex items-center gap-1.5" style={{ color: '#f4a63f', fontWeight: 500, fontSize: '12.5px' }}>
+              <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '17px', margin: '0 0 6px' }}>{r.title}</h3>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: '0 0 10px' }}>{r.desc}</p>
+              <span className="flex items-center gap-1.5" style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '12.5px' }}>
                 {r.label}
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f4a63f" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M15 18l-6-6 6-6" />

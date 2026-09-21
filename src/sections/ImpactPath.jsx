@@ -89,10 +89,10 @@ const StepNode = ({ step, i }) => (
         background: step.final
           ? 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)'
           : 'linear-gradient(150deg, #17587a 0%, #0d3a4d 100%)',
-        border: step.final ? '1px solid rgba(255,200,120,0.65)' : '1px solid rgba(255,255,255,0.28)',
+        border: step.final ? '1px solid rgba(255,200,120,0.65)' : '1px solid var(--line-strong)',
         boxShadow: step.final
           ? '0 0 26px rgba(239,145,34,0.65), inset 0 1px 0 rgba(255,255,255,0.35)'
-          : `0 0 20px ${step.accent}44, inset 0 1px 0 rgba(255,255,255,0.3)`,
+          : `0 0 20px ${step.accent}44, inset 0 1px 0 var(--line-strong)`,
       }}
     >
       {/* نبض ضوئي حول المحطة */}
@@ -101,7 +101,7 @@ const StepNode = ({ step, i }) => (
         animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut', delay: nodeDelay(i) + 0.4 }}
       />
-      <span style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '23px', color: 'white', lineHeight: 1, paddingTop: '4px' }}>
+      <span style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '23px', color: 'var(--on-accent)', lineHeight: 1, paddingTop: '4px' }}>
         {step.num}
       </span>
     </motion.div>
@@ -127,10 +127,10 @@ const StepCard = ({ step, i }) => {
         transition={{ delay: nodeDelay(i) + 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         style={{ textAlign: 'center' }}
       >
-        <h3 style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '22px', color: 'white', margin: '0 0 8px', lineHeight: 1.4 }}>
+        <h3 style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '22px', color: 'var(--ink)', margin: '0 0 8px', lineHeight: 1.4 }}>
           {step.final ? <span style={gradTextStyle}>{step.title}</span> : step.title}
         </h3>
-        <p style={{ color: '#c9dde8', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>
+        <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>
           {step.desc}
         </p>
       </motion.div>
@@ -146,7 +146,7 @@ export default function ImpactPath() {
         {site.heroImage && <img src={site.heroImage} alt="" aria-hidden="true" draggable="false"
           className="absolute inset-0 h-full w-full object-cover" />}
         <div style={{ position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(8,38,51,0.88) 0%, rgba(13,58,77,0.74) 40%, rgba(8,38,51,0.8) 72%, rgba(4,23,32,0.94) 100%)' }} />
+          background: 'var(--img-overlay)' }} />
       </div>
 
       {/* توهجات جانبية */}
@@ -175,7 +175,7 @@ export default function ImpactPath() {
         </motion.h2>
         <motion.p
           className="mb-4 text-center text-[15px]"
-          style={{ color: '#c9dde8', fontWeight: 300 }}
+          style={{ color: 'var(--ink-2)', fontWeight: 300 }}
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
           خيط واحد متصل: قيمة تُغرس، فمهارة تُنمّى، فممارسة تُعاش… حتى يُعقد الأثر.
@@ -243,7 +243,7 @@ export default function ImpactPath() {
                     border: s.final ? '1.5px solid rgba(255,200,120,0.7)' : `1.5px solid ${s.accent}88`,
                     boxShadow: s.final ? '0 0 24px rgba(239,145,34,0.6)' : `0 0 16px ${s.accent}55`,
                   }}>
-                  <span style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '21px', color: 'white', paddingTop: '4px' }}>{s.num}</span>
+                  <span style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '21px', color: 'var(--on-accent)', paddingTop: '4px' }}>{s.num}</span>
                 </motion.div>
               </div>
 
@@ -252,24 +252,24 @@ export default function ImpactPath() {
                 style={{
                   borderRadius: '20px', padding: '16px 18px 17px',
                   background: s.final
-                    ? 'linear-gradient(150deg, rgba(239,145,34,0.16) 0%, rgba(255,255,255,0.05) 55%, rgba(239,145,34,0.08) 100%)'
-                    : 'linear-gradient(150deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.035) 55%, rgba(255,255,255,0.06) 100%)',
+                    ? 'linear-gradient(150deg, rgba(239,145,34,0.16) 0%, var(--glass-b) 55%, rgba(239,145,34,0.08) 100%)'
+                    : 'linear-gradient(150deg, rgba(255,255,255,0.09) 0%, var(--glass-b) 55%, var(--glass-a) 100%)',
                   backdropFilter: 'var(--glass, blur(18px) saturate(150%))', WebkitBackdropFilter: 'var(--glass, blur(18px) saturate(150%))',
-                  border: s.final ? '1px solid rgba(239,145,34,0.45)' : '1px solid rgba(255,255,255,0.18)',
-                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2), 0 12px 28px rgba(3,15,21,0.28)',
+                  border: s.final ? '1px solid rgba(239,145,34,0.45)' : '1px solid var(--line)',
+                  boxShadow: 'inset 0 1px 0 var(--line), 0 12px 28px var(--shadow)',
                 }}>
                 {/* خيط لوني علوي بلون المحطة */}
                 <span aria-hidden="true" style={{ position: 'absolute', top: 0, insetInline: '16%', height: '2px',
                   background: `linear-gradient(90deg, transparent, ${s.accent}, transparent)` }} />
                 {/* رقم شبحي في الزاوية */}
                 <span aria-hidden="true" style={{ position: 'absolute', top: '-16px', left: '-4px', fontFamily: titleFont, fontWeight: 700,
-                  fontSize: '72px', lineHeight: 1, color: s.final ? 'rgba(239,145,34,0.12)' : 'rgba(255,255,255,0.05)', userSelect: 'none' }}>
+                  fontSize: '72px', lineHeight: 1, color: s.final ? 'rgba(239,145,34,0.12)' : 'var(--glass-b)', userSelect: 'none' }}>
                   {s.num}
                 </span>
-                <h3 style={{ position: 'relative', fontFamily: titleFont, fontWeight: 700, fontSize: '19px', color: 'white', margin: '0 0 6px' }}>
+                <h3 style={{ position: 'relative', fontFamily: titleFont, fontWeight: 700, fontSize: '19px', color: 'var(--ink)', margin: '0 0 6px' }}>
                   {s.final ? <span style={gradTextStyle}>{s.title}</span> : s.title}
                 </h3>
-                <p style={{ position: 'relative', color: '#c9dde8', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>{s.desc}</p>
+                <p style={{ position: 'relative', color: 'var(--ink-2)', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>{s.desc}</p>
               </div>
             </motion.div>
           ))}

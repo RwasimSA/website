@@ -50,12 +50,12 @@ const PlayBadge = () => (
     <span style={{
       width: '64px', height: '64px', borderRadius: '50%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: 'rgba(255,255,255,0.18)', border: '1.5px solid rgba(255,255,255,0.75)',
+      background: 'var(--line)', border: '1.5px solid rgba(255,255,255,0.75)',
       backdropFilter: 'var(--glass, blur(10px))', WebkitBackdropFilter: 'var(--glass, blur(10px))',
-      boxShadow: '0 8px 26px rgba(3,15,21,0.4)',
+      boxShadow: '0 8px 26px var(--shadow)',
     }}>
       {/* مثلث بزوايا دائرية — الحد بنفس لون التعبئة يقوّس الأركان */}
-      <svg width="26" height="26" viewBox="0 0 24 24" style={{ marginRight: '3px', filter: 'drop-shadow(0 2px 6px rgba(3,15,21,0.35))' }}>
+      <svg className="on-accent" width="26" height="26" viewBox="0 0 24 24" style={{ marginRight: '3px', filter: 'drop-shadow(0 2px 6px var(--shadow))' }}>
         <path d="M8.5 6.2v11.6L18.5 12z" fill="white" stroke="white" strokeWidth="3.2" strokeLinejoin="round" strokeLinecap="round" />
       </svg>
     </span>
@@ -74,8 +74,8 @@ const ArrowButton = ({ onClick, direction, disabled }) => (
       cursor: disabled ? 'default' : 'pointer',
       opacity: disabled ? 0.3 : 1, pointerEvents: disabled ? 'none' : 'auto',
       transition: 'opacity 0.3s',
-      background: 'linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)',
-      border: '0.5px solid rgba(255,255,255,0.20)',
+      background: 'linear-gradient(145deg, var(--line) 0%, var(--glass-b) 100%)',
+      border: '0.5px solid var(--line)',
       backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
     }}
   >
@@ -210,8 +210,8 @@ function MediaStage({ onOpen, lightboxOpen, onActive = () => {} }) {
                 <div style={{
                   borderRadius: '24px', padding: '10px 10px 0', pointerEvents: 'none',
                   background: 'linear-gradient(150deg, #15516c 0%, #0d3a4d 60%, #0f4257 100%)',
-                  border: '1px solid rgba(255,255,255,0.22)',
-                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), 0 18px 40px rgba(3,15,21,0.4)',
+                  border: '1px solid var(--line)',
+                  boxShadow: 'inset 0 1px 0 var(--line-strong), 0 18px 40px var(--shadow)',
                 }}>
                   <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '1 / 1' }}>
                     <Thumb item={item} alt={item.title} loading="lazy"
@@ -222,7 +222,7 @@ function MediaStage({ onOpen, lightboxOpen, onActive = () => {} }) {
                       opacity: p.dim, transition: 'opacity 0.5s' }} />
                   </div>
                   <h3 style={{
-                    color: 'white', fontWeight: 600, fontSize: '14px', lineHeight: 1.7,
+                    color: 'var(--on-accent)', fontWeight: 600, fontSize: '14px', lineHeight: 1.7,
                     margin: 0, padding: '12px 8px 14px', textAlign: 'center',
                     opacity: isFront ? 1 : abs === 1 ? 0.3 : 0, transition: 'opacity 0.5s',
                     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
@@ -242,7 +242,7 @@ function MediaStage({ onOpen, lightboxOpen, onActive = () => {} }) {
             <button key={i} type="button" onClick={() => goTo(i)} aria-label={`عنصر ${i + 1}`}
               style={{
                 width: i === activeIdx ? '26px' : '8px', height: '8px', borderRadius: '999px', cursor: 'pointer', border: 'none', padding: 0,
-                background: i === activeIdx ? 'linear-gradient(90deg, #ef9122, #f4a63f)' : 'rgba(255,255,255,0.25)',
+                background: i === activeIdx ? 'linear-gradient(90deg, #ef9122, #f4a63f)' : 'var(--line-strong)',
                 transition: 'all 0.35s',
               }} />
           ))}
@@ -264,15 +264,15 @@ function Lightbox({ media, onClose }) {
   return (
     <motion.div
       className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
-      style={{ background: 'rgba(3,15,21,0.88)', backdropFilter: 'var(--glass, blur(14px))', WebkitBackdropFilter: 'var(--glass, blur(14px))' }}
+      style={{ background: 'var(--shadow)', backdropFilter: 'var(--glass, blur(14px))', WebkitBackdropFilter: 'var(--glass, blur(14px))' }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
       onClick={onClose}
     >
       <button type="button" onClick={onClose} aria-label="إغلاق"
         className="absolute top-5 left-5 z-10 flex h-11 w-11 items-center justify-center rounded-full"
-        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.28)', cursor: 'pointer' }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+        style={{ background: 'var(--glass-a)', border: '1px solid var(--line-strong)', cursor: 'pointer' }}>
+        <svg className="on-accent" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
           <line x1="6" y1="6" x2="18" y2="18" /><line x1="6" y1="18" x2="18" y2="6" />
         </svg>
       </button>
@@ -286,10 +286,10 @@ function Lightbox({ media, onClose }) {
         {media.type === 'image' ? (
           <img src={media.src} alt={media.title}
             style={{ maxWidth: '92vw', maxHeight: '80vh', borderRadius: '22px',
-              border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 40px 90px rgba(0,0,0,0.6)' }} />
+              border: '1px solid var(--line)', boxShadow: '0 40px 90px rgba(0,0,0,0.6)' }} />
         ) : (
           <div style={{ width: 'min(1080px, 92vw)', aspectRatio: '16 / 9', borderRadius: '22px', overflow: 'hidden',
-            border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 40px 90px rgba(0,0,0,0.6)', background: '#000' }}>
+            border: '1px solid var(--line)', boxShadow: '0 40px 90px rgba(0,0,0,0.6)', background: '#000' }}>
             <iframe
               src={`https://www.youtube.com/embed/${media.id}?autoplay=1&rel=0`}
               title={media.title}
@@ -299,7 +299,7 @@ function Lightbox({ media, onClose }) {
             />
           </div>
         )}
-        <p className="mt-4 text-center" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px' }}>{media.title}</p>
+        <p className="mt-4 text-center" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px' }}>{media.title}</p>
       </motion.div>
     </motion.div>
   )

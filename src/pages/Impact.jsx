@@ -117,7 +117,7 @@ const SectionTitle = ({ children, delay = 0 }) => (
 
 const Lead = ({ children, delay = 0.08 }) => (
   <motion.p {...rise(delay)} className="mx-auto mb-12 max-w-3xl text-center"
-    style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
+    style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
     {children}
   </motion.p>
 )
@@ -148,7 +148,7 @@ export default function Impact({ onOpenPage = () => {} }) {
           </motion.h1>
           {INTRO.map((p, i) => (
             <motion.p key={i} {...rise(0.1 + i * 0.08)} className="max-w-3xl"
-              style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: i === 0 ? '0 0 12px' : 0 }}>
+              style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: i === 0 ? '0 0 12px' : 0 }}>
               {p}
             </motion.p>
           ))}
@@ -173,11 +173,11 @@ export default function Impact({ onOpenPage = () => {} }) {
                   <span style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '36px', lineHeight: 1,
                     backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
                     color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{n.value}</span>
-                  <span className="block" style={{ color: '#b6ccd6', fontWeight: 300, fontSize: '12.5px', marginTop: '6px', textAlign: 'left' }}>{n.label}</span>
+                  <span className="block" style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '12.5px', marginTop: '6px', textAlign: 'left' }}>{n.label}</span>
                 </div>
               </div>
-              <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '20px', margin: '0 0 10px' }}>{n.name}</h3>
-              <p style={{ color: '#c9dde8', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.95, margin: 0 }}>{n.desc}</p>
+              <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '20px', margin: '0 0 10px' }}>{n.name}</h3>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.95, margin: 0 }}>{n.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -199,8 +199,8 @@ export default function Impact({ onOpenPage = () => {} }) {
                 ...(s.final
                   ? { backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
                       color: 'transparent', WebkitTextFillColor: 'transparent' }
-                  : { color: 'white' }) }}>{s.title}</h3>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14px', lineHeight: 2, margin: 0 }}>{s.desc}</p>
+                  : { color: 'var(--ink)' }) }}>{s.title}</h3>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14px', lineHeight: 2, margin: 0 }}>{s.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -220,16 +220,16 @@ export default function Impact({ onOpenPage = () => {} }) {
               <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
                   <span style={{ color: e.color, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.06em' }}>{e.program}</span>
-                  <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '23px', margin: '6px 0 0' }}>{e.title}</h3>
+                  <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '23px', margin: '6px 0 0' }}>{e.title}</h3>
                 </div>
                 {e.logo && <img src={e.logo} alt={e.program} draggable="false" className="h-[46px] w-auto flex-shrink-0 object-contain opacity-90" />}
               </div>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2.05, margin: 0 }}>{e.body}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2.05, margin: 0 }}>{e.body}</p>
               {e.chain && (
                 <div className="mt-5 flex flex-wrap items-center gap-2">
                   {e.chain.map((step, j) => (
                     <div key={step} className="flex items-center gap-2">
-                      <span style={{ ...glass({ borderRadius: '999px', padding: '7px 14px' }), color: 'white', fontWeight: 400, fontSize: '12px',
+                      <span style={{ ...glass({ borderRadius: '999px', padding: '7px 14px' }), color: 'var(--ink)', fontWeight: 400, fontSize: '12px',
                         border: `0.5px solid ${e.color}52` }}>
                         {step}
                       </span>
@@ -259,8 +259,8 @@ export default function Impact({ onOpenPage = () => {} }) {
                 style={{ top: '-40%', right: '-15%', width: '55%', height: '100%', borderRadius: '50%',
                   background: `radial-gradient(ellipse, ${p.colorSoft} 0%, transparent 65%)`, filter: 'var(--fx-blur, blur(46px))' }} />
               {p.logo && <img src={p.logo} alt={p.name} draggable="false" className="mb-5 h-[52px] w-auto self-start object-contain" />}
-              <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '20px', lineHeight: 1.6, margin: '0 0 10px' }}>{p.title}</h3>
-              <p className="flex-1" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{p.body}</p>
+              <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '20px', lineHeight: 1.6, margin: '0 0 10px' }}>{p.title}</h3>
+              <p className="flex-1" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{p.body}</p>
               <span className="mt-5 flex items-center gap-2" style={{ color: p.color, fontWeight: 500, fontSize: '13.5px' }}>
                 تعرّف على {p.name}
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={p.color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
@@ -280,8 +280,8 @@ export default function Impact({ onOpenPage = () => {} }) {
               background: 'radial-gradient(ellipse, rgba(239,145,34,0.16) 0%, transparent 65%)', filter: 'blur(55px)' }} />
           <div className="flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-right">
             <div>
-              <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '24px', margin: '0 0 8px' }}>التوثيق والتقارير</h3>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>
+              <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '24px', margin: '0 0 8px' }}>التوثيق والتقارير</h3>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>
                 تعرّف على منجزات رواسم ومؤشرات أدائها بصورة أشمل من خلال تقاريرها السنوية.
               </p>
             </div>
@@ -292,8 +292,8 @@ export default function Impact({ onOpenPage = () => {} }) {
               style={{ borderRadius: '999px', padding: '13px 26px', border: 'none',
                 background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)',
                 boxShadow: '0 10px 26px rgba(239,145,34,0.35)' }}>
-              <span style={{ color: 'white', fontWeight: 600, fontSize: '14.5px' }}>استعرض التقارير السنوية</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <span style={{ color: 'var(--on-accent)', fontWeight: 600, fontSize: '14.5px' }}>استعرض التقارير السنوية</span>
+              <svg className="on-accent" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </motion.button>

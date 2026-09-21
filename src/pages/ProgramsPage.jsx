@@ -78,7 +78,7 @@ const SectionTitle = ({ children, delay = 0 }) => (
 
 const Lead = ({ children, delay = 0.08 }) => (
   <motion.p {...rise(delay)} className="mx-auto mb-12 max-w-3xl text-center"
-    style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
+    style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
     {children}
   </motion.p>
 )
@@ -99,20 +99,20 @@ const ProgramCard = ({ p, delay, onOpen }) => {
         background: `radial-gradient(ellipse at 50% 25%, ${p.colorSoft} 0%, transparent 65%)` }} />
 
     <div className="relative flex h-full flex-col overflow-hidden"
-      style={{ borderRadius: '34px', border: '1px solid rgba(255,255,255,0.18)',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.22), 0 24px 48px rgba(3,15,21,0.28)' }}>
+      style={{ borderRadius: '34px', border: '1px solid var(--line)',
+        boxShadow: 'inset 0 1px 0 var(--line), 0 24px 48px var(--shadow)' }}>
       {/* صورة البرنامج أعلى البطاقة */}
       <div className="relative h-[190px] overflow-hidden">
         {p.img && <img src={p.img} alt="" aria-hidden="true" draggable="false"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
         <div style={{ position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(8,38,51,0.28) 0%, rgba(8,38,51,0.55) 62%, rgba(10,42,56,0.96) 100%)' }} />
+          background: 'var(--img-overlay-soft)' }} />
         {p.logo ? <img src={p.logo} alt={p.name} draggable="false"
           className="absolute bottom-4 right-5 h-[54px] w-auto object-contain"
-          style={{ filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.45))' }} />
+          style={{ filter: 'drop-shadow(0 4px 10px var(--shadow))' }} />
         : p.name && <span className="absolute bottom-4 right-5"
-          style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '26px', lineHeight: 1.4,
-            filter: 'drop-shadow(0 4px 10px rgba(3,15,21,0.45))' }}>{p.name}</span>}
+          style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '26px', lineHeight: 1.4,
+            filter: 'drop-shadow(0 4px 10px var(--shadow))' }}>{p.name}</span>}
       </div>
       {/* متن البطاقة */}
       <div className="relative flex flex-1 flex-col px-6 pb-7 pt-5 text-right"
@@ -120,9 +120,9 @@ const ProgramCard = ({ p, delay, onOpen }) => {
         <div className="mb-3.5 flex flex-wrap items-center gap-2">
           <span style={{ color: p.color, fontWeight: 600, fontSize: '12px' }}>{p.nature}</span>
           <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.35)' }} />
-          <span style={{ color: '#b6ccd6', fontWeight: 400, fontSize: '12px' }}>{p.stage}</span>
+          <span style={{ color: 'var(--ink-3)', fontWeight: 400, fontSize: '12px' }}>{p.stage}</span>
         </div>
-        <p className="flex-1" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14px', lineHeight: 2, margin: 0 }}>{p.desc}</p>
+        <p className="flex-1" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14px', lineHeight: 2, margin: 0 }}>{p.desc}</p>
         {clickable && (
         <span className="mt-5 flex items-center gap-2" style={{ color: p.color, fontWeight: 500, fontSize: '13.5px' }}>
           تعرّف على {p.name}
@@ -165,7 +165,7 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
           <motion.span {...rise(0.05)} aria-hidden="true" className="mb-7 block h-[3px] w-16 rounded-full"
             style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66` }} />
           <motion.p {...rise(0.1)} className="max-w-3xl"
-            style={{ color: '#dcebf2', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
+            style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
             {INTRO}
           </motion.p>
         </div>
@@ -203,9 +203,9 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
                   style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
                   <img src={n.icon} alt="" aria-hidden="true" draggable="false" style={{ width: '36px', height: '36px' }} />
                 </div>
-                <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '20px', lineHeight: 1.6, margin: 0 }}>{n.title}</h3>
+                <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '20px', lineHeight: 1.6, margin: 0 }}>{n.title}</h3>
               </div>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: '16px 0 0' }}>{n.body}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: '16px 0 0' }}>{n.body}</p>
             </motion.div>
           ))}
         </div>
@@ -216,8 +216,8 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
             onClick={() => onOpenPage('news')}
             whileHover={{ scale: 1.03 }}
             className="cursor-pointer border-none bg-transparent"
-            style={{ color: '#a2becf', fontSize: '14.5px', fontWeight: 300 }}>
-            لمتابعة جديد البرامج والفرص؟ <span style={{ color: '#f4a63f', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تابع مستجداتنا</span>
+            style={{ color: 'var(--muted)', fontSize: '14.5px', fontWeight: 300 }}>
+            لمتابعة جديد البرامج والفرص؟ <span style={{ color: 'var(--accent-text)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تابع مستجداتنا</span>
           </motion.button>
         </div>
       </div>

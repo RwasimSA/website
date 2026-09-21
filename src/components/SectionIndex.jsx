@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useThemeMode } from '../themeMode'
 
 /* ─────────────────────────────────────────────────────────────
    فهرس أقسام الرئيسية — قائمة عناوين ثابتة على يمين الشاشة
@@ -12,23 +13,24 @@ const ACCENT = '#ef9122'
 const ROW = 40 // المسافة الثابتة بين عنوان وآخر
 
 /* هيئة العنوان حسب بُعده عن القسم الحالي */
-const styleFor = (abs) => ({
+const styleFor = (abs, light) => ({
   opacity: [1, 0.6, 0.34, 0.2][Math.min(abs, 3)],
   fontSize: `${[19.5, 14, 12, 11][Math.min(abs, 3)]}px`,
   fontWeight: abs === 0 ? 700 : 400,
-  color: abs === 0 ? '#ffffff' : '#bcd9e6',
+  color: abs === 0 ? (light ? '#0b2a38' : '#ffffff') : (light ? '#3d5f6e' : '#bcd9e6'),
   letterSpacing: abs === 0 ? '0.02em' : '0em',
   /* عمق ميداني: ما بعُد عن القسم الحالي يخفت ويميل للضبابية */
   filter: abs === 0 ? 'blur(0px)' : `blur(${Math.min(abs, 3) * 0.45}px)`,
 })
 
-const numStyle = (abs) => ({
+const numStyle = (abs, light) => ({
   opacity: [0.9, 0.4, 0.22, 0.12][Math.min(abs, 3)],
-  color: abs === 0 ? ACCENT : '#7fa3b5',
+  color: abs === 0 ? ACCENT : (light ? '#6b8896' : '#7fa3b5'),
   fontSize: abs === 0 ? '10.5px' : '9.5px',
 })
 
 export default function SectionIndex({ items = [], current, onGo = () => {} }) {
+  const light = useThemeMode() === 'light'
   const idx = Math.max(items.findIndex((s) => s.key === current), 0)
   const mid = (items.length - 1) / 2
   const height = items.length * ROW
@@ -43,7 +45,7 @@ export default function SectionIndex({ items = [], current, onGo = () => {} }) {
       {/* عمود التقدّم: خيط خافت يمتلئ برتقالياً حتى القسم الحالي */}
       <div aria-hidden="true" className="absolute" style={{ right: '-20px', top: 0, bottom: 0, width: '1px' }}>
         <div style={{ position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.16) 10%, rgba(255,255,255,0.16) 90%, transparent)' }} />
+          background: 'linear-gradient(180deg, transparent, var(--line) 10%, var(--line) 90%, transparent)' }} />
         <motion.div
           style={{ position: 'absolute', top: 0, right: 0, width: '1px',
             background: `linear-gradient(180deg, transparent, ${ACCENT})`, transformOrigin: 'top' }}
@@ -81,9 +83,9 @@ export default function SectionIndex({ items = [], current, onGo = () => {} }) {
               onClick={() => onGo(s.key)}
               aria-current={active ? 'true' : undefined}
               className="pointer-events-auto block cursor-pointer whitespace-nowrap border-none bg-transparent p-0 text-right"
-              style={{ textShadow: active ? `0 2px 18px rgba(239,145,34,0.35), 0 2px 12px rgba(3,15,21,0.9)` : '0 2px 12px rgba(3,15,21,0.9)',
+              style={{ textShadow: light ? 'none' : active ? '0 2px 18px rgba(239,145,34,0.35), 0 2px 12px rgba(3,15,21,0.9)' : '0 2px 12px rgba(3,15,21,0.9)',
                 fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif" }}
-              animate={styleFor(abs)}
+              animate={styleFor(abs, light)}
               whileHover={active ? undefined : { opacity: 0.9, filter: 'blur(0px)' }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
@@ -94,7 +96,7 @@ export default function SectionIndex({ items = [], current, onGo = () => {} }) {
             <motion.span aria-hidden="true"
               className="block w-[18px] text-center tabular-nums"
               style={{ direction: 'ltr', fontWeight: 500, letterSpacing: '0.04em' }}
-              animate={numStyle(abs)}
+              animate={numStyle(abs, light)}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
               {String(i + 1).padStart(2, '0')}

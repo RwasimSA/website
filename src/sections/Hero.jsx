@@ -112,7 +112,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
           className="absolute inset-0 h-full w-full object-cover"
         />}
         <div style={{ position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(8,38,51,0.84) 0%, rgba(13,58,77,0.74) 42%, rgba(8,38,51,0.8) 75%, rgba(4,23,32,0.94) 100%)' }} />
+          background: 'var(--img-overlay)' }} />
       </div>
 
       {/* نودلز رواسم — تصعد ضبابيةً وبنعومة من أسفل إلى أعلى خلف الباترن
@@ -184,7 +184,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
       {/* عبارة الهيرو — سطران متوازنان، كلمة «أثره» بتدرّج لوني متحرك */}
       <motion.h1
         className="relative mb-6 flex flex-col items-center"
-        style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: '#ffffff', fontWeight: 700, fontSize: 'clamp(46px, 7.4vw, 92px)', lineHeight: 1.22, letterSpacing: '-0.01em' }}
+        style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: 'var(--ink)', fontWeight: 700, fontSize: 'clamp(46px, 7.4vw, 92px)', lineHeight: 1.22, letterSpacing: '-0.01em' }}
         {...rise(0.1)}
       >
         <span style={{ display: 'inline-block', whiteSpace: 'nowrap', padding: '0.08em 0',
@@ -209,7 +209,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
       {/* النص الوصفي */}
       <motion.p
         className="relative mb-10 max-w-3xl text-center text-[17px] leading-loose md:text-lg"
-        style={{ color: '#ffffff', fontWeight: 300 }}
+        style={{ color: 'var(--ink)', fontWeight: 300 }}
         {...rise(0.5)}
       >
         جمعية سعودية متخصصة في تنمية الطفل، تقدم برامج تربوية وقيمية ومهارية
@@ -228,15 +228,15 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
             // الزران بمقاس موحد: 232×62
             width: '232px', justifyContent: 'space-between',
             borderRadius: '999px', padding: '8px 8px 8px 8px', paddingInlineStart: '26px',
-            background: 'linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%)',
+            background: 'var(--pill)',
             backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
-            border: '0.5px solid rgba(255,255,255,0.16)', cursor: 'pointer',
+            border: '0.5px solid var(--line)', cursor: 'pointer',
           }}
         >
-          <span style={{ color: 'white', fontWeight: 500, fontSize: '15px' }}>استكشف برامجنا</span>
+          <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '15px' }}>استكشف برامجنا</span>
           <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
             background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)', boxShadow: '0 0 18px rgba(239,145,34,0.55)' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg className="on-accent" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 5 12 12 19" />
             </svg>
           </span>
@@ -251,12 +251,12 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
             // نفس مقاس الزر الرئيسي تماماً
             width: '232px', height: '62px', justifyContent: 'center',
             borderRadius: '999px', padding: '8px 30px',
-            background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
+            background: 'linear-gradient(145deg, var(--glass-a) 0%, var(--glass-b) 100%)',
             backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
-            border: '0.5px solid rgba(255,255,255,0.16)', cursor: 'pointer',
+            border: '0.5px solid var(--line)', cursor: 'pointer',
           }}
         >
-          <span style={{ color: 'white', fontWeight: 500, fontSize: '15px' }}>تعرّف على رواسم</span>
+          <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '15px' }}>تعرّف على رواسم</span>
         </motion.button>
       </motion.div>
     </section>

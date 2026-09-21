@@ -108,13 +108,13 @@ export default function AboutUs({ onOpenPage = () => {} }) {
             </motion.h1>
             <motion.div {...rise(0.08)} className="mb-7 h-px w-24"
               style={{ background: 'linear-gradient(to left, #ef9122, transparent)' }} />
-            <motion.p {...rise(0.14)} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '16px', lineHeight: 2.1, margin: 0 }}>
+            <motion.p {...rise(0.14)} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '16px', lineHeight: 2.1, margin: 0 }}>
               {WHO}
             </motion.p>
           </div>
           <motion.div {...rise(0.2)}>
             <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', borderRadius: '22px', overflow: 'hidden',
-              border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 26px 60px rgba(3,15,21,0.45)' }}>
+              border: '1px solid var(--line)', boxShadow: '0 26px 60px var(--shadow)' }}>
               <iframe
                 src="https://www.youtube.com/embed/LVLUfS4L45c"
                 title="كيف بدينا.. ووين وصلنا؟ | منظومة صيف رواسم"
@@ -137,7 +137,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
             لماذا رواسم؟
           </h2>
           {WHY.map((p, i) => (
-            <p key={i} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, marginBottom: i === 0 ? '14px' : 0 }}>
+            <p key={i} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, marginBottom: i === 0 ? '14px' : 0 }}>
               {p}
             </p>
           ))}
@@ -159,9 +159,9 @@ export default function AboutUs({ onOpenPage = () => {} }) {
                     <path d={item.icon} />
                   </svg>
                 </span>
-                <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '24px', margin: 0 }}>{item.label}</h3>
+                <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '24px', margin: 0 }}>{item.label}</h3>
               </div>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2, margin: 0 }}>{item.body}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2, margin: 0 }}>{item.body}</p>
             </motion.div>
           ))}
         </div>
@@ -175,7 +175,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               className="flex items-center gap-3"
               style={glass({ borderRadius: '999px', padding: '16px 30px' })}>
               <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#ef9122', boxShadow: '0 0 12px rgba(239,145,34,0.8)' }} />
-              <span style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '21px' }}>{v}</span>
+              <span style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '21px' }}>{v}</span>
             </motion.div>
           ))}
         </div>
@@ -193,7 +193,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
                 color: 'transparent', WebkitTextFillColor: 'transparent', display: 'inline-block', padding: '0.15em 0.05em', margin: '-0.15em -0.05em' }}>
                 {g.verb}
               </h3>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '14.5px', lineHeight: 1.95, margin: '10px 0 0' }}>{g.body}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 1.95, margin: '10px 0 0' }}>{g.body}</p>
             </motion.div>
           ))}
         </div>
@@ -209,11 +209,11 @@ export default function AboutUs({ onOpenPage = () => {} }) {
                 style={glass({ borderRadius: '18px', padding: '15px 16px' })}>
                 <span className="flex h-[26px] w-[26px] flex-shrink-0 items-center justify-center rounded-full"
                   style={{ background: 'rgba(239,145,34,0.14)', border: '0.5px solid rgba(239,145,34,0.4)',
-                    color: '#f4a63f', fontWeight: 600, fontSize: '11.5px', direction: 'ltr', marginTop: '2px' }}>
+                    color: 'var(--accent-text)', fontWeight: 600, fontSize: '11.5px', direction: 'ltr', marginTop: '2px' }}>
                   {i + 1}
                 </span>
-                <p style={{ color: '#a9c4d2', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>
-                  <span style={{ color: '#ffffff', fontWeight: 500 }}>{t.lead}</span> {t.rest}
+                <p style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>
+                  <span style={{ color: 'var(--ink)', fontWeight: 500 }}>{t.lead}</span> {t.rest}
                 </p>
               </motion.div>
             ))}
@@ -223,7 +223,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
             <div className="mt-5 flex justify-center sm:hidden">
               <button type="button" onClick={() => setShowAllOps(true)}
                 className="cursor-pointer"
-                style={{ ...glass({ borderRadius: '999px', padding: '11px 26px' }), color: 'white', fontWeight: 500,
+                style={{ ...glass({ borderRadius: '999px', padding: '11px 26px' }), color: 'var(--ink)', fontWeight: 500,
                   fontSize: '13.5px', border: '0.5px solid rgba(239,145,34,0.35)' }}>
                 عرض بقية الأهداف ({OPERATIONAL_GOALS.length - 5})
               </button>
@@ -240,14 +240,14 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               className="relative overflow-hidden"
               style={glass({ borderRadius: '26px', padding: '32px 30px' })}>
               <span aria-hidden="true" style={{ position: 'absolute', top: '-26px', left: '-8px', fontFamily: titleFont, fontWeight: 700,
-                fontSize: '110px', lineHeight: 1, color: 'rgba(255,255,255,0.05)', userSelect: 'none' }}>
+                fontSize: '110px', lineHeight: 1, color: 'var(--glass-b)', userSelect: 'none' }}>
                 {['1', '2', '3', '4'][i]}
               </span>
               <div className="mb-4 flex items-center gap-3">
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: a.accent, boxShadow: `0 0 12px ${a.accent}` }} />
-                <h3 style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '22px', margin: 0 }}>{a.title}</h3>
+                <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '22px', margin: 0 }}>{a.title}</h3>
               </div>
-              <p style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>{a.body}</p>
+              <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>{a.body}</p>
             </motion.div>
           ))}
         </div>
@@ -261,10 +261,10 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}
               className="flex items-center gap-3.5"
               style={{ borderRadius: '999px', padding: '8px 26px 8px 8px', cursor: 'pointer',
-                background: 'linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%)',
+                background: 'var(--pill)',
                 backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
-                border: '0.5px solid rgba(255,255,255,0.16)' }}>
-              <span style={{ color: 'white', fontWeight: 500, fontSize: '15px' }}>استكشف برامجنا</span>
+                border: '0.5px solid var(--line)' }}>
+              <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '15px' }}>استكشف برامجنا</span>
               <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)', boxShadow: '0 0 18px rgba(239,145,34,0.55)' }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -278,10 +278,10 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}
               className="flex items-center"
               style={{ borderRadius: '999px', padding: '8px 30px', minHeight: '62px', cursor: 'pointer',
-                background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
+                background: 'linear-gradient(145deg, var(--glass-a) 0%, var(--glass-b) 100%)',
                 backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
-                border: '0.5px solid rgba(255,255,255,0.16)' }}>
-              <span style={{ color: 'white', fontWeight: 500, fontSize: '15px' }}>تعرّف على أثرنا</span>
+                border: '0.5px solid var(--line)' }}>
+              <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '15px' }}>تعرّف على أثرنا</span>
             </motion.button>
           </motion.div>
 
@@ -290,8 +290,8 @@ export default function AboutUs({ onOpenPage = () => {} }) {
             onClick={() => onOpenPage('gov-reports')}
             whileHover={{ scale: 1.03 }}
             className="mt-8 cursor-pointer border-none bg-transparent"
-            style={{ color: '#a2becf', fontSize: '14px', fontWeight: 300 }}>
-            الاطلاع على <span style={{ color: '#f4a63f', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>الحوكمة والتقارير</span>
+            style={{ color: 'var(--muted)', fontSize: '14px', fontWeight: 300 }}>
+            الاطلاع على <span style={{ color: 'var(--accent-text)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>الحوكمة والتقارير</span>
           </motion.button>
         </div>
       </div>

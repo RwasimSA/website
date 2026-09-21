@@ -70,7 +70,7 @@ const SectionTitle = ({ children, delay = 0 }) => (
 
 const Lead = ({ children, delay = 0.08 }) => (
   <motion.p {...rise(delay)} className="mx-auto mb-12 max-w-3xl text-center"
-    style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
+    style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05 }}>
     {children}
   </motion.p>
 )
@@ -89,10 +89,10 @@ const PhotoMemberCard = ({ name, role, photo, delay = 0, width = 230 }) => (
           background: 'radial-gradient(ellipse, rgba(239,145,34,0.22) 0%, transparent 65%)', filter: 'blur(36px)' }} />
       <img src={photo} alt={name} draggable="false"
         className="relative block w-full"
-        style={{ filter: 'drop-shadow(0 10px 18px rgba(3,15,21,0.35))' }} />
+        style={{ filter: 'drop-shadow(0 10px 18px var(--shadow))' }} />
     </div>
     {/* الاسم والوصف — خارج الصندوق */}
-    <h3 className="text-center" style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '18px', lineHeight: 1.6, margin: '20px 0 0' }}>{name}</h3>
+    <h3 className="text-center" style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '18px', lineHeight: 1.6, margin: '20px 0 0' }}>{name}</h3>
     <span style={{ color: ACCENT, fontWeight: 500, fontSize: '13px', marginTop: '6px' }}>{role}</span>
   </motion.div>
 )
@@ -104,11 +104,11 @@ const MemberCard = ({ name, role, delay = 0, accent = ACCENT }) => (
     style={glass({ borderRadius: '22px', padding: '20px 22px' })}>
     <span className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-full"
       style={{ background: `linear-gradient(135deg, ${accent}2e, ${accent}14)`, border: `0.5px solid ${accent}4d`,
-        fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '21px' }}>
+        fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '21px' }}>
       {name.replace(/^(د|أ)\. /, '').charAt(0)}
     </span>
     <div>
-      <h3 style={{ color: 'white', fontWeight: 600, fontSize: '15.5px', lineHeight: 1.7, margin: 0 }}>{name}</h3>
+      <h3 style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '15.5px', lineHeight: 1.7, margin: 0 }}>{name}</h3>
       {role && <span style={{ color: accent, fontWeight: 500, fontSize: '12.5px' }}>{role}</span>}
     </div>
   </motion.div>
@@ -123,10 +123,10 @@ function GovShell({ title, children, current, onOpenPage }) {
           {site.backNumbers && <img src={site.backNumbers} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(8,38,51,0.92) 0%, rgba(13,58,77,0.84) 45%, rgba(4,23,32,0.97) 100%)' }} />
+            background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
-          <motion.span {...rise(0)} style={{ color: '#f4a63f', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.05em', marginBottom: '14px' }}>
+          <motion.span {...rise(0)} style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.05em', marginBottom: '14px' }}>
             الحوكمة
           </motion.span>
           <motion.h1 {...rise(0.05)} className="mb-6 text-white"
@@ -143,12 +143,12 @@ function GovShell({ title, children, current, onOpenPage }) {
 
         {/* بقية صفحات الحوكمة */}
         <div className="mt-24 flex flex-col items-center">
-          <span className="mb-5" style={{ color: '#a2becf', fontWeight: 300, fontSize: '13.5px' }}>المزيد في الحوكمة:</span>
+          <span className="mb-5" style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '13.5px' }}>المزيد في الحوكمة:</span>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {GOV_PAGES.filter((g) => g.key !== current).map((g) => (
               <button key={g.key} type="button" onClick={() => onOpenPage(g.key)}
                 className="cursor-pointer"
-                style={{ ...glass({ borderRadius: '999px', padding: '10px 22px' }), color: 'white', fontWeight: 400, fontSize: '13px',
+                style={{ ...glass({ borderRadius: '999px', padding: '10px 22px' }), color: 'var(--ink)', fontWeight: 400, fontSize: '13px',
                   border: '0.5px solid rgba(239,145,34,0.28)' }}>
                 {g.label}
               </button>
@@ -172,18 +172,18 @@ function GovData({ onOpenPage }) {
             style={glass({ borderRadius: '22px', padding: '22px 24px' })}>
             <span aria-hidden="true" style={{ position: 'absolute', top: 0, insetInline: '18%', height: '2px',
               background: `linear-gradient(90deg, transparent, ${ACCENT}80, transparent)` }} />
-            <span className="mb-2 block" style={{ color: '#f4a63f', fontWeight: 600, fontSize: '12px', letterSpacing: '0.06em' }}>{o.k}</span>
+            <span className="mb-2 block" style={{ color: 'var(--accent-text)', fontWeight: 600, fontSize: '12px', letterSpacing: '0.06em' }}>{o.k}</span>
             {o.href ? (
-              <a href={o.href} className="footer-link" style={{ color: 'white', fontWeight: 500, fontSize: '16px', textDecoration: 'none' }} dir="ltr">{o.v}</a>
+              <a href={o.href} className="footer-link" style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '16px', textDecoration: 'none' }} dir="ltr">{o.v}</a>
             ) : (
-              <span style={{ color: 'white', fontWeight: 500, fontSize: '16px' }}>{o.v}</span>
+              <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '16px' }}>{o.v}</span>
             )}
           </motion.div>
         ))}
       </div>
       {/* الجهة المشرفة والهيكل التنظيمي — بانتظار الوثائق الرسمية */}
       <motion.p {...rise(0.1)} className="mt-8 text-center"
-        style={{ color: '#8fb0c1', fontWeight: 300, fontSize: '13px', lineHeight: 2 }}>
+        style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '13px', lineHeight: 2 }}>
         تُستكمل بقية البيانات النظامية — كالجهة المشرفة والهيكل التنظيمي المعتمد — فور توفر وثائقها الرسمية.
       </motion.p>
     </GovShell>
@@ -205,7 +205,7 @@ function GovBoard({ onOpenPage }) {
       {BOARD_NOTES.length > 0 && (
         <motion.div {...rise(0.1)} className="mt-16 text-center">
           {BOARD_NOTES.map((t, i) => (
-            <p key={i} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: '0 0 14px' }}>{t}</p>
+            <p key={i} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: '0 0 14px' }}>{t}</p>
           ))}
         </motion.div>
       )}
@@ -246,16 +246,16 @@ function GovExecutive({ onOpenPage }) {
                             strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
                             dangerouslySetInnerHTML={{ __html: r.icon }} />
                         </span>
-                        <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11.5px' }}>{r.k}</span>
+                        <span style={{ color: 'var(--muted)', fontWeight: 500, fontSize: '11.5px' }}>{r.k}</span>
                       </span>
                       <span dir={r.ltr ? 'ltr' : undefined} className="min-w-0 text-left"
-                        style={{ color: r.href ? '#f4a63f' : '#dcebf2', fontWeight: 400, fontSize: '13px', lineHeight: 1.7 }}>
+                        style={{ color: r.href ? '#f4a63f' : 'var(--ink-2)', fontWeight: 400, fontSize: '13px', lineHeight: 1.7 }}>
                         {r.v}
                       </span>
                     </>
                   )
                   const cls = 'flex items-center justify-between gap-3 py-3'
-                  const sep = i > 0 ? { borderTop: '0.5px solid rgba(255,255,255,0.1)' } : {}
+                  const sep = i > 0 ? { borderTop: '0.5px solid var(--glass-a)' } : {}
                   return r.href
                     ? <a key={r.k} href={r.href} className={cls} style={{ ...sep, textDecoration: 'none' }}>{row}</a>
                     : <div key={r.k} className={cls} style={sep}>{row}</div>
@@ -274,9 +274,9 @@ function GovExecutive({ onOpenPage }) {
                           dangerouslySetInnerHTML={{ __html: r.icon }} />
                       </span>
                       <span className="flex min-w-0 flex-col gap-0.5 text-right">
-                        <span style={{ color: '#8fb0c1', fontWeight: 500, fontSize: '11px' }}>{r.k}</span>
+                        <span style={{ color: 'var(--muted)', fontWeight: 500, fontSize: '11px' }}>{r.k}</span>
                         <span dir={r.ltr ? 'ltr' : undefined} className="text-right"
-                          style={{ color: r.href ? '#f4a63f' : '#dcebf2', fontWeight: 400, fontSize: '13.5px', lineHeight: 1.7,
+                          style={{ color: r.href ? '#f4a63f' : 'var(--ink-2)', fontWeight: 400, fontSize: '13.5px', lineHeight: 1.7,
                             overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {r.v}
                         </span>
@@ -311,15 +311,15 @@ function GovExecutive({ onOpenPage }) {
           </span>
           <div className="relative">
             {EXEC_WORD.map((p, i) => (
-              <p key={i} style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.15,
+              <p key={i} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.15,
                 margin: i === 0 ? '0 0 18px' : i === EXEC_WORD.length - 1 ? '0' : '0 0 18px' }}>
                 {p}
               </p>
             ))}
             {/* التوقيع */}
             <div className="mt-9 flex flex-col items-start gap-1 border-t pt-6"
-              style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
-              <span style={{ fontFamily: titleFont, color: 'white', fontWeight: 700, fontSize: '18px' }}>{EXECUTIVE.name}</span>
+              style={{ borderColor: 'var(--line)' }}>
+              <span style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '18px' }}>{EXECUTIVE.name}</span>
               <span style={{ color: ACCENT, fontWeight: 500, fontSize: '13px' }}>{EXECUTIVE.role} — جمعية رواسم لتنمية الطفل</span>
             </div>
           </div>
@@ -422,7 +422,7 @@ function GovComplaints({ onOpenPage }) {
             <line x1="12" y1="8.5" x2="12" y2="12" /><circle cx="12" cy="15" r="0.5" fill="#f4a63f" />
           </svg>
         </div>
-        <p className="relative" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>
+        <p className="relative" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>
           تُعلن الآلية الرسمية المعتمدة لاستقبال الشكاوى والبلاغات ومعالجتها في هذه الصفحة فور اعتمادها.
           <br />
           حتى ذلك الحين، يمكنك إيصال ملاحظتك عبر قنوات التواصل الرسمية وسيوجهها الفريق للجهة المعنية.
@@ -434,7 +434,7 @@ function GovComplaints({ onOpenPage }) {
           style={{ margin: '32px auto 0', borderRadius: '999px', padding: '13px 28px', border: 'none',
             background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)',
             boxShadow: '0 10px 26px rgba(239,145,34,0.35)' }}>
-          <span style={{ color: 'white', fontWeight: 600, fontSize: '14.5px' }}>تواصل معنا</span>
+          <span style={{ color: 'var(--on-accent)', fontWeight: 600, fontSize: '14.5px' }}>تواصل معنا</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M15 18l-6-6 6-6" />
           </svg>

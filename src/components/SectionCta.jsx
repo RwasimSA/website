@@ -14,15 +14,15 @@ export default function SectionCta({ label, onClick = () => {}, className = '', 
       className={`flex items-center gap-3.5 ${className}`}
       style={{
         borderRadius: '999px', padding: '8px 26px 8px 8px',
-        background: 'linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%)',
+        background: 'var(--pill)',
         backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
-        border: '0.5px solid rgba(255,255,255,0.16)', cursor: 'pointer',
+        border: '0.5px solid var(--line)', cursor: 'pointer',
       }}
     >
-      <span style={{ color: 'white', fontWeight: 500, fontSize: '15px' }}>{label}</span>
+      <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '15px' }}>{label}</span>
       <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
         background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)', boxShadow: '0 0 18px rgba(239,145,34,0.55)' }}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="on-accent" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 5 12 12 19" />
         </svg>
       </span>

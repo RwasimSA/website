@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { glass, color } from '../theme'
 import { text } from '../typography'
+import { useThemeMode } from '../themeMode'
 
 const navLinks = [
   { label: 'عن رواسم', page: 'about-us' },
@@ -66,6 +67,7 @@ const ColTitle = ({ children }) => (
 
 
 export default function Footer({ onTop, onOpenPage = () => {} }) {
+  const theme = useThemeMode()
   return (
     <section className="relative flex min-h-screen flex-col justify-center px-6 py-16 md:px-16" dir="rtl">
       <div className="mx-auto w-full max-w-6xl">
@@ -76,9 +78,9 @@ export default function Footer({ onTop, onOpenPage = () => {} }) {
           {/* العمود 1: العلامة */}
           <div className="col-span-2 flex h-full flex-col md:col-span-1">
             <div className="mb-5 flex items-center">
-              <img src="/images/rawasim-logo-white.svg" alt="جمعية رواسم لتنمية الطفل" className="h-14 w-auto object-contain" />
+              <img src={theme === 'light' ? '/images/rawasim-logo-dark.svg' : '/images/rawasim-logo-white.svg'} alt="جمعية رواسم لتنمية الطفل" className="h-14 w-auto object-contain" />
             </div>
-            <p style={{ color: 'white', fontWeight: 300, fontSize: '13px', lineHeight: 1.8, marginBottom: '22px' }}>
+            <p style={{ color: 'var(--ink)', fontWeight: 300, fontSize: '13px', lineHeight: 1.8, marginBottom: '22px' }}>
               جمعية رواسم لتنمية الطفل، جمعية مرخصة من المركز الوطني لتنمية القطاع غير الربحي برقم (5170)،
               نسعى لتنمية الطفل وتعزيز قدراته في الجوانب المعرفية والسلوكية.
             </p>
@@ -86,7 +88,7 @@ export default function Footer({ onTop, onOpenPage = () => {} }) {
               {socials.map((s, i) => (
                 <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
                   className="footer-social flex h-9 w-9 items-center justify-center"
-                  style={{ ...glass(), borderRadius: '12px', color: 'white' }}>
+                  style={{ ...glass(), borderRadius: '12px', color: 'var(--ink)' }}>
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{s.icon}</svg>
                 </a>
               ))}
@@ -99,7 +101,7 @@ export default function Footer({ onTop, onOpenPage = () => {} }) {
             <ul className="flex flex-col gap-3">
               {navLinks.map((l) => (
                 <li key={l.label}>
-                  <a href="#" className="footer-link inline-block" style={{ color: 'white', fontWeight: 300, fontSize: '14px' }}
+                  <a href="#" className="footer-link inline-block" style={{ color: 'var(--ink)', fontWeight: 300, fontSize: '14px' }}
                     onClick={(e) => { e.preventDefault(); onOpenPage(l.page) }}>{l.label}</a>
                 </li>
               ))}
@@ -113,16 +115,16 @@ export default function Footer({ onTop, onOpenPage = () => {} }) {
               className="footer-bank group block"
               style={glass({ padding: '18px', textAlign: 'right', cursor: 'pointer' })}>
               <div className="mb-2 flex items-center justify-between">
-                <span style={{ color: 'white', fontWeight: 500, fontSize: '14px' }}>تسوّق وادعم الأثر</span>
+                <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '14px' }}>تسوّق وادعم الأثر</span>
                 <span className="transition-transform duration-300 group-hover:-translate-x-1" style={{
                   width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                   background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)', boxShadow: '0 0 12px rgba(239,145,34,0.45)' }}>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="on-accent" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 5 12 12 19" />
                   </svg>
                 </span>
               </div>
-              <div dir="ltr" style={{ color: '#bcd9e6', fontWeight: 300, fontSize: '13px', textAlign: 'right' }}>rwasim-stor.com</div>
+              <div dir="ltr" style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '13px', textAlign: 'right' }}>rwasim-stor.com</div>
             </a>
           </div>
 
@@ -141,9 +143,9 @@ export default function Footer({ onTop, onOpenPage = () => {} }) {
                   {item.href ? (
                     <a href={item.href} target="_blank" rel="noopener noreferrer" dir={item.ltr ? 'ltr' : 'rtl'}
                       className="footer-link"
-                      style={{ color: 'white', fontWeight: 300, fontSize: '13px', lineHeight: 1.7, textAlign: 'right' }}>{item.text}</a>
+                      style={{ color: 'var(--ink)', fontWeight: 300, fontSize: '13px', lineHeight: 1.7, textAlign: 'right' }}>{item.text}</a>
                   ) : (
-                    <span dir={item.ltr ? 'ltr' : 'rtl'} style={{ color: 'white', fontWeight: 300, fontSize: '13px', lineHeight: 1.7, textAlign: 'right' }}>{item.text}</span>
+                    <span dir={item.ltr ? 'ltr' : 'rtl'} style={{ color: 'var(--ink)', fontWeight: 300, fontSize: '13px', lineHeight: 1.7, textAlign: 'right' }}>{item.text}</span>
                   )}
                 </li>
               ))}
@@ -152,16 +154,16 @@ export default function Footer({ onTop, onOpenPage = () => {} }) {
         </div>
 
         {/* فاصل */}
-        <div style={{ height: '0.5px', background: 'rgba(255,255,255,0.12)', margin: '40px 0 24px' }} />
+        <div style={{ height: '0.5px', background: 'var(--line)', margin: '40px 0 24px' }} />
 
         {/* الشريط السفلي */}
         <div className="flex flex-col-reverse items-center gap-4 md:flex-row md:justify-between">
-          <p style={{ color: 'white', fontWeight: 300, fontSize: '12px' }}>
+          <p style={{ color: 'var(--ink)', fontWeight: 300, fontSize: '12px' }}>
             © جميع الحقوق محفوظة لجمعية رواسم لتنمية الطفل — 2026
           </p>
           <div className="flex items-center gap-6">
             {bottomLinks.map((l) => (
-              <a key={l.label} href="#" className="footer-link inline-block" style={{ color: 'white', fontWeight: 300, fontSize: '13px' }}
+              <a key={l.label} href="#" className="footer-link inline-block" style={{ color: 'var(--ink)', fontWeight: 300, fontSize: '13px' }}
                 onClick={(e) => { e.preventDefault(); onOpenPage(l.page) }}>{l.label}</a>
             ))}
           </div>

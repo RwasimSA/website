@@ -32,12 +32,12 @@ const DownloadIcon = () => (
 
 const downloadBtn = {
   marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-  padding: '10px 0', borderRadius: '999px', fontSize: '13px', fontWeight: 600, color: '#fff', border: 'none',
+  padding: '10px 0', borderRadius: '999px', fontSize: '13px', fontWeight: 600, color: 'var(--on-accent)', border: 'none',
   background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)', boxShadow: '0 4px 14px rgba(239,145,34,0.3)', cursor: 'pointer',
 }
 
 const chip = {
-  color: '#d8c8a4', fontSize: '10px', fontWeight: 500, padding: '3px 10px',
+  color: 'var(--gold)', fontSize: '10px', fontWeight: 500, padding: '3px 10px',
   borderRadius: '999px', background: 'rgba(239,145,34,0.14)', whiteSpace: 'nowrap',
 }
 
@@ -48,14 +48,14 @@ export function FileCard({ d }) {
       <div className="mb-4 flex items-start justify-between gap-2">
         <FolderIcon />
         <div className="flex flex-wrap justify-end gap-1.5">
-          {d.type && <span style={{ ...chip, color: '#bcd9e6', background: 'rgba(127,184,212,0.14)' }}>{d.type}</span>}
+          {d.type && <span style={{ ...chip, color: 'var(--ink-3)', background: 'rgba(127,184,212,0.14)' }}>{d.type}</span>}
           {d.year
             ? <span style={chip}>{d.year}</span>
             : (!d.file && <span style={chip}>قريباً</span>)}
         </div>
       </div>
-      <h3 style={{ color: 'white', fontWeight: 600, fontSize: '15px', lineHeight: 1.55, marginBottom: '8px' }}>{d.title}</h3>
-      <p style={{ color: '#8fa6b0', fontWeight: 300, fontSize: '12.5px', lineHeight: 1.8, marginBottom: '20px' }}>
+      <h3 style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '15px', lineHeight: 1.55, marginBottom: '8px' }}>{d.title}</h3>
+      <p style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '12.5px', lineHeight: 1.8, marginBottom: '20px' }}>
         {d.desc || (d.file ? 'وثيقة رسمية معتمدة.' : 'ستتاح النسخة المعتمدة هنا فور اعتمادها للنشر.')}
       </p>
       {d.file ? (
@@ -87,9 +87,9 @@ export default function FileCards({ files = [], types = null, emptyNote = 'لا 
               <button key={t} type="button" onClick={() => setActive(t)}
                 className="cursor-pointer transition-all"
                 style={isActive
-                  ? { borderRadius: '999px', padding: '9px 22px', border: 'none', color: 'white', fontWeight: 600, fontSize: '13px',
+                  ? { borderRadius: '999px', padding: '9px 22px', border: 'none', color: 'var(--ink)', fontWeight: 600, fontSize: '13px',
                       background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)', boxShadow: '0 6px 18px rgba(239,145,34,0.35)' }
-                  : { ...glass({ borderRadius: '999px', padding: '9px 22px' }), color: '#bcd9e6', fontWeight: 400, fontSize: '13px' }}>
+                  : { ...glass({ borderRadius: '999px', padding: '9px 22px' }), color: 'var(--ink-3)', fontWeight: 400, fontSize: '13px' }}>
                 {t}
               </button>
             )
@@ -105,7 +105,7 @@ export default function FileCards({ files = [], types = null, emptyNote = 'لا 
             <div className="flex flex-col items-center gap-3 py-10 text-center"
               style={glass({ borderRadius: '22px', padding: '48px 28px' })}>
               <FolderIcon size={64} />
-              <p style={{ color: '#b6ccd6', fontWeight: 300, fontSize: '15px', margin: 0 }}>{emptyNote}</p>
+              <p style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '15px', margin: 0 }}>{emptyNote}</p>
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

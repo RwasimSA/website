@@ -91,7 +91,7 @@ export default function Partners({ onOpenPage = () => {} }) {
         <motion.h2 style={text.sectionTitle} className="mb-3" {...anim.fade(0.07)}>شركاء النجاح</motion.h2>
         <motion.p
           className="mb-12 max-w-2xl text-center text-[15px] leading-loose"
-          style={{ color: '#c9dde8', fontWeight: 300 }}
+          style={{ color: 'var(--ink-2)', fontWeight: 300 }}
           {...anim.fade(0.12)}
         >
           نفخر بشبكة من الشركاء الذين أسهموا في دعم البرامج وتوسيع الأثر.

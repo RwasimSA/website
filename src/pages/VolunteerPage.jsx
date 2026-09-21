@@ -50,7 +50,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
           {programsContent.pageBack && <img src={programsContent.pageBack} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(8,38,51,0.92) 0%, rgba(13,58,77,0.84) 45%, rgba(4,23,32,0.97) 100%)' }} />
+            background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
           <motion.h1 {...rise(0)} className="mb-6 text-white"
@@ -64,7 +64,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
             }}>معنا</span>
           </motion.h1>
           <motion.p {...rise(0.1)} className="max-w-3xl"
-            style={{ color: '#dcebf2', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
+            style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '16px', lineHeight: 2.05, margin: 0 }}>
             التطوع عنصر أساسي في تشغيل برامج رواسم وصناعة تجربتها؛ فالمتطوعون والمتطوعات شركاء في إدارة
             البيئات والأندية، وتنفيذ الأنشطة والتجارب، ومرافقة المستفيدين في رحلتهم التربوية.
           </motion.p>
@@ -84,7 +84,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
                 backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{s.value}</span>
               <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
-              <span style={{ color: '#c9dde8', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.9, marginTop: '10px' }}>{s.label}</span>
+              <span style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.9, marginTop: '10px' }}>{s.label}</span>
             </motion.div>
           ))}
         </div>
@@ -100,7 +100,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
             style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
             <img src="/images/volunteer/join.svg" alt="" aria-hidden="true" draggable="false" style={{ width: '38px', height: '38px' }} />
           </div>
-          <p className="relative" style={{ color: '#dcebf2', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>
+          <p className="relative" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>
             تُعلن فرص التطوع هنا وعبر حسابات رواسم الرسمية فور فتح باب التسجيل في كل برنامج أو موسم.
             <br />
             إن كنت مهتمًا بالانضمام لفريق التطوع، شاركنا اهتمامك وسنتواصل معك عند توفر الفرصة المناسبة.
@@ -112,7 +112,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
             style={{ margin: '32px auto 0', borderRadius: '999px', padding: '14px 30px', border: 'none',
               background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)',
               boxShadow: '0 10px 26px rgba(239,145,34,0.35)' }}>
-            <span style={{ color: 'white', fontWeight: 600, fontSize: '15px' }}>شاركنا اهتمامك بالتطوع</span>
+            <span style={{ color: 'var(--on-accent)', fontWeight: 600, fontSize: '15px' }}>شاركنا اهتمامك بالتطوع</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 18l-6-6 6-6" />
             </svg>
@@ -125,8 +125,8 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
             onClick={() => onOpenPage('news')}
             whileHover={{ scale: 1.03 }}
             className="cursor-pointer border-none bg-transparent"
-            style={{ color: '#a2becf', fontSize: '14.5px', fontWeight: 300 }}>
-            لمتابعة إعلانات الفرص أولًا بأول؟ <span style={{ color: '#f4a63f', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تابع مستجداتنا</span>
+            style={{ color: 'var(--muted)', fontSize: '14.5px', fontWeight: 300 }}>
+            لمتابعة إعلانات الفرص أولًا بأول؟ <span style={{ color: 'var(--accent-text)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '5px' }}>تابع مستجداتنا</span>
           </motion.button>
         </div>
       </div>

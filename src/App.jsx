@@ -25,6 +25,8 @@ const ComingSoon = lazy(() => import('./pages/ComingSoon'))
 import CrystalLights from './components/CrystalLights'
 import Navbar from './components/Navbar'
 import SectionIndex from './components/SectionIndex'
+import ThemeToggle from './components/ThemeToggle'
+import { useThemeMode } from './themeMode'
 
 const backgrounds = {
   hero:     'radial-gradient(ellipse 65% 55% at 78% 78%, rgba(239,145,34,0.18) 0%, transparent 60%), radial-gradient(ellipse 90% 85% at 50% 42%, #2d7d99 0%, #175b75 32%, #0d3a4d 58%, #082633 80%, #041720 100%)',
@@ -36,6 +38,21 @@ const backgrounds = {
   cta: 'radial-gradient(ellipse 70% 55% at 50% 85%, rgba(239,145,34,0.20) 0%, transparent 60%), radial-gradient(ellipse 110% 110% at 50% 20%, #2d7d99 0%, #175b75 32%, #0d3a4d 58%, #082633 80%, #041720 100%)',
   footer:   'radial-gradient(ellipse 60% 60% at 50% 100%, rgba(239,145,34,0.10) 0%, transparent 60%), radial-gradient(ellipse 120% 110% at 50% 30%, #0a2530 0%, #061a23 55%, #030f15 100%)',
 }
+
+
+/* خلفيات الأقسام في الوضع الفاتح — نفس مواضع التوهج البرتقالي، بلوحة فاتحة */
+const L = '#ffffff 0%, #f1f7fa 38%, #e2edf2 66%, #d6e5ec 86%, #cddee7 100%'
+const backgroundsLight = {
+  hero:     `radial-gradient(ellipse 65% 55% at 78% 78%, rgba(239,145,34,0.14) 0%, transparent 60%), radial-gradient(ellipse 90% 85% at 50% 42%, ${L})`,
+  programs: `radial-gradient(ellipse 60% 60% at 18% 72%, rgba(239,145,34,0.14) 0%, transparent 60%), radial-gradient(ellipse 95% 120% at 85% 48%, ${L})`,
+  how:      `radial-gradient(ellipse 60% 60% at 82% 72%, rgba(239,145,34,0.14) 0%, transparent 60%), radial-gradient(ellipse 95% 120% at 15% 48%, ${L})`,
+  numbers:  `radial-gradient(ellipse 70% 50% at 50% 92%, rgba(239,145,34,0.14) 0%, transparent 60%), radial-gradient(ellipse 110% 110% at 50% 26%, ${L})`,
+  news:     `radial-gradient(ellipse 60% 60% at 15% 80%, rgba(239,145,34,0.14) 0%, transparent 60%), radial-gradient(ellipse 100% 110% at 82% 35%, ${L})`,
+  partners: `radial-gradient(ellipse 60% 60% at 85% 25%, rgba(239,145,34,0.12) 0%, transparent 60%), radial-gradient(ellipse 110% 110% at 30% 60%, ${L})`,
+  cta:      `radial-gradient(ellipse 70% 55% at 50% 85%, rgba(239,145,34,0.16) 0%, transparent 60%), radial-gradient(ellipse 110% 110% at 50% 20%, ${L})`,
+  footer:   'radial-gradient(ellipse 60% 60% at 50% 100%, rgba(239,145,34,0.08) 0%, transparent 60%), radial-gradient(ellipse 120% 110% at 50% 30%, #e9f1f5 0%, #dbe7ee 55%, #cfdde6 100%)',
+}
+const mobileBgLight = 'linear-gradient(180deg, #f6fafc 0%, #eaf2f6 38%, #dde9ef 72%, #d0dfe8 100%)'
 
 const order = ['hero', 'programs', 'numbers', 'how', 'news', 'partners', 'cta', 'footer']
 
@@ -120,6 +137,10 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(false)
   // الرابط هو مصدر الحقيقة للصفحة المفتوحة (يليه لا شيء — الرئيسية)
   const [page, setPage] = useState(() => pageFromPath())
+  /* لوحة الخلفيات تتبع وضع الألوان */
+  const theme = useThemeMode()
+  const bgs = theme === 'light' ? backgroundsLight : backgrounds
+  const mBg = theme === 'light' ? mobileBgLight : mobileBg
 
   // فتح صفحة داخلية أو العودة للرئيسية
   const openPage = (p) => {
@@ -298,7 +319,7 @@ export default function App() {
   return (
     <motion.div
       className={`relative ${isMobile || page ? 'min-h-screen' : 'h-screen overflow-hidden'}`}
-      animate={{ background: page ? mobileBg : isMobile ? mobileBg : backgrounds[section] }}
+      animate={{ background: page ? mBg : isMobile ? mBg : bgs[section] }}
       transition={{ duration: 0.65, ease: 'easeInOut' }}
     >
       {/* أضواء تدور حول حواف الشاشة */}
@@ -309,6 +330,9 @@ export default function App() {
         progress={isMobile || page ? 0 : order.indexOf(section) / (order.length - 1)}
         onOpenPage={openPage}
       />
+
+      {/* زر تبديل الوضع الداكن/الفاتح — لسان عائم على الحافة اليسرى */}
+      <ThemeToggle />
 
       {/* فهرس أقسام الرئيسية — سطح المكتب فقط وخارج الصفحات الداخلية */}
       {!page && !isMobile && (
@@ -389,7 +413,7 @@ export default function App() {
                 (ما كان يعطّل البلور الزجاجي backdrop-filter في كروم) */}
             <motion.div
               className="pointer-events-none absolute inset-0"
-              style={{ background: backgrounds[section], zIndex: 40 }}
+              style={{ background: bgs[section], zIndex: 40 }}
               initial={{ opacity: 1 }}
               animate={{ opacity: 0 }}
               transition={{ duration: 0.45, ease: 'easeOut' }}

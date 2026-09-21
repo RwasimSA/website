@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- وضع الألوان يُضبط قبل أي رسم حتى لا يومض الوضع الخاطئ:
+         اختيار الزائر المحفوظ، وإلا الوضع الداكن (هوية الموقع) -->
+    <script>try{if(localStorage.getItem('theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary SEO -->
@@ -97,6 +100,9 @@
       @keyframes plPulse { 0%, 100% { opacity: 0.55; transform: scale(0.97); } 50% { opacity: 1; transform: scale(1); } }
       @keyframes plSlide { from { inset-inline-start: 0; } to { inset-inline-start: 60%; } }
       #preloader.done { opacity: 0; pointer-events: none; }
+      :root[data-theme="light"] #preloader { background: linear-gradient(180deg, #f3f8fa 0%, #e6f0f5 55%, #dbe8ef 100%); }
+      :root[data-theme="light"] #preloader img { content: url('/images/rawasim-logo-dark.svg'); }
+      :root[data-theme="light"] #preloader .pl-bar { background: rgba(13,58,77,0.14); }
     </style>
     <div id="preloader" aria-hidden="true">
       <img src="/images/rawasim-logo-white.svg" alt="" />
