@@ -150,7 +150,7 @@ export default function Barie({ onOpenPage = () => {} }) {
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} />}
 
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
-          {PROG.logo && <motion.img {...rise(0)} src={PROG.logo} alt="بارع" draggable="false"
+          {PROG.logo && <motion.img {...rise(0)} src={PROG.logo} alt="بارع" draggable="false" data-logo="program"
             className="mb-8 h-[110px] w-auto object-contain"
             style={{ filter: 'drop-shadow(0 6px 16px var(--shadow))' }} />}
           <motion.h1 {...rise(0.08)} className="mb-6 text-white"

@@ -115,6 +115,8 @@
 :root[data-theme="light"] .text-white { color: var(--ink); }
 :root[data-theme="light"] svg[stroke="white"]:not(.on-accent, .on-accent *) { stroke: var(--ink); }
 :root[data-theme="light"] .hero-doodles { opacity: 0.55; }
+/* شعارات البرامج المرفوعة بيضاء — تُعتَّم على الأسطح الفاتحة لتبقى مقروءة */
+:root[data-theme="light"] img[data-logo="program"] { filter: brightness(0.22) saturate(1.2); }
 :root[data-theme="light"] .sub-input::placeholder { color: #6f8a97; }
 :root[data-theme="light"] .post-body h2, :root[data-theme="light"] .post-body h3, :root[data-theme="light"] .post-body h4 { color: var(--ink); }
 :root[data-theme="light"] .post-body blockquote { color: var(--ink-3); }

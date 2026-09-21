@@ -81,7 +81,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     >
       {/* شعار البرنامج — وإن لم يُرفع بعد يظهر الاسم نصاً */}
       {program.logo ? (
-        <img src={program.logo} alt={program.name} draggable="false"
+        <img src={program.logo} alt={program.name} draggable="false" data-logo="program"
           className="relative mb-8 h-[82px] w-auto object-contain"
           style={{ filter: 'drop-shadow(0 4px 10px var(--shadow))', zIndex: 1 }} />
       ) : (

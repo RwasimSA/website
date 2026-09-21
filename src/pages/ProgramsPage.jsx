@@ -107,7 +107,7 @@ const ProgramCard = ({ p, delay, onOpen }) => {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
         <div style={{ position: 'absolute', inset: 0,
           background: 'var(--img-overlay-soft)' }} />
-        {p.logo ? <img src={p.logo} alt={p.name} draggable="false"
+        {p.logo ? <img src={p.logo} alt={p.name} draggable="false" data-logo="program"
           className="absolute bottom-4 right-5 h-[54px] w-auto object-contain"
           style={{ filter: 'drop-shadow(0 4px 10px var(--shadow))' }} />
         : p.name && <span className="absolute bottom-4 right-5"

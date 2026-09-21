@@ -222,7 +222,7 @@ export default function Impact({ onOpenPage = () => {} }) {
                   <span style={{ color: e.color, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.06em' }}>{e.program}</span>
                   <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '23px', margin: '6px 0 0' }}>{e.title}</h3>
                 </div>
-                {e.logo && <img src={e.logo} alt={e.program} draggable="false" className="h-[46px] w-auto flex-shrink-0 object-contain opacity-90" />}
+                {e.logo && <img src={e.logo} alt={e.program} draggable="false" data-logo="program" className="h-[46px] w-auto flex-shrink-0 object-contain opacity-90" />}
               </div>
               <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2.05, margin: 0 }}>{e.body}</p>
               {e.chain && (
@@ -258,7 +258,7 @@ export default function Impact({ onOpenPage = () => {} }) {
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', right: '-15%', width: '55%', height: '100%', borderRadius: '50%',
                   background: `radial-gradient(ellipse, ${p.colorSoft} 0%, transparent 65%)`, filter: 'var(--fx-blur, blur(46px))' }} />
-              {p.logo && <img src={p.logo} alt={p.name} draggable="false" className="mb-5 h-[52px] w-auto self-start object-contain" />}
+              {p.logo && <img src={p.logo} alt={p.name} draggable="false" data-logo="program" className="mb-5 h-[52px] w-auto self-start object-contain" />}
               <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '20px', lineHeight: 1.6, margin: '0 0 10px' }}>{p.title}</h3>
               <p className="flex-1" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{p.body}</p>
               <span className="mt-5 flex items-center gap-2" style={{ color: p.color, fontWeight: 500, fontSize: '13.5px' }}>
