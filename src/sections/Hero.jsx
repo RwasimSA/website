@@ -98,7 +98,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
 
       {/* فيديو «ليلة الختام» مستضاف محلياً — أقصى الخلف، مكتوم ويعيد نفسه،
           وخلفه صورة غطاء احتياطية لحين تحميله */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
         {(site.heroImage || site.heroPoster) && <img src={site.heroImage || site.heroPoster} alt="" aria-hidden="true" draggable="false"
           fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover" />}
@@ -165,7 +165,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
       />
 
       {/* رسومات خفيفة على الخلفية */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         {/* شبكة نقاط خافتة تتلاشى نحو المركز */}
         <svg className="absolute inset-0 h-full w-full"
           style={{ opacity: 0.06,

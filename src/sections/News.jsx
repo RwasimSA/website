@@ -319,7 +319,7 @@ export default function News({ onOpenPage = () => {} }) {
     >
       {/* خلفية القسم — فيديو MP4 مرفوع من لوحة ديوان (site.todayVideo)؛
           وإن لم يُرفع بعد: مقطع صامت من فيديو البطاقة النشطة يتبدل معها بتلاشٍ متقاطع */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         {site.todayVideo ? (
           <video
             src={site.todayVideo}
@@ -360,7 +360,7 @@ export default function News({ onOpenPage = () => {} }) {
       </div>
 
       {/* توهجات جانبية */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position:'absolute', top:'5%', left:'-10%', width:'55%', height:'90%', borderRadius:'50%',
             background:'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}

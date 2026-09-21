@@ -50,7 +50,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
   return (
     <motion.section className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-16">
       {/* توهجات جانبية */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position: 'absolute', top: '10%', left: '-10%', width: '55%', height: '85%', borderRadius: '50%',
             background: 'radial-gradient(ellipse, rgba(239,145,34,0.12) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}
@@ -101,7 +101,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
             className="pointer-events-none absolute inset-0 h-full w-full object-cover"
             style={{ opacity: 0.16 }} />}
           {/* تظليل الهوية فوق الصورة — شفاف ليُظهر الشكل خلف اللوحة */}
-          <div aria-hidden="true" style={{ position: 'absolute', inset: 0,
+          <div aria-hidden="true" className="bg-fx" style={{ position: 'absolute', inset: 0,
             background: 'linear-gradient(115deg, rgba(8,38,51,0.5) 0%, rgba(13,58,77,0.32) 45%, rgba(8,38,51,0.26) 70%, rgba(201,118,15,0.2) 100%)' }} />
 
           {/* جسيمات ضوئية تتنفس */}

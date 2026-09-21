@@ -128,7 +128,7 @@ export default function Impact({ onOpenPage = () => {} }) {
 
       {/* ═══ افتتاحية أثرنا ═══ */}
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '84px' }}>
-        <div className="pointer-events-none absolute inset-0">
+        <div className="bg-fx pointer-events-none absolute inset-0">
           {site.backImpact && <img src={site.backImpact} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,

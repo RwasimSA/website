@@ -226,7 +226,7 @@ export default function Numbers({ onOpenPage = () => {} }) {
       className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-16"
     >
       {/* خلفية القسم — صورة قوية الحضور من فعاليات الجمعية مع تظليل بلون الهوية */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         {site.backNumbers && <img src={site.backNumbers} alt="" aria-hidden="true" draggable="false"
           className="h-full w-full object-cover" />}
         <div style={{ position: 'absolute', inset: 0,
@@ -234,7 +234,7 @@ export default function Numbers({ onOpenPage = () => {} }) {
       </div>
 
       {/* توهجات جانبية */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position:'absolute', top:'5%', left:'-10%', width:'55%', height:'90%', borderRadius:'50%',
             background:'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}

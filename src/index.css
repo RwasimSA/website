@@ -116,7 +116,11 @@
 /* نصوص Tailwind البيضاء تتبع الحبر في الوضع الفاتح، وأيقونات الخطوط البيضاء كذلك */
 :root[data-theme="light"] .text-white { color: var(--ink); }
 :root[data-theme="light"] svg[stroke="white"]:not(.on-accent, .on-accent *) { stroke: var(--ink); }
-:root[data-theme="light"] .hero-doodles { opacity: 0.55; }
+/* الوضع الفاتح خلفياته نظيفة: لا صور ولا فيديو ولا أنماط ولا توهجات —
+   .bg-fx تحملها طبقات خلفية الأقسام والصفحات، والعناصر الزخرفية aria-hidden المطلقة (توهجات، جسيمات، أنماط) */
+:root[data-theme="light"] .bg-fx,
+:root[data-theme="light"] [aria-hidden="true"].pointer-events-none.absolute,
+:root[data-theme="light"] .hero-doodles { display: none !important; }
 /* شعارات البرامج المرفوعة بيضاء — تُعتَّم على الأسطح الفاتحة لتبقى مقروءة */
 :root[data-theme="light"] img[data-logo="program"] { filter: brightness(0.22) saturate(1.2); }
 :root[data-theme="light"] .sub-input::placeholder { color: #6f8a97; }

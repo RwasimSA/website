@@ -123,7 +123,7 @@ export default function Programs({ onOpenPage = () => {} }) {
     >
       {/* صورة من فعاليات البرامج — حضور قوي مع تظليل بلون الهوية،
           وتنكشف صورة البرنامج الذي يمر عليه المؤشر */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         {programsContent.pageBack && <img src={programsContent.pageBack} alt="" aria-hidden="true" draggable="false"
           className="absolute inset-0 h-full w-full object-cover" />}
         <AnimatePresence>
@@ -144,7 +144,7 @@ export default function Programs({ onOpenPage = () => {} }) {
       </div>
 
       {/* توهجات جانبية — تدرّجات ناعمة بلا blur (أخفّ بكثير أثناء التمرير) */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position: 'absolute', top: '5%', left: '-10%', width: '55%', height: '90%', borderRadius: '50%',
             background: 'radial-gradient(ellipse, rgba(26,127,161,0.22) 0%, transparent 62%)' }}

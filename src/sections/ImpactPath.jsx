@@ -142,7 +142,7 @@ export default function ImpactPath() {
   return (
     <motion.section className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-16">
       {/* خلفية القسم — صورة جمهور الفعالية (المتبادَلة مع الهيرو) مع تظليل بلون الهوية */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         {site.heroImage && <img src={site.heroImage} alt="" aria-hidden="true" draggable="false"
           className="absolute inset-0 h-full w-full object-cover" />}
         <div style={{ position: 'absolute', inset: 0,
@@ -150,7 +150,7 @@ export default function ImpactPath() {
       </div>
 
       {/* توهجات جانبية */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="bg-fx pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           style={{ position: 'absolute', top: '5%', left: '-10%', width: '55%', height: '90%', borderRadius: '50%',
             background: 'radial-gradient(ellipse, rgba(239,145,34,0.10) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(100px))' }}

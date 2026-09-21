@@ -138,7 +138,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
 
       {/* ═══ افتتاحية البرنامج ═══ */}
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '90px' }}>
-        <div className="pointer-events-none absolute inset-0">
+        <div className="bg-fx pointer-events-none absolute inset-0">
           {PROG.img && <img src={PROG.img} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,

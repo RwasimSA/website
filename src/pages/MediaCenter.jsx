@@ -53,7 +53,7 @@ function MediaShell({ title, children, current, onOpenPage }) {
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '76px' }}>
-        <div className="pointer-events-none absolute inset-0">
+        <div className="bg-fx pointer-events-none absolute inset-0">
           <img src="https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg" alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />
           <div style={{ position: 'absolute', inset: 0,
@@ -219,7 +219,7 @@ function NewsArticle({ slug, onOpenPage }) {
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
       {/* رأس الصفحة بصورة الخبر */}
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '70px' }}>
-        <div className="pointer-events-none absolute inset-0">
+        <div className="bg-fx pointer-events-none absolute inset-0">
           {n.image
             ? <img src={n.image} alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />
             : <img src="https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg" alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />}

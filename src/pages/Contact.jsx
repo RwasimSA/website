@@ -95,7 +95,7 @@ export default function Contact({ onOpenPage = () => {} }) {
 
       {/* ═══ افتتاحية التواصل ═══ */}
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
-        <div className="pointer-events-none absolute inset-0">
+        <div className="bg-fx pointer-events-none absolute inset-0">
           {site.heroImage && <img src={site.heroImage} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,

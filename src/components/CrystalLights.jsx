@@ -10,7 +10,7 @@ const orbs = [
 
 export default function CrystalLights() {
   return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+    <div className="bg-fx pointer-events-none fixed inset-0 overflow-hidden" style={{ zIndex: 0 }}>
       <motion.div
         className="absolute inset-0"
         animate={{ rotate: 360 }}

@@ -119,7 +119,7 @@ function GovShell({ title, children, current, onOpenPage }) {
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '76px' }}>
-        <div className="pointer-events-none absolute inset-0">
+        <div className="bg-fx pointer-events-none absolute inset-0">
           {site.backNumbers && <img src={site.backNumbers} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,

@@ -46,7 +46,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
 
       {/* ═══ الافتتاحية ═══ */}
       <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
-        <div className="pointer-events-none absolute inset-0">
+        <div className="bg-fx pointer-events-none absolute inset-0">
           {programsContent.pageBack && <img src={programsContent.pageBack} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
