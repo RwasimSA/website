@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import site from '../../content/site.json'
-import { useThemeMode } from '../themeMode'
+import { useThemeMode, getTheme } from '../themeMode'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -71,7 +71,10 @@ const GradWord = ({ children }) => (
     // حتى لا تُقص الهمزة/المدّة الممتدة فوق ارتفاع السطر (background-clip: text)
     padding: '0.35em 0.1em',
     margin: '-0.35em -0.1em',
-    backgroundImage: 'linear-gradient(100deg, #ffb85c, #ef9122, #4db3d4, #35a3c8, #4db3d4, #ef9122, #ffb85c)',
+    /* في الفاتح: أطراف التدرّج تُعمَّق بألوان الهوية حتى تبقى الكلمة مقروءة */
+    backgroundImage: getTheme() === 'light'
+      ? 'linear-gradient(100deg, #c46a0a, #EF9122, #336E7C, #0E4156, #336E7C, #EF9122, #c46a0a)'
+      : 'linear-gradient(100deg, #ffb85c, #ef9122, #4db3d4, #35a3c8, #4db3d4, #ef9122, #ffb85c)',
     backgroundSize: '220% 100%',
     animation: 'gradShift 5s linear infinite',
     WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent',
