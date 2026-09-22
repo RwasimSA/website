@@ -59,7 +59,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
               {/* الشريط */}
               <nav
                 className="flex w-[min(60rem,calc(100vw-2rem))] items-center justify-between gap-6 rounded-full px-6 py-4"
-                style={{ ...glass, boxShadow: '0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 var(--glass-a)' }}
+                style={{ ...glass, boxShadow: 'var(--nav-shadow), inset 0 1px 0 var(--glass-a)' }}
               >
                 <img src={logo} alt="جمعية رواسم" className="h-8 w-auto cursor-pointer object-contain"
                   onClick={() => go(null)} />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import site from '../../content/site.json'
+import { useThemeMode } from '../themeMode'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -81,6 +82,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
   /* فيديو الخلفية: لا يُحمّل مع أول رسم للصفحة، بل بعد أن تهدأ
      (وقت الخمول) وعلى الشاشات العريضة فقط — فالجوال تكفيه صورة الغلاف */
   const [showVideo, setShowVideo] = useState(false)
+  const light = useThemeMode() === 'light'
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (window.matchMedia('(max-width: 767px)').matches) return
@@ -141,11 +143,11 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
       </div>
 
       {/* باترن الهوية — شريط منحنٍ بعرض كامل، متوسّط رأسياً مع تمويه خفيف */}
-      <img src="/images/hero-pattern.webp" alt="" aria-hidden="true" draggable="false"
-        className="pointer-events-none absolute left-0 w-full"
+      <img src={light ? '/images/hero-pattern-light.webp' : '/images/hero-pattern.webp'} alt="" aria-hidden="true" draggable="false"
+        className="keep-light pointer-events-none absolute left-0 w-full"
         style={{
           top: '50%', transform: 'translateY(-50%)', zIndex: 0,
-          opacity: 0.5, filter: 'blur(9px)',
+          opacity: light ? 0.9 : 0.5, filter: light ? 'none' : 'blur(9px)',
         }} />
 
       {/* توهّجات متنفّسة خلف الشعار — تُخفى على الجوال (fx-glow) */}
