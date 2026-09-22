@@ -132,6 +132,15 @@
   box-shadow: 14px -14px 34px rgba(255,255,255,0.95), -14px 18px 38px rgba(14,65,86,0.13), inset 0 0 0 1px rgba(255,255,255,0.6) !important;
   backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
 }
+/* بطاقات «أثرنا بالأرقام» في الفاتح: بارزة كبطاقات البرامج — لون الخلفية،
+   حدّ أبيض، ظل أبيض من الأعلى-اليمين وكحلي خفيف من الأسفل-اليسار */
+:root[data-theme="light"] .stat-card {
+  background: #EDF0F3 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 14px -14px 34px rgba(255,255,255,0.95), -14px 18px 38px rgba(14,65,86,0.13), inset 0 0 0 1px rgba(255,255,255,0.6) !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
+
 /* مع صورة الغلاف: تبقى الصورة والتظليل داخل حدود البطاقة، والشعار فوقهما */
 :root[data-theme="light"] .prog-card-cover img[data-logo="program"], :root[data-theme="light"] .prog-card-cover > img:not(.keep-light) { position: relative; z-index: 1; }
 /* شعارات البرامج المرفوعة بيضاء — تُعتَّم على الأسطح الفاتحة لتبقى مقروءة */

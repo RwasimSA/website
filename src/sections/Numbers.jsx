@@ -5,6 +5,7 @@ import SectionCta from '../components/SectionCta'
 import { text } from '../typography'
 import statsData from '../../content/stats.json'
 import site from '../../content/site.json'
+import { useThemeMode } from '../themeMode'
 
 /* مؤشرات «أثرنا بالأرقام» — القيم من content/stats.json (تُحرَّر من لوحة التحكم) */
 const STATS = [
@@ -76,6 +77,12 @@ function useSvgShapes(src) {
    ثم تظهر التعبئة الملوّنة. */
 function DrawnIcon({ src }) {
   const data = useSvgShapes(src)
+  /* الوضع الفاتح: الأبيض والأزرق الفاتح في الأيقونة يصيران كحلي الهوية، والبرتقالي يبقى */
+  const light = useThemeMode() === 'light'
+  const tone = (c) => {
+    const v = (c || '#ffffff').toLowerCase()
+    return light && (v === '#ffffff' || v === '#fff' || v === 'white' || v === '#cee1f2') ? '#0E4156' : (c || '#ffffff')
+  }
   if (!data) return <span style={{ width: 50, height: 50, display: 'block' }} />
 
   return (
@@ -85,7 +92,7 @@ function DrawnIcon({ src }) {
         const El = motion[s.tag]
         const { fill, ...rest } = s.attrs
         return (
-          <El key={`f${i}`} {...rest} fill={fill || '#ffffff'} stroke="none"
+          <El key={`f${i}`} {...rest} fill={tone(fill)} stroke="none"
             transition={{ duration: 0.45, delay: 1.05 + i * 0.1, ease: 'easeOut' }} />
         )
       })}
@@ -94,7 +101,7 @@ function DrawnIcon({ src }) {
         const El = motion[s.tag]
         const { fill, ...rest } = s.attrs
         return (
-          <El key={`s${i}`} {...rest} fill="none" stroke={fill || '#ffffff'}
+          <El key={`s${i}`} {...rest} fill="none" stroke={tone(fill)}
             strokeWidth="12" strokeLinecap="round" strokeLinejoin="round"
             initial={{ pathLength: 0, opacity: 1 }}
             animate={{ pathLength: 1, opacity: 0 }}
