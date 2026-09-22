@@ -124,10 +124,10 @@ export default function Partnerships({ onOpenPage = () => {} }) {
         <SectionTitle>شركاء رواسم</SectionTitle>
         <Lead>جهات حكومية وخاصة وغير ربحية أسهمت مع رواسم في دعم برامجها وتوسيع نطاق أثرها.</Lead>
         {LOGOS.length > 0 ? (
-          <motion.div {...rise(0.08)} className="partners-grid mb-24 grid w-full gap-3">
+          <motion.div {...rise(0.08)} className="partners-grid mb-24 flex w-full flex-wrap justify-center gap-3">
             {LOGOS.map((src, i) => (
               <div key={i} className="partner-cell flex items-center justify-center"
-                style={{ ...glass({ borderRadius: '18px', padding: '14px 10px' }), aspectRatio: '1.5' }}>
+                style={{ ...glass({ borderRadius: '18px', padding: '14px 10px' }), aspectRatio: '1 / 1' }}>
                 <img src={src} alt="شريك" draggable="false" loading="lazy"
                   className="max-h-[52px] w-auto max-w-full object-contain opacity-85" />
               </div>
