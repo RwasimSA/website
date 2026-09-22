@@ -109,7 +109,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     {/* النودل الملوّن — يتدلّى فوق الحافة العلوية وظله مدموج في الصورة */}
     {program.pattern && <motion.img
       src={program.pattern} alt="" aria-hidden="true" draggable="false"
-      className="pointer-events-none absolute"
+      className="keep-light pointer-events-none absolute"
       style={{ top: '-52px', left: '-13%', width: '94%', maxWidth: 'none', zIndex: 2 }}
       animate={{ y: [0, -6, 0], rotate: [0, 1, 0] }}
       transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
