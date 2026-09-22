@@ -129,7 +129,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
               <div key={i} className="partner-cell flex items-center justify-center"
                 style={{ ...glass({ borderRadius: '18px', padding: '14px 10px' }), aspectRatio: '1 / 1' }}>
                 <img src={src} alt="شريك" draggable="false" loading="lazy"
-                  className="max-h-[52px] w-auto max-w-full object-contain opacity-85" />
+                  className="partner-logo h-full w-auto max-w-full object-contain opacity-85" />
               </div>
             ))}
           </motion.div>

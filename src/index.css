@@ -345,6 +345,9 @@ body {
 .partner-cell {
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
+/* الشعار يتمدّد داخل البطاقة المربّعة ولا يتجاوزها، فيبقى الضلعان متساويين */
+.partner-logo { max-height: 100%; }
+@media (max-width: 639px) { .partner-cell { padding: 9px 7px !important; } }
 .partner-cell:hover {
   border-color: rgba(239,145,34, 0.5) !important;
   box-shadow: 0 10px 26px rgba(239,145,34, 0.22);
