@@ -151,10 +151,9 @@
   backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
 }
 /* عقد الأرقام في «كيف نصنع الأثر» بالفاتح: بلا توهج، حدّ أبيض وظل بارز كالبطاقات */
-/* موضع مفتاح تبديل الوضع: أعلى يسار الشاشة — أسفل الشريط العلوي على
-   الشاشات الصغيرة، وبمحاذاته تماماً على الكبيرة حيث يتسع الهامش بجانبه */
-.theme-switch { position: fixed; left: 18px; top: 92px; }
-@media (min-width: 1024px) { .theme-switch { left: 28px; top: 26px; } }
+/* المفتاح يسكن داخل الشريط العلوي مكان زر التواصل — موضعه نسبي ليحتوي
+   طرفَي المضمار المرسومَين بتموضع مطلق داخله */
+.theme-switch { position: relative; }
 
 /* مفتاح تبديل الوضع في الفاتح: بارز بنفس لغة البطاقات */
 :root[data-theme="light"] .theme-switch {

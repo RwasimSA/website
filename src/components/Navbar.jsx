@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GOV_PAGES, MEDIA_PAGES } from '../pages/navPages'
 import { useThemeMode } from '../themeMode'
+import ThemeSwitch from './ThemeSwitch'
 
 /* تبويبات الهيدر — مسطحة، وتبويبا المركز الإعلامي والحوكمة قائمتان منسدلتان بصفحاتهما. */
 const nav = [
@@ -12,6 +13,7 @@ const nav = [
   { label: 'الشراكات', page: 'partners' },
   { label: 'المركز الإعلامي', children: MEDIA_PAGES },
   { label: 'الحوكمة', children: GOV_PAGES },
+  { label: 'تواصل معنا', page: 'inquiries' },
 ]
 
 const Chevron = ({ open }) => (
@@ -119,27 +121,9 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                   ))}
                 </ul>
 
-                {/* أدوات الشريط: زر تواصل معنا + زر قائمة الجوال */}
+                {/* أدوات الشريط: مفتاح تبديل الوضع + زر قائمة الجوال */}
                 <div className="flex items-center gap-3">
-                <motion.button
-                  type="button" onClick={() => go('inquiries')}
-                  whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                  className="flex flex-shrink-0 items-center gap-2.5"
-                  style={{
-                    borderRadius: '999px', padding: '5px 16px 5px 5px',
-                    background: 'var(--pill)',
-                    backdropFilter: 'var(--glass, blur(20px))', WebkitBackdropFilter: 'var(--glass, blur(20px))',
-                    border: '0.5px solid var(--line)', cursor: 'pointer',
-                  }}
-                >
-                  <span style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '13px' }}>تواصل معنا</span>
-                  <span style={{ width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)', boxShadow: '0 0 12px rgba(239,145,34,0.5)' }}>
-                    <svg className="on-accent" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
-                  </span>
-                </motion.button>
+                  <ThemeSwitch />
                   <button type="button" onClick={() => setMobileOpen((o) => !o)} aria-label="القائمة"
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full md:hidden"
                     style={{ background: 'var(--glass-a)', border: '0.5px solid var(--line)', cursor: 'pointer' }}>
@@ -213,17 +197,20 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
               </AnimatePresence>
             </motion.div>
           ) : (
-            <motion.button
+            <motion.div
               key="indicator"
-              onClick={() => setHovered(true)}
-              aria-label="إظهار شريط التنقّل"
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="flex cursor-pointer items-center justify-center"
-              style={{ padding: '12px 28px', background: 'transparent', border: 'none' }}
+              className="flex items-center justify-center gap-4"
+              style={{ padding: '12px 20px' }}
             >
+              {/* مفتاح الوضع يبقى في متناول اليد حتى والشريط منكمش */}
+              <ThemeSwitch />
+              <button type="button" onClick={() => setHovered(true)} aria-label="إظهار شريط التنقّل"
+                className="flex cursor-pointer items-center justify-center"
+                style={{ padding: '8px 4px', background: 'transparent', border: 'none' }}>
               <span style={{ position: 'relative', display: 'block', overflow: 'hidden', width: '140px', height: '6px', borderRadius: '999px', background: 'var(--line)' }}>
                 <motion.span
                   style={{ position: 'absolute', insetInlineStart: 0, top: 0, bottom: 0, borderRadius: '999px',
@@ -233,7 +220,8 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 />
               </span>
-            </motion.button>
+              </button>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>

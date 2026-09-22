@@ -1,6 +1,6 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useThemeMode, setTheme, getTheme } from '../themeMode'
+import { setTheme, getTheme } from '../themeMode'
 
 /* ─────────────────────────────────────────────────────────────
    تبديل الوضع (داكن/فاتح)
@@ -126,96 +126,35 @@ function ThemeBurst({ toLight, origin }) {
   )
 }
 
-/* ═══ الزر ═══ */
-const SunMini = ({ c }) => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
-    <circle cx="12" cy="12" r="4.4" />
-    <path d="M12 1.6v2.2M12 20.2v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M1.6 12h2.2M20.2 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" />
-  </svg>
-)
-const MoonMini = ({ c }) => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-  </svg>
-)
-
+/* ═══ مضيف شاشة الانتقال ═══ */
 export default function ThemeToggle() {
-  const theme = useThemeMode()
-  const light = theme === 'light'
   const [burst, setBurst] = useState(null)
-  const btnRef = useRef(null)
   const busy = useRef(false)
 
-  const label = light ? 'التبديل إلى الوضع الداكن' : 'التبديل إلى الوضع الفاتح'
-
-  const onToggle = useCallback(() => {
-    if (busy.current) return
-    const next = getTheme() === 'light' ? 'dark' : 'light'
-    /* من يفضّل تقليل الحركة: تبديل فوري بلا شاشة انتقال */
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { setTheme(next); return }
-    const zoom = parseFloat(getComputedStyle(document.body).zoom) || 1
-    const r = btnRef.current?.getBoundingClientRect()
-    const origin = r
-      ? { x: (r.left + r.width / 2) / zoom, y: (r.top + r.height / 2) / zoom, zoom }
-      : { x: window.innerWidth / zoom / 2, y: window.innerHeight / zoom / 2, zoom }
-    busy.current = true
-    setBurst({ toLight: next === 'light', origin })
-    /* الوضع يتبدّل خلف الشاشة وهي تغطّي كامل المساحة */
-    setTimeout(() => setTheme(next), 430)
-    setTimeout(() => { setBurst(null); busy.current = false }, 1500)
+  useEffect(() => {
+    const onRequest = (e) => {
+      if (busy.current) return
+      const next = getTheme() === 'light' ? 'dark' : 'light'
+      /* من يفضّل تقليل الحركة: تبديل فوري بلا شاشة انتقال */
+      if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { setTheme(next); return }
+      const zoom = parseFloat(getComputedStyle(document.body).zoom) || 1
+      const p = e.detail
+      const origin = p
+        ? { x: p.x / zoom, y: p.y / zoom, zoom }
+        : { x: window.innerWidth / zoom / 2, y: window.innerHeight / zoom / 2, zoom }
+      busy.current = true
+      setBurst({ toLight: next === 'light', origin })
+      /* الوضع يتبدّل خلف الشاشة وهي تغطّي كامل المساحة */
+      setTimeout(() => setTheme(next), 430)
+      setTimeout(() => { setBurst(null); busy.current = false }, 1500)
+    }
+    window.addEventListener('rwasim:theme-toggle', onRequest)
+    return () => window.removeEventListener('rwasim:theme-toggle', onRequest)
   }, [])
 
   return (
-    <>
-      <motion.button
-        ref={btnRef}
-        type="button"
-        onClick={onToggle}
-        aria-label={label}
-        title={label}
-        className="theme-switch group fixed cursor-pointer"
-        style={{
-          zIndex: 60, direction: 'ltr',
-          width: '64px', height: '34px', borderRadius: '999px', padding: '4px',
-          display: 'flex', alignItems: 'center',
-          background: 'var(--panel)', border: '0.5px solid var(--line)',
-          boxShadow: '0 10px 30px var(--shadow)',
-          backdropFilter: 'var(--glass, blur(18px))', WebkitBackdropFilter: 'var(--glass, blur(18px))',
-        }}
-        whileHover={{ scale: 1.06 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.22, ease: EASE }}
-      >
-        {/* طرفا المضمار: شمس ثم هلال */}
-        <span className="pointer-events-none absolute flex items-center justify-between"
-          style={{ left: '9px', right: '9px', opacity: 0.55 }}>
-          <SunMini c={light ? '#0E4156' : '#dcebf2'} />
-          <MoonMini c={light ? '#0E4156' : '#dcebf2'} />
-        </span>
-        {/* المقبض — ينزلق إلى الطرف الذي يمثّل الوضع الحالي */}
-        <motion.span
-          className="relative flex items-center justify-center"
-          style={{ width: '26px', height: '26px', borderRadius: '50%',
-            background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)',
-            boxShadow: '0 4px 12px rgba(239,145,34,0.45), inset 0 1px 0 rgba(255,255,255,0.35)' }}
-          animate={{ x: light ? 0 : 30 }}
-          transition={{ type: 'spring', stiffness: 420, damping: 30 }}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span key={theme} className="flex"
-              initial={{ rotate: -80, opacity: 0, scale: 0.5 }}
-              animate={{ rotate: 0, opacity: 1, scale: 1 }}
-              exit={{ rotate: 80, opacity: 0, scale: 0.5 }}
-              transition={{ duration: 0.26, ease: EASE }}>
-              {light ? <SunMini c="#ffffff" /> : <MoonMini c="#ffffff" />}
-            </motion.span>
-          </AnimatePresence>
-        </motion.span>
-      </motion.button>
-
-      <AnimatePresence>
-        {burst && <ThemeBurst key="burst" toLight={burst.toLight} origin={burst.origin} />}
-      </AnimatePresence>
-    </>
+    <AnimatePresence>
+      {burst && <ThemeBurst key="burst" toLight={burst.toLight} origin={burst.origin} />}
+    </AnimatePresence>
   )
 }
