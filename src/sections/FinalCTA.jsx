@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import site from '../../content/site.json'
+import { useThemeMode } from '../themeMode'
 
 /* ─────────────────────────────────────────────────────────────
    الدعوة الختامية — لوحة واحدة كبيرة:
@@ -12,11 +13,14 @@ import site from '../../content/site.json'
 const titleFont = "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif"
 
 /* كلمة بتدرّج لوني متحرك (نفس أسلوب الهيرو) مع حاشية تمنع قصّ الهمزة */
-const GradWord = ({ children }) => (
+const GradWord = ({ children, light }) => (
   <span style={{
     display: 'inline-block',
     padding: '0.35em 0.1em', margin: '-0.35em -0.1em',
-    backgroundImage: 'linear-gradient(100deg, #ffb85c, #ef9122, #4db3d4, #35a3c8, #4db3d4, #ef9122, #ffb85c)',
+    /* في الفاتح: ألوان الهوية الأعمق (برتقالي وأزرق مخضرّ) لتبقى مقروءة على الخلفية الفاتحة */
+    backgroundImage: light
+      ? 'linear-gradient(100deg, #c46a0a, #EF9122, #336E7C, #61A2BC, #336E7C, #EF9122, #c46a0a)'
+      : 'linear-gradient(100deg, #ffb85c, #ef9122, #4db3d4, #35a3c8, #4db3d4, #ef9122, #ffb85c)',
     backgroundSize: '220% 100%',
     animation: 'gradShift 5s linear infinite',
     WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent',
@@ -30,6 +34,7 @@ const rise = (delay = 0) => ({
 })
 
 export default function FinalCTA({ onOpenPage = () => {} }) {
+  const light = useThemeMode() === 'light'
   /* تتبّع الماوس — اللوحة تنجذب وتميل بلطف نحو المؤشر */
   const mx = useMotionValue(0) // -0.5 .. 0.5 من مركز الشاشة
   const my = useMotionValue(0)
@@ -87,7 +92,8 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative overflow-hidden"
+        {/* اللوحة — في الفاتح تأخذ أسلوب البطاقات البارزة (cta-card) */}
+        <div className="cta-card relative overflow-hidden"
           style={{
             borderRadius: '52px',
             border: '1px solid var(--line)',
@@ -125,7 +131,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
             <motion.h2 {...rise(0.35)}
               className="mb-5 text-white"
               style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(34px, 4.6vw, 62px)', lineHeight: 1.35 }}>
-              كن جزءًا من <GradWord>الأثر</GradWord>
+              كن جزءًا من <GradWord light={light}>الأثر</GradWord>
             </motion.h2>
 
             <motion.p {...rise(0.45)}
@@ -149,8 +155,10 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
                 style={{
                   borderRadius: '999px', padding: '9px 30px 9px 9px', cursor: 'pointer',
                   background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)',
-                  border: '1px solid rgba(255,200,120,0.5)',
-                  boxShadow: '0 10px 30px rgba(239,145,34,0.4), inset 0 1px 0 rgba(255,255,255,0.35)',
+                  border: light ? '2px solid #ffffff' : '1px solid rgba(255,200,120,0.5)',
+                  boxShadow: light
+                    ? '8px -8px 20px rgba(255,255,255,0.95), -8px 12px 26px rgba(14,65,86,0.18)'
+                    : '0 10px 30px rgba(239,145,34,0.4), inset 0 1px 0 rgba(255,255,255,0.35)',
                 }}
               >
                 <span className="flex flex-col items-start" style={{ lineHeight: 1.35 }}>
@@ -172,18 +180,22 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
                 className="flex items-center gap-4"
                 style={{
                   borderRadius: '999px', padding: '9px 30px 9px 9px', cursor: 'pointer',
-                  background: 'linear-gradient(150deg, var(--line) 0%, var(--glass-a) 100%)',
-                  backdropFilter: 'var(--glass, blur(18px))', WebkitBackdropFilter: 'var(--glass, blur(18px))',
-                  border: '1px solid rgba(77,179,212,0.55)',
-                  boxShadow: 'inset 0 1px 0 var(--line-strong)',
+                  /* في الفاتح: زر بارز بلون الخلفية وحدّ أبيض؛ في الداكن زجاجي كما هو */
+                  background: light ? '#EDF0F3' : 'linear-gradient(150deg, var(--line) 0%, var(--glass-a) 100%)',
+                  backdropFilter: light ? 'none' : 'var(--glass, blur(18px))', WebkitBackdropFilter: light ? 'none' : 'var(--glass, blur(18px))',
+                  border: light ? '2px solid #ffffff' : '1px solid rgba(77,179,212,0.55)',
+                  boxShadow: light
+                    ? '8px -8px 20px rgba(255,255,255,0.95), -8px 12px 26px rgba(14,65,86,0.14)'
+                    : 'inset 0 1px 0 var(--line-strong)',
                 }}
               >
                 <span className="flex flex-col items-start" style={{ lineHeight: 1.35 }}>
-                  <span style={{ color: '#8fd0e8', fontSize: '10.5px', fontWeight: 400, letterSpacing: '0.1em' }}>للأفراد</span>
+                  <span style={{ color: light ? '#336E7C' : '#8fd0e8', fontSize: '10.5px', fontWeight: 400, letterSpacing: '0.1em' }}>للأفراد</span>
                   <span style={{ color: 'var(--ink)', fontWeight: 700, fontSize: '17px' }}>تطوّع معنا</span>
                 </span>
                 <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  background: 'linear-gradient(135deg, #4db3d4 0%, #2fa7cc 100%)', boxShadow: '0 0 16px rgba(77,179,212,0.5)' }}>
+                  background: light ? 'linear-gradient(135deg, #61A2BC 0%, #336E7C 100%)' : 'linear-gradient(135deg, #4db3d4 0%, #2fa7cc 100%)',
+                  boxShadow: light ? 'none' : '0 0 16px rgba(77,179,212,0.5)' }}>
                   <svg className="on-accent" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 5 12 12 19" />
                   </svg>

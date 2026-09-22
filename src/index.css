@@ -129,7 +129,8 @@
    خفيف من الأسفل-اليسار فتبدو بارزة للخارج */
 :root[data-theme="light"] .prog-card,
 :root[data-theme="light"] .stat-card,
-:root[data-theme="light"] .impact-card {
+:root[data-theme="light"] .impact-card,
+:root[data-theme="light"] .cta-card {
   background: #EDF0F3 !important;
   border: 2px solid #ffffff !important;
   box-shadow: 14px -14px 34px rgba(255,255,255,0.95), -14px 18px 38px rgba(14,65,86,0.13), inset 0 0 0 1px rgba(255,255,255,0.6) !important;
