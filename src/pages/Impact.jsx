@@ -56,6 +56,10 @@ const NUMBERS = [
     name: 'الشراكة', value: String(statsData.partnerships), label: 'شراكة', icon: '/images/stats/partnership.svg',
     desc: 'حجم شبكة الجهات التي أسهمت مع رواسم في دعم البرامج وتوسيع نطاق أثرها.',
   },
+  {
+    name: 'الرضا', value: `${statsData.satisfaction ?? 0}%`, label: 'نسبة الرضا', icon: '/images/stats/satisfaction.svg',
+    desc: 'نسبة الرضا العام عن برامج رواسم وتجاربها وفق أحدث بيانات التقييم المعتمدة.',
+  },
 ]
 
 const EXTEND_INTRO =

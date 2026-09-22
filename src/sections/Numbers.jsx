@@ -34,6 +34,11 @@ const STATS = [
     glow: 'rgba(93,184,164,0.16)', iconGlow: 'rgba(93,184,164,0.55)',
     img: '/images/stats/partnership.svg',
   },
+  {
+    label: 'نسبة الرضا', value: statsData.satisfaction ?? 0, suffix: '%', plus: false,
+    glow: 'rgba(239,145,34,0.15)', iconGlow: 'rgba(239,145,34,0.55)',
+    img: '/images/stats/satisfaction.svg',
+  },
 ]
 
 /* تحميل أشكال ملف SVG وتضمينها inline (مع كاش مشترك) */
@@ -263,10 +268,10 @@ export default function Numbers({ onOpenPage = () => {} }) {
           className="mb-12"
           {...anim.fade(0.12)}
         >
-          خمسة مؤشرات من أحدث البيانات المعتمدة.
+          ستة مؤشرات من أحدث البيانات المعتمدة.
         </motion.p>
 
-        <div className="grid w-full max-w-6xl grid-cols-2 gap-4 md:grid-cols-5 md:gap-5">
+        <div className="grid w-full max-w-6xl grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-6">
           {STATS.map((s, i) => (
             <motion.div
               key={i}
@@ -275,9 +280,9 @@ export default function Numbers({ onOpenPage = () => {} }) {
               animate={{ y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.18 + i * 0.08 }}
               {...anim.hoverLift}
-              className={`stat-card ${i === STATS.length - 1 ? 'col-span-2 md:col-span-1' : ''}`}
+              className={`stat-card ${STATS.length % 2 && i === STATS.length - 1 ? 'col-span-2 md:col-span-1' : ''}`}
               style={glass({
-                padding: '30px 22px',
+                padding: '28px 18px',
                 minHeight: '285px',
                 borderRadius: '36px',
                 display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '13px',
