@@ -58,6 +58,9 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
   /* شعار الوضع الفاتح إن رُفع من اللوحة، وإلا الشعار الأساسي */
   const light = useThemeMode() === 'light'
   const logo = light && program.logoLight ? program.logoLight : program.logo
+  /* الوضع الفاتح: صورة غلاف البرنامج (من صفحة برامجنا) خلفيةً للبطاقة مع تظليل كحلي ونص أبيض */
+  const cover = light ? ((programsContent.main || []).find((m) => m.key === program.key)?.img || program.img || '') : ''
+  const onCover = !!cover
   return (
   <motion.div
     // انزلاق بلا شفافية: أي opacity متحركة على البطاقة تؤجّل رسم البلور الزجاجي في كروم
@@ -69,12 +72,13 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     onHoverEnd={() => onHover(null)}
     // رابط مخصص من اللوحة يفتح في تبويب جديد؛ وإلا تُفتح صفحة البرنامج الداخلية
     onClick={() => (program.link ? window.open(program.link, '_blank', 'noopener') : onOpen(program.key))}
-    className="relative w-full max-w-[290px] flex-1"
+    className="group relative w-full max-w-[290px] flex-1"
     style={{ minWidth: 0, cursor: 'pointer', willChange: 'transform' }}
   >
     {/* البطاقة الزجاجية — وفي الوضع الفاتح بارزة بلون الخلفية وحدّ أبيض (prog-card في index.css) */}
-    <div className="prog-card relative flex h-full flex-col items-center text-center"
+    <div className={`prog-card relative flex h-full flex-col items-center text-center${onCover ? ' prog-card-cover' : ''}`}
       style={{
+        overflow: 'hidden',
         borderRadius: '100px',
         padding: '104px 24px 46px',
         minHeight: '400px',
@@ -84,6 +88,13 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
         backdropFilter: 'var(--glass, blur(26px) saturate(160%))', WebkitBackdropFilter: 'var(--glass, blur(26px) saturate(160%))',
       }}
     >
+      {onCover && (<>
+        <img src={cover} alt="" aria-hidden="true" draggable="false"
+          className="keep-light absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <div aria-hidden="true" className="keep-light absolute inset-0"
+          style={{ background: 'linear-gradient(180deg, rgba(14,65,86,0.22) 0%, rgba(14,65,86,0.5) 42%, rgba(14,65,86,0.92) 100%)' }} />
+      </>)}
+
       {/* شعار البرنامج — وإن لم يُرفع بعد يظهر الاسم نصاً */}
       {logo ? (
         <img src={logo} alt={program.name} draggable="false" data-logo="program"
@@ -91,17 +102,17 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
           style={{ filter: 'drop-shadow(0 4px 10px var(--shadow))', zIndex: 1 }} />
       ) : (
         <span className="relative mb-8 flex h-[82px] items-center"
-          style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: 'var(--ink)', fontWeight: 700, fontSize: '30px', zIndex: 1,
+          style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: onCover ? 'var(--on-accent)' : 'var(--ink)', fontWeight: 700, fontSize: '30px', zIndex: 1,
             filter: 'drop-shadow(0 4px 10px var(--shadow))' }}>{program.name}</span>
       )}
 
       {/* السطر التعريفي */}
-      <h3 style={{ position: 'relative', zIndex: 1, color: 'var(--ink)', fontWeight: 600, fontSize: '18px', lineHeight: 1.8, margin: '0 0 10px' }}>
+      <h3 style={{ position: 'relative', zIndex: 1, color: onCover ? 'var(--on-accent)' : 'var(--ink)', fontWeight: 600, fontSize: '18px', lineHeight: 1.8, margin: '0 0 10px' }}>
         {program.tagline}
       </h3>
 
       {/* الوصف */}
-      <p style={{ position: 'relative', zIndex: 1, color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>
+      <p style={{ position: 'relative', zIndex: 1, color: onCover ? 'rgba(255,255,255,0.88)' : 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>
         {program.desc}
       </p>
     </div>
