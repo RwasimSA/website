@@ -88,7 +88,7 @@ function Celestial({ toLight }) {
 function ThemeBurst({ toLight, origin }) {
   const bg = toLight ? PAGE.light : PAGE.dark
   const ink = toLight ? TEXT.light : TEXT.dark
-  const phrase = toLight ? 'صباح النور' : 'مسّاك الله بالخير'
+  const phrase = toLight ? 'الله ينوّر أيامك' : 'مسّاك الله بالخير'
   /* الشاشات المتوسطة تطبّق zoom على body (معايرة الحجم في index.css)، فكل
      المقاسات داخلها بفضاء إحداثيات أكبر من فضاء النافذة — نحسب فيه */
   const W = window.innerWidth / origin.zoom
