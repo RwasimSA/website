@@ -23,11 +23,6 @@ const styleFor = (abs, light) => ({
   filter: abs === 0 ? 'blur(0px)' : `blur(${Math.min(abs, 3) * 0.45}px)`,
 })
 
-const numStyle = (abs, light) => ({
-  opacity: [0.9, 0.4, 0.22, 0.12][Math.min(abs, 3)],
-  color: abs === 0 ? ACCENT : (light ? '#6b8896' : '#7fa3b5'),
-  fontSize: abs === 0 ? '10.5px' : '9.5px',
-})
 
 export default function SectionIndex({ items = [], current, onGo = () => {} }) {
   const light = useThemeMode() === 'light'
@@ -75,7 +70,7 @@ export default function SectionIndex({ items = [], current, onGo = () => {} }) {
         const abs = Math.abs(i - idx)
         const active = i === idx
         return (
-          <div key={s.key} className="absolute right-0 flex items-center justify-end gap-3"
+          <div key={s.key} className="absolute right-0 flex items-center justify-end"
             style={{ top: '50%', marginTop: `${(i - mid) * ROW}px`, transform: 'translateY(-50%)' }}>
             {/* العنوان */}
             <motion.button
@@ -92,15 +87,6 @@ export default function SectionIndex({ items = [], current, onGo = () => {} }) {
               {s.label}
             </motion.button>
 
-            {/* رقم القسم — لاتيني خافت، يتوهّج برتقالياً عند النشط */}
-            <motion.span aria-hidden="true"
-              className="block w-[18px] text-center tabular-nums"
-              style={{ direction: 'ltr', fontWeight: 500, letterSpacing: '0.04em' }}
-              animate={numStyle(abs, light)}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {String(i + 1).padStart(2, '0')}
-            </motion.span>
           </div>
         )
       })}
