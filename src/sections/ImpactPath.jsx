@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import site from '../../content/site.json'
+import { useThemeMode } from '../themeMode'
 
 /* ─────────────────────────────────────────────────────────────
    كيف نصنع الأثر؟ — رحلة من أربع محطات على «خيط رواسم»:
@@ -60,13 +61,20 @@ const nodeDelay = (i) => 0.5 + i * 0.5
 
 const titleFont = "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif"
 
-/* عنوان المحطة الأخيرة بتدرّج لوني (مع حاشية تمنع قصّ الهمزة) */
-const gradTextStyle = {
-  backgroundImage: 'linear-gradient(100deg, #ffb85c, #ef9122, #f4a63f)',
+/* عنوان المحطة الأخيرة بتدرّج لوني (مع حاشية تمنع قصّ الهمزة)
+   — في الفاتح تدرّج برتقالي أعمق من الهوية ليبقى مقروءاً على الخلفية الفاتحة */
+const gradText = (light) => ({
+  backgroundImage: light
+    ? 'linear-gradient(100deg, #EF9122, #c46a0a, #EF9122)'
+    : 'linear-gradient(100deg, #ffb85c, #ef9122, #f4a63f)',
   WebkitBackgroundClip: 'text', backgroundClip: 'text',
   color: 'transparent', WebkitTextFillColor: 'transparent',
   padding: '0.35em 0.1em', margin: '-0.35em -0.1em', display: 'inline-block',
-}
+})
+
+/* ألوان الخيط: في الداكن كما هي، وفي الفاتح من لوحة الهوية (أزرق فاتح → أزرق مخضرّ → برتقالي) */
+const THREAD_STOPS_DARK = ['#4db3d4', '#2fa7cc', '#f4a63f', '#ef9122']
+const THREAD_STOPS_LIGHT = ['#61A2BC', '#336E7C', '#EF9122', '#EF9122']
 
 /* ملاحظة: التموضع (التوسيط على مركز المحطة) في غلاف خارجي ثابت،
    والحركة في عنصر داخلي — لأن framer-motion يستبدل transform عند التحريك */
@@ -82,6 +90,7 @@ const StepNode = ({ step, i }) => (
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ delay: nodeDelay(i), duration: 0.5, type: 'spring', bounce: 0.45 }}
+      className="impact-node"
       style={{
         width: '58px', height: '58px', borderRadius: '50%',
         display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative',
@@ -108,27 +117,29 @@ const StepNode = ({ step, i }) => (
   </div>
 )
 
-const StepCard = ({ step, i }) => {
+const StepCard = ({ step, i, light }) => {
   const above = stations[i].y < 260 // المحطة عالية → البطاقة تحتها، والعكس
   return (
     <div style={{
       position: 'absolute',
       left: `${(stations[i].x / 1200) * 100}%`,
       ...(above
-        ? { top: `${(stations[i].y / 520) * 100 + 14.5}%` }
-        : { bottom: `${100 - (stations[i].y / 520) * 100 + 14.5}%` }),
+        ? { top: `${(stations[i].y / 520) * 100 + (light ? 13 : 14.5)}%` }
+        : { bottom: `${100 - (stations[i].y / 520) * 100 + (light ? 13 : 14.5)}%` }),
       transform: 'translateX(-50%)',
-      width: 'min(238px, 21vw)',
+      width: light ? 'min(258px, 22.5vw)' : 'min(238px, 21vw)',
       zIndex: 2,
     }}>
+      {/* في الفاتح: نصّ المحطة داخل بطاقة بارزة (impact-card)؛ في الداكن يبقى نصاً حراً فوق الخلفية */}
       <motion.div
         initial={{ opacity: 0, y: above ? -14 : 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: nodeDelay(i) + 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        style={{ textAlign: 'center' }}
+        className={light ? 'impact-card' : undefined}
+        style={{ textAlign: 'center', ...(light ? { borderRadius: '24px', padding: '18px 18px 16px' } : {}) }}
       >
         <h3 style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '22px', color: 'var(--ink)', margin: '0 0 8px', lineHeight: 1.4 }}>
-          {step.final ? <span style={gradTextStyle}>{step.title}</span> : step.title}
+          {step.final ? <span style={gradText(light)}>{step.title}</span> : step.title}
         </h3>
         <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>
           {step.desc}
@@ -139,6 +150,8 @@ const StepCard = ({ step, i }) => {
 }
 
 export default function ImpactPath() {
+  const light = useThemeMode() === 'light'
+  const stops = light ? THREAD_STOPS_LIGHT : THREAD_STOPS_DARK
   return (
     <motion.section className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-16">
       {/* خلفية القسم — صورة جمهور الفعالية (المتبادَلة مع الهيرو) مع تظليل بلون الهوية */}
@@ -188,17 +201,19 @@ export default function ImpactPath() {
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible' }}>
             <defs>
               <linearGradient id="threadGrad" x1="100%" y1="0%" x2="0%" y2="0%">
-                <stop offset="0%" stopColor="#4db3d4" />
-                <stop offset="38%" stopColor="#2fa7cc" />
-                <stop offset="75%" stopColor="#f4a63f" />
-                <stop offset="100%" stopColor="#ef9122" />
+                <stop offset="0%" stopColor={stops[0]} />
+                <stop offset="38%" stopColor={stops[1]} />
+                <stop offset="75%" stopColor={stops[2]} />
+                <stop offset="100%" stopColor={stops[3]} />
               </linearGradient>
             </defs>
-            {/* توهج الخيط */}
-            <motion.path d={THREAD} fill="none" stroke="url(#threadGrad)" strokeWidth="13"
-              strokeLinecap="round" style={{ filter: 'blur(9px)', opacity: 0.35 }}
-              initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: drawDur, delay: 0.3, ease: 'easeInOut' }} />
+            {/* توهج الخيط — لا توهج في الفاتح */}
+            {!light && (
+              <motion.path d={THREAD} fill="none" stroke="url(#threadGrad)" strokeWidth="13"
+                strokeLinecap="round" style={{ filter: 'blur(9px)', opacity: 0.35 }}
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: drawDur, delay: 0.3, ease: 'easeInOut' }} />
+            )}
             {/* الخيط نفسه */}
             <motion.path d={THREAD} fill="none" stroke="url(#threadGrad)" strokeWidth="5"
               strokeLinecap="round"
@@ -207,7 +222,7 @@ export default function ImpactPath() {
           </svg>
 
           {IMPACT_STEPS.map((s, i) => <StepNode key={i} step={s} i={i} />)}
-          {IMPACT_STEPS.map((s, i) => <StepCard key={i} step={s} i={i} />)}
+          {IMPACT_STEPS.map((s, i) => <StepCard key={i} step={s} i={i} light={light} />)}
         </div>
 
         {/* ── الجوال: خيط عمودي تُعلَّق عليه بطاقات زجاجية ── */}
@@ -233,6 +248,7 @@ export default function ImpactPath() {
                 <motion.div
                   initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true, margin: '-40px' }}
                   transition={{ delay: 0.15 + i * 0.14, type: 'spring', stiffness: 260, damping: 17 }}
+                  className="impact-node"
                   style={{
                     width: '52px', height: '52px', borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -248,7 +264,7 @@ export default function ImpactPath() {
               </div>
 
               {/* بطاقة المحطة */}
-              <div className="relative flex-1 overflow-hidden"
+              <div className="impact-card relative flex-1 overflow-hidden"
                 style={{
                   borderRadius: '20px', padding: '16px 18px 17px',
                   background: s.final
@@ -263,11 +279,12 @@ export default function ImpactPath() {
                   background: `linear-gradient(90deg, transparent, ${s.accent}, transparent)` }} />
                 {/* رقم شبحي في الزاوية */}
                 <span aria-hidden="true" style={{ position: 'absolute', top: '-16px', left: '-4px', fontFamily: titleFont, fontWeight: 700,
-                  fontSize: '72px', lineHeight: 1, color: s.final ? 'rgba(239,145,34,0.12)' : 'var(--glass-b)', userSelect: 'none' }}>
+                  fontSize: '72px', lineHeight: 1, userSelect: 'none',
+                  color: s.final ? 'rgba(239,145,34,0.12)' : (light ? 'rgba(14,65,86,0.06)' : 'var(--glass-b)') }}>
                   {s.num}
                 </span>
                 <h3 style={{ position: 'relative', fontFamily: titleFont, fontWeight: 700, fontSize: '19px', color: 'var(--ink)', margin: '0 0 6px' }}>
-                  {s.final ? <span style={gradTextStyle}>{s.title}</span> : s.title}
+                  {s.final ? <span style={gradText(light)}>{s.title}</span> : s.title}
                 </h3>
                 <p style={{ position: 'relative', color: 'var(--ink-2)', fontWeight: 300, fontSize: '13px', lineHeight: 1.9, margin: 0 }}>{s.desc}</p>
               </div>

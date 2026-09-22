@@ -124,21 +124,21 @@
 :root[data-theme="light"] [aria-hidden="true"].pointer-events-none.absolute:not(.keep-light),
 :root[data-theme="light"] .hero-doodles { display: none !important; }
 
-/* بطاقات البرامج في الفاتح: بلون الخلفية نفسه، حدّ أبيض تماماً، وظل أبيض
-   من الأعلى-اليمين مع ظل كحلي خفيف من الأسفل-اليسار فتبدو بارزة للخارج */
-:root[data-theme="light"] .prog-card {
+/* البطاقات البارزة في الفاتح (البرامج، أثرنا بالأرقام، محطات كيف نصنع الأثر):
+   بلون الخلفية نفسه، حدّ أبيض تماماً، وظل أبيض من الأعلى-اليمين مع ظل كحلي
+   خفيف من الأسفل-اليسار فتبدو بارزة للخارج */
+:root[data-theme="light"] .prog-card,
+:root[data-theme="light"] .stat-card,
+:root[data-theme="light"] .impact-card {
   background: #EDF0F3 !important;
   border: 2px solid #ffffff !important;
   box-shadow: 14px -14px 34px rgba(255,255,255,0.95), -14px 18px 38px rgba(14,65,86,0.13), inset 0 0 0 1px rgba(255,255,255,0.6) !important;
   backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
 }
-/* بطاقات «أثرنا بالأرقام» في الفاتح: بارزة كبطاقات البرامج — لون الخلفية،
-   حدّ أبيض، ظل أبيض من الأعلى-اليمين وكحلي خفيف من الأسفل-اليسار */
-:root[data-theme="light"] .stat-card {
-  background: #EDF0F3 !important;
+/* عقد الأرقام في «كيف نصنع الأثر» بالفاتح: بلا توهج، حدّ أبيض وظل بارز كالبطاقات */
+:root[data-theme="light"] .impact-node {
   border: 2px solid #ffffff !important;
-  box-shadow: 14px -14px 34px rgba(255,255,255,0.95), -14px 18px 38px rgba(14,65,86,0.13), inset 0 0 0 1px rgba(255,255,255,0.6) !important;
-  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  box-shadow: 6px -6px 16px rgba(255,255,255,0.95), -6px 8px 18px rgba(14,65,86,0.2) !important;
 }
 
 /* مع صورة الغلاف: تبقى الصورة والتظليل داخل حدود البطاقة، والشعار فوقهما */
