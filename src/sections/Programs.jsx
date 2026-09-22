@@ -59,7 +59,9 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
   const light = useThemeMode() === 'light'
   const logo = light && program.logoLight ? program.logoLight : program.logo
   /* الوضع الفاتح: صورة غلاف البرنامج (من صفحة برامجنا) خلفيةً للبطاقة مع تظليل كحلي ونص أبيض */
-  const cover = light ? ((programsContent.main || []).find((m) => m.key === program.key)?.img || program.img || '') : ''
+  /* المطابقة بالمفتاح أو بالاسم — بيانات اللوحة قد تخلو من المفتاح */
+  const mainItem = (programsContent.main || []).find((m) => m.key === program.key || m.name === program.name)
+  const cover = light ? (mainItem?.img || program.img || '') : ''
   const onCover = !!cover
   return (
   <motion.div
