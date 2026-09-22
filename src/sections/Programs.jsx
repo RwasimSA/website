@@ -72,8 +72,8 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     className="relative w-full max-w-[290px] flex-1"
     style={{ minWidth: 0, cursor: 'pointer', willChange: 'transform' }}
   >
-    {/* البطاقة الزجاجية */}
-    <div className="relative flex h-full flex-col items-center text-center"
+    {/* البطاقة الزجاجية — وفي الوضع الفاتح بارزة بلون الخلفية وحدّ أبيض (prog-card في index.css) */}
+    <div className="prog-card relative flex h-full flex-col items-center text-center"
       style={{
         borderRadius: '100px',
         padding: '104px 24px 46px',

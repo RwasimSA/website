@@ -123,6 +123,15 @@
 :root[data-theme="light"] .bg-fx,
 :root[data-theme="light"] [aria-hidden="true"].pointer-events-none.absolute:not(.keep-light),
 :root[data-theme="light"] .hero-doodles { display: none !important; }
+
+/* بطاقات البرامج في الفاتح: بلون الخلفية نفسه، حدّ أبيض تماماً، وظل أبيض
+   من الأعلى-اليمين مع ظل كحلي خفيف من الأسفل-اليسار فتبدو بارزة للخارج */
+:root[data-theme="light"] .prog-card {
+  background: #EDF0F3 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 14px -14px 34px rgba(255,255,255,0.95), -14px 18px 38px rgba(14,65,86,0.13), inset 0 0 0 1px rgba(255,255,255,0.6) !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
 /* شعارات البرامج المرفوعة بيضاء — تُعتَّم على الأسطح الفاتحة لتبقى مقروءة */
 :root[data-theme="light"] .sub-input::placeholder { color: #6f8a97; }
 :root[data-theme="light"] .post-body h2, :root[data-theme="light"] .post-body h3, :root[data-theme="light"] .post-body h4 { color: var(--ink); }
