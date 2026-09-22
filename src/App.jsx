@@ -362,7 +362,7 @@ export default function App() {
       {!page && (isMobile ? (
         // الجوال: كل الأقسام متتالية بتمرير طبيعي — بلا فجوات بينها،
         // فخلفية كل قسم تغطيه بالكامل وتلتحم بالتي تليها
-        <div className="relative z-10 flex flex-col">
+        <div className="home-mobile relative z-10 flex flex-col">
           <Hero
             onPrograms={() => document.getElementById('programs-mobile')?.scrollIntoView({ behavior: 'smooth' })}
             onAbout={() => openPage('about-us')}

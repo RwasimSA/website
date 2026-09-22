@@ -96,7 +96,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
   }, [])
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+    <section className="hero-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
 
       {/* فيديو «ليلة الختام» مستضاف محلياً — أقصى الخلف، مكتوم ويعيد نفسه،
           وخلفه صورة غطاء احتياطية لحين تحميله */}
