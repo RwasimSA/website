@@ -16,7 +16,7 @@ import { useThemeMode, setTheme, getTheme } from '../themeMode'
 const EASE = [0.22, 1, 0.36, 1]
 
 /* ألوان الشاشة الانتقالية — من لوحة الهوية */
-const PAGE = { light: '#EDF0F3', dark: '#041720' }
+const PAGE = { light: '#EDF0F3', dark: '#0E4156' }
 const DISC = { light: '#EF9122', dark: '#EDF0F3' }   // شمس برتقالية / قمر عاجي
 const TEXT = { light: '#0E4156', dark: '#EDF0F3' }
 
@@ -175,7 +175,7 @@ export default function ThemeToggle() {
         title={label}
         className="theme-switch group fixed cursor-pointer"
         style={{
-          left: '14px', top: '62%', zIndex: 60, direction: 'ltr',
+          zIndex: 60, direction: 'ltr',
           width: '64px', height: '34px', borderRadius: '999px', padding: '4px',
           display: 'flex', alignItems: 'center',
           background: 'var(--panel)', border: '0.5px solid var(--line)',
