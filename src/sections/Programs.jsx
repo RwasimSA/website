@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SectionCta from '../components/SectionCta'
 import programsContent from '../../content/programs.json'
+import { useThemeMode } from '../themeMode'
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -53,7 +54,11 @@ const programs = baseCards.map((p, i) => {
   return merged
 })
 
-const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) => (
+const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) => {
+  /* شعار الوضع الفاتح إن رُفع من اللوحة، وإلا الشعار الأساسي */
+  const light = useThemeMode() === 'light'
+  const logo = light && program.logoLight ? program.logoLight : program.logo
+  return (
   <motion.div
     // انزلاق بلا شفافية: أي opacity متحركة على البطاقة تؤجّل رسم البلور الزجاجي في كروم
     initial={{ y: 34 }}
@@ -80,8 +85,8 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
       }}
     >
       {/* شعار البرنامج — وإن لم يُرفع بعد يظهر الاسم نصاً */}
-      {program.logo ? (
-        <img src={program.logo} alt={program.name} draggable="false" data-logo="program"
+      {logo ? (
+        <img src={logo} alt={program.name} draggable="false" data-logo="program"
           className="relative mb-8 h-[82px] w-auto object-contain"
           style={{ filter: 'drop-shadow(0 4px 10px var(--shadow))', zIndex: 1 }} />
       ) : (
@@ -110,7 +115,8 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
       transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
     />}
   </motion.div>
-)
+  )
+}
 
 export default function Programs({ onOpenPage = () => {} }) {
   /* صورة البرنامج الذي يمر عليه المؤشر تنكشف في خلفية القسم */

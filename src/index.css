@@ -124,7 +124,6 @@
 :root[data-theme="light"] [aria-hidden="true"].pointer-events-none.absolute:not(.keep-light),
 :root[data-theme="light"] .hero-doodles { display: none !important; }
 /* شعارات البرامج المرفوعة بيضاء — تُعتَّم على الأسطح الفاتحة لتبقى مقروءة */
-:root[data-theme="light"] img[data-logo="program"] { filter: brightness(0.22) saturate(1.2) !important; } /* !important لتغلب ظل drop-shadow المضمّن */
 :root[data-theme="light"] .sub-input::placeholder { color: #6f8a97; }
 :root[data-theme="light"] .post-body h2, :root[data-theme="light"] .post-body h3, :root[data-theme="light"] .post-body h4 { color: var(--ink); }
 :root[data-theme="light"] .post-body blockquote { color: var(--ink-3); }

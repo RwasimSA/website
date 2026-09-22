@@ -7,11 +7,12 @@ import site from '../../content/site.json'
 /* وسائط البرامج من لوحة ديوان — الشعار والرسمة من بطاقات الرئيسية،
    وصورة البرنامج من قائمة «برامجنا». الفارغ لا يُعرض حتى يُرفع بديله. */
 import programsContent from '../../content/programs.json'
+import { useThemeMode } from '../themeMode'
 const __IDX = { ashbal: 0, barie: 1, saif: 2 }
 const progMedia = (k) => {
   const card = (programsContent.cards || [])[__IDX[k]] || {}
   const main = (programsContent.main || []).find((p) => p.key === k) || {}
-  return { logo: card.logo || main.logo || '', pattern: card.pattern || '', img: main.img || '' }
+  return { logo: card.logo || main.logo || '', logoLight: card.logoLight || main.logoLight || '', pattern: card.pattern || '', img: main.img || '' }
 }
 
 
@@ -64,14 +65,14 @@ const EXTEND = [
   {
     title: 'من مستفيد إلى مؤثر',
     program: 'بارع',
-    logo: progMedia('barie').logo,
+    logo: progMedia('barie').logo, logoLight: progMedia('barie').logoLight,
     color: '#ef9122',
     body: 'في بارع، تمتد رحلة الطالب إلى ما بعد المشاركة في البرنامج؛ إذ يبرز التقرير انتقال المستفيد إلى أدوار أكثر تأثيرًا، واستمرار الأثر بعد التخرج، ويشير إلى أن 90% من فريق العمل من خريجي بارع.',
   },
   {
     title: 'من قيمة إلى ممارسة',
     program: 'أشبال رواسم',
-    logo: progMedia('ashbal').logo,
+    logo: progMedia('ashbal').logo, logoLight: progMedia('ashbal').logoLight,
     color: '#7fb8d4',
     body: 'في أشبال رواسم، تُصمم المشاريع لتحويل القيمة من مفهوم يتلقاه الطفل إلى تجربة يشارك فيها ثم ممارسة عملية؛ ويعرض التقرير نموذج التأثير:',
     chain: ['قيمة محددة', 'مشروع مخصص', 'تجربة تفاعلية', 'تطبيق عملي', 'أثر سلوكي مباشر'],
@@ -82,17 +83,17 @@ const EXTEND = [
 const PROGRAMS_IMPACT = [
   {
     key: 'barie', name: 'بارع', title: 'أثر البناء والاستدامة القيادية',
-    logo: progMedia('barie').logo, color: '#ef9122', colorSoft: 'rgba(239,145,34,0.22)',
+    logo: progMedia('barie').logo, logoLight: progMedia('barie').logoLight, color: '#ef9122', colorSoft: 'rgba(239,145,34,0.22)',
     body: 'بيئة ممتدة تنقل الطالب من المشاركة إلى تحمل المسؤولية، وتفتح له مسارًا للاستمرار والتأثير بعد التخرج.',
   },
   {
     key: 'ashbal', name: 'أشبال رواسم', title: 'أثر التجربة في السلوك',
-    logo: progMedia('ashbal').logo, color: '#7fb8d4', colorSoft: 'rgba(127,184,212,0.22)',
+    logo: progMedia('ashbal').logo, logoLight: progMedia('ashbal').logoLight, color: '#7fb8d4', colorSoft: 'rgba(127,184,212,0.22)',
     body: 'مشاريع تربوية تحول القيم والمعاني إلى مواقف وتطبيقات قريبة من حياة الطفل وسلوكه اليومي.',
   },
   {
     key: 'saif', name: 'صيف رواسم', title: 'أثر الموسم والتجربة القيمية',
-    logo: progMedia('saif').logo, color: '#5db8a4', colorSoft: 'rgba(93,184,164,0.22)',
+    logo: progMedia('saif').logo, logoLight: progMedia('saif').logoLight, color: '#5db8a4', colorSoft: 'rgba(93,184,164,0.22)',
     body: 'موسم يجمع أندية وتجارب متعددة داخل إطار قيمي واحد، ويستثمر الصيف في التعلم والمهارات والترفيه الهادف.',
   },
 ]
@@ -123,6 +124,8 @@ const Lead = ({ children, delay = 0.08 }) => (
 )
 
 export default function Impact({ onOpenPage = () => {} }) {
+  const light = useThemeMode() === 'light'
+  const pick = (o) => (light && o.logoLight ? o.logoLight : o.logo)
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
 
@@ -222,7 +225,7 @@ export default function Impact({ onOpenPage = () => {} }) {
                   <span style={{ color: e.color, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.06em' }}>{e.program}</span>
                   <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '23px', margin: '6px 0 0' }}>{e.title}</h3>
                 </div>
-                {e.logo && <img src={e.logo} alt={e.program} draggable="false" data-logo="program" className="h-[46px] w-auto flex-shrink-0 object-contain opacity-90" />}
+                {e.logo && <img src={pick(e)} alt={e.program} draggable="false" data-logo="program" className="h-[46px] w-auto flex-shrink-0 object-contain opacity-90" />}
               </div>
               <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2.05, margin: 0 }}>{e.body}</p>
               {e.chain && (
@@ -258,7 +261,7 @@ export default function Impact({ onOpenPage = () => {} }) {
               <div aria-hidden="true" className="pointer-events-none absolute"
                 style={{ top: '-40%', right: '-15%', width: '55%', height: '100%', borderRadius: '50%',
                   background: `radial-gradient(ellipse, ${p.colorSoft} 0%, transparent 65%)`, filter: 'var(--fx-blur, blur(46px))' }} />
-              {p.logo && <img src={p.logo} alt={p.name} draggable="false" data-logo="program" className="mb-5 h-[52px] w-auto self-start object-contain" />}
+              {p.logo && <img src={pick(p)} alt={p.name} draggable="false" data-logo="program" className="mb-5 h-[52px] w-auto self-start object-contain" />}
               <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '20px', lineHeight: 1.6, margin: '0 0 10px' }}>{p.title}</h3>
               <p className="flex-1" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{p.body}</p>
               <span className="mt-5 flex items-center gap-2" style={{ color: p.color, fontWeight: 500, fontSize: '13.5px' }}>

@@ -4,11 +4,12 @@ import { glass } from '../theme'
 /* وسائط البرامج من لوحة ديوان — الشعار والرسمة من بطاقات الرئيسية،
    وصورة البرنامج من قائمة «برامجنا». الفارغ لا يُعرض حتى يُرفع بديله. */
 import programsContent from '../../content/programs.json'
+import { useThemeMode } from '../themeMode'
 const __IDX = { ashbal: 0, barie: 1, saif: 2 }
 const progMedia = (k) => {
   const card = (programsContent.cards || [])[__IDX[k]] || {}
   const main = (programsContent.main || []).find((p) => p.key === k) || {}
-  return { logo: card.logo || main.logo || '', pattern: card.pattern || '', img: main.img || '' }
+  return { logo: card.logo || main.logo || '', logoLight: card.logoLight || main.logoLight || '', pattern: card.pattern || '', img: main.img || '' }
 }
 const PROG = progMedia('barie')
 
@@ -130,6 +131,9 @@ const Lead = ({ children, delay = 0.08 }) => (
 )
 
 export default function Barie({ onOpenPage = () => {} }) {
+  /* شعار الوضع الفاتح إن رُفع من اللوحة، وإلا الشعار الأساسي */
+  const light = useThemeMode() === 'light'
+  const LOGO = light && PROG.logoLight ? PROG.logoLight : PROG.logo
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
 
@@ -150,7 +154,7 @@ export default function Barie({ onOpenPage = () => {} }) {
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} />}
 
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
-          {PROG.logo && <motion.img {...rise(0)} src={PROG.logo} alt="بارع" draggable="false" data-logo="program"
+          {PROG.logo && <motion.img {...rise(0)} src={LOGO} alt="بارع" draggable="false" data-logo="program"
             className="mb-8 h-[110px] w-auto object-contain"
             style={{ filter: 'drop-shadow(0 6px 16px var(--shadow))' }} />}
           <motion.h1 {...rise(0.08)} className="mb-6 text-white"

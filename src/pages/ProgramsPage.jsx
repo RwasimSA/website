@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { glass } from '../theme'
 import programsContent from '../../content/programs.json'
+import { useThemeMode } from '../themeMode'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «برامجنا» المجمّعة — وفق خطة المحتوى المعتمدة:
@@ -86,6 +87,8 @@ const Lead = ({ children, delay = 0.08 }) => (
 /* بطاقة برنامج رئيس — صورة البرنامج خلفيتها. الرابط المخصص يفتح في
    تبويب جديد، والبرنامج المعروف يفتح صفحته، وما سواهما بطاقة عرض فقط */
 const ProgramCard = ({ p, delay, onOpen }) => {
+  const light = useThemeMode() === 'light'
+  const logo = light && p.logoLight ? p.logoLight : p.logo
   const clickable = !!(p.link || (p.key && DECOR[p.key]))
   return (
   <motion.div {...rise(delay)}
@@ -107,7 +110,7 @@ const ProgramCard = ({ p, delay, onOpen }) => {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
         <div style={{ position: 'absolute', inset: 0,
           background: 'linear-gradient(180deg, rgba(8,38,51,0.28) 0%, rgba(8,38,51,0.55) 62%, rgba(10,42,56,0.96) 100%)' }} />
-        {p.logo ? <img src={p.logo} alt={p.name} draggable="false"
+        {logo ? <img src={logo} alt={p.name} draggable="false"
           className="absolute bottom-4 right-5 h-[54px] w-auto object-contain"
           style={{ filter: 'drop-shadow(0 4px 10px var(--shadow))' }} />
         : p.name && <span className="absolute bottom-4 right-5"
