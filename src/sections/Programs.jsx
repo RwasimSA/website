@@ -57,12 +57,13 @@ const programs = baseCards.map((p, i) => {
 const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) => {
   /* شعار الوضع الفاتح إن رُفع من اللوحة، وإلا الشعار الأساسي */
   const light = useThemeMode() === 'light'
-  const logo = light && program.logoLight ? program.logoLight : program.logo
   /* الوضع الفاتح: صورة غلاف البرنامج (من صفحة برامجنا) خلفيةً للبطاقة مع تظليل كحلي ونص أبيض */
   /* المطابقة بالمفتاح أو بالاسم — بيانات اللوحة قد تخلو من المفتاح */
   const mainItem = (programsContent.main || []).find((m) => m.key === program.key || m.name === program.name)
   const cover = light ? (mainItem?.img || program.img || '') : ''
   const onCover = !!cover
+  /* فوق صورة الغلاف يُستخدم الشعار الأبيض الأصلي؛ وشعار الفاتح فقط حين لا صورة */
+  const logo = light && !onCover && program.logoLight ? program.logoLight : program.logo
   return (
   <motion.div
     // انزلاق بلا شفافية: أي opacity متحركة على البطاقة تؤجّل رسم البلور الزجاجي في كروم
@@ -94,7 +95,7 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
         <img src={cover} alt="" aria-hidden="true" draggable="false"
           className="keep-light absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
         <div aria-hidden="true" className="keep-light absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(14,65,86,0.22) 0%, rgba(14,65,86,0.5) 42%, rgba(14,65,86,0.92) 100%)' }} />
+          style={{ background: 'linear-gradient(180deg, rgba(14,65,86,0.04) 0%, rgba(14,65,86,0.18) 35%, rgba(14,65,86,0.72) 68%, rgba(14,65,86,0.97) 100%)' }} />
       </>)}
 
       {/* شعار البرنامج — وإن لم يُرفع بعد يظهر الاسم نصاً */}
