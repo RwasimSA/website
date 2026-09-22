@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
-import { glass } from '../theme'
+import { glass, accentGrad } from '../theme'
 import partnersData from '../../content/partners.json'
 import site from '../../content/site.json'
+import PackIcon from '../components/PackIcon'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «الشراكات» — وفق خطة المحتوى المعتمدة:
@@ -80,7 +81,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(32px, 4.2vw, 54px)', lineHeight: 1.45 }}>
             شراكات{' '}
             <span style={{
-              backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)',
+              backgroundImage: accentGrad(),
               WebkitBackgroundClip: 'text', backgroundClip: 'text',
               color: 'transparent', WebkitTextFillColor: 'transparent',
               padding: '0.35em 0.1em', margin: '-0.35em -0.1em',
@@ -111,7 +112,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
                   background: 'radial-gradient(ellipse, rgba(239,145,34,0.12) 0%, transparent 65%)', filter: 'var(--fx-blur, blur(46px))' }} />
               <div className="mb-5 flex h-[58px] w-[58px] items-center justify-center rounded-2xl"
                 style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
-                <img src={w.icon} alt="" aria-hidden="true" draggable="false" style={{ width: '35px', height: '35px' }} />
+                <PackIcon src={w.icon} size={35} />
               </div>
               <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '21px', margin: '0 0 10px' }}>{w.title}</h3>
               <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{w.body}</p>
@@ -158,7 +159,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
             <h3 className="mt-3" style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: 'clamp(26px, 3.2vw, 40px)', margin: '12px 0 0' }}>
               لنبنِ{' '}
               <span style={{
-                backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)',
+                backgroundImage: accentGrad(),
                 WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent',
                 padding: '0.35em 0.1em', margin: '-0.35em -0.1em',

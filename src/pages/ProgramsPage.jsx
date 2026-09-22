@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { glass } from '../theme'
 import programsContent from '../../content/programs.json'
 import { useThemeMode } from '../themeMode'
+import PackIcon from '../components/PackIcon'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «برامجنا» المجمّعة — وفق خطة المحتوى المعتمدة:
@@ -204,7 +205,7 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
               <div className="flex items-center gap-4">
                 <div className="flex h-[58px] w-[58px] flex-shrink-0 items-center justify-center rounded-2xl"
                   style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
-                  <img src={n.icon} alt="" aria-hidden="true" draggable="false" style={{ width: '36px', height: '36px' }} />
+                  <PackIcon src={n.icon} size={36} />
                 </div>
                 <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '20px', lineHeight: 1.6, margin: 0 }}>{n.title}</h3>
               </div>

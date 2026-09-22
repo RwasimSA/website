@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { glass, color } from '../theme'
+import { glass, color, accentGrad } from '../theme'
 import { text } from '../typography'
 
 /* ─────────────────────────────────────────────────────────────
@@ -189,7 +189,7 @@ export default function AboutUs({ onOpenPage = () => {} }) {
               className={i === GOALS.length - 1 ? 'sm:col-span-2 lg:col-span-1' : ''}
               style={glass({ padding: '28px 26px' })}>
               <h3 className="mb-3" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '26px', margin: 0,
-                backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                backgroundImage: accentGrad(), WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent', display: 'inline-block', padding: '0.15em 0.05em', margin: '-0.15em -0.05em' }}>
                 {g.verb}
               </h3>

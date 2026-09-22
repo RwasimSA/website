@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
-import { glass } from '../theme'
+import { glass, accentGrad } from '../theme'
 import statsData from '../../content/stats.json'
 import programsContent from '../../content/programs.json'
+import PackIcon from '../components/PackIcon'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «التطوع» — وفق خطة المحتوى المعتمدة (صفحة داخلية):
@@ -57,7 +58,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(32px, 4.2vw, 54px)', lineHeight: 1.45 }}>
             تطوّع{' '}
             <span style={{
-              backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)',
+              backgroundImage: accentGrad(),
               WebkitBackgroundClip: 'text', backgroundClip: 'text',
               color: 'transparent', WebkitTextFillColor: 'transparent',
               padding: '0.35em 0.1em', margin: '-0.35em -0.1em',
@@ -81,7 +82,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
               className="flex flex-col items-center text-center"
               style={glass({ borderRadius: '26px', padding: '32px 22px' })}>
               <span dir="ltr" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '44px', lineHeight: 1,
-                backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                backgroundImage: accentGrad(), WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{s.value}</span>
               <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
               <span style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.9, marginTop: '10px' }}>{s.label}</span>
@@ -98,7 +99,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
               background: 'radial-gradient(ellipse, rgba(239,145,34,0.15) 0%, transparent 65%)', filter: 'blur(55px)' }} />
           <div className="relative mx-auto mb-6 flex h-[64px] w-[64px] items-center justify-center rounded-2xl"
             style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
-            <img src="/images/volunteer/join.svg" alt="" aria-hidden="true" draggable="false" style={{ width: '38px', height: '38px' }} />
+            <PackIcon src="/images/volunteer/join.svg" size={38} />
           </div>
           <p className="relative" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>
             تُعلن فرص التطوع هنا وعبر حسابات رواسم الرسمية فور فتح باب التسجيل في كل برنامج أو موسم.

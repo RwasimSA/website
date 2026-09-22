@@ -1,3 +1,4 @@
+import { getTheme } from './themeMode'
 /**
  * نظام تصميم جمعية رواسم — المصدر الموحّد لكل القيم البصرية.
  * استند إلى هذا الملف في كل قسم/مكوّن جديد لضمان اتساق الموقع.
@@ -33,6 +34,12 @@ export const color = {
 }
 
 /* ───────────── تدرّجات جاهزة ───────────── */
+/* تدرّج التمييز البرتقالي على النصوص: في الفاتح يُعمَّق طرفاه حتى يبقى
+   مقروءاً على الخلفية الفاتحة (يُقرأ عند كل رسم مع تبدّل الوضع) */
+export const accentGrad = () => (getTheme() === 'light'
+  ? 'linear-gradient(120deg, #EF9122, #c46a0a)'
+  : 'linear-gradient(120deg, #ffb85c, #ef9122)')
+
 export const gradients = {
   hero:     'radial-gradient(ellipse 80% 70% at 50% 42%, #2fa7cc 0%, #1a7fa1 30%, #14607f 58%, #0e4156 80%, #071f2b 100%)',
   about:    'radial-gradient(ellipse 90% 120% at 90% 50%, #2fa7cc 0%, #1a7fa1 30%, #14607f 58%, #0e4156 80%, #071f2b 100%)',
@@ -51,12 +58,14 @@ export const blur = { glass: 20 }
 /* ───────────── الزجاج: النمط الموحّد للأسطح ─────────────
  * ملاحظة: بلا ظلال صندوقية — الاعتماد على الحدود الزجاجية الرفيعة فقط. */
 export const glass = (extra = {}) => ({
-  background: 'linear-gradient(145deg, var(--glass-a) 0%, var(--glass-b) 100%)',
-  border: '0.5px solid var(--line)',
-  borderTop: '0.5px solid var(--line-strong)',
+  /* الأسطح تتبع رموز البطاقة: في الداكن زجاج شفاف بحدّ رفيع، وفي الفاتح
+     بطاقة بارزة بلون الصفحة وحدّ أبيض وظل مزدوج (تُعرَّف في index.css). */
+  background: 'var(--card-surface, linear-gradient(145deg, var(--glass-a) 0%, var(--glass-b) 100%))',
+  border: 'var(--card-border, 0.5px solid var(--line))',
+  borderTop: 'var(--card-border-top, 0.5px solid var(--line-strong))',
   boxShadow: 'var(--card-shadow)',
-  backdropFilter: 'var(--glass, blur(20px))',
-  WebkitBackdropFilter: 'var(--glass, blur(20px))',
+  backdropFilter: 'var(--card-blur, var(--glass, blur(20px)))',
+  WebkitBackdropFilter: 'var(--card-blur, var(--glass, blur(20px)))',
   borderRadius: radius.md,
   ...extra,
 })

@@ -4,7 +4,8 @@ import { glass } from '../theme'
 /* وسائط البرامج من لوحة ديوان — الشعار والرسمة من بطاقات الرئيسية،
    وصورة البرنامج من قائمة «برامجنا». الفارغ لا يُعرض حتى يُرفع بديله. */
 import programsContent from '../../content/programs.json'
-import { useThemeMode } from '../themeMode'
+import { useThemeMode, getTheme } from '../themeMode'
+import PackIcon from '../components/PackIcon'
 const __IDX = { ashbal: 0, barie: 1, saif: 2 }
 const progMedia = (k) => {
   const card = (programsContent.cards || [])[__IDX[k]] || {}
@@ -26,7 +27,12 @@ const PROG = progMedia('ashbal')
 
 const titleFont = "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif"
 /* لون برنامج أشبال — الأزرق الفاتح كما في بطاقته بالرئيسية */
-const ACCENT = '#7fb8d4'
+/* لون البرنامج: في الفاتح يُستبدل بدرجة داكنة من لوحة الهوية حتى يبقى
+   مقروءاً على الخلفية الفاتحة (يُقرأ عند كل رسم، والصفحة تعيد الرسم مع تبدّل الوضع) */
+const ACCENT_DARK = '#7fb8d4'
+const ACCENT_LIGHT = '#336E7C'
+const acc = () => (getTheme() === 'light' ? ACCENT_LIGHT : ACCENT_DARK)
+const gradPair = () => (getTheme() === 'light' ? '#61A2BC, #336E7C' : '#cfe8f5, #7fb8d4')
 
 const HERO_TEXT =
   'مظلة لمشاريع تربوية موجهة لطلاب المرحلة الابتدائية، تقدم خلال العام تجارب متنوعة تجمع بين القيم والتعلم بالممارسة؛ لتقريب المعاني التربوية من حياة الطفل وتحويلها إلى مواقف وممارسات يعيشها في بيته ومدرسته ومحيطه.'
@@ -115,7 +121,7 @@ const SectionTitle = ({ children, delay = 0 }) => (
       {children}
     </h2>
     <span aria-hidden="true" className="mt-3 block h-[3px] w-14 rounded-full"
-      style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66` }} />
+      style={{ background: `linear-gradient(90deg, transparent, ${acc()}, transparent)`, boxShadow: `0 0 14px ${acc()}66` }} />
   </motion.div>
 )
 
@@ -163,7 +169,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(30px, 4vw, 52px)', lineHeight: 1.45 }}>
             قيمٌ يعيشها الطفل في تجارب قريبة من{' '}
             <span style={{
-              backgroundImage: 'linear-gradient(120deg, #cfe8f5, #7fb8d4)',
+              backgroundImage: `linear-gradient(120deg, ${gradPair()})`,
               WebkitBackgroundClip: 'text', backgroundClip: 'text',
               color: 'transparent', WebkitTextFillColor: 'transparent',
               padding: '0.35em 0.1em', margin: '-0.35em -0.1em',
@@ -181,7 +187,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
             ].map((c) => (
               <div key={c.k} className="flex items-center gap-3"
                 style={glass({ borderRadius: '999px', padding: '11px 22px' })}>
-                <span style={{ color: ACCENT, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.08em' }}>{c.k}</span>
+                <span style={{ color: acc(), fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.08em' }}>{c.k}</span>
                 <span style={{ width: '1px', height: '14px', background: 'var(--line-strong)' }} />
                 <span style={{ color: 'var(--ink)', fontWeight: 400, fontSize: '13.5px' }}>{c.v}</span>
               </div>
@@ -202,7 +208,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
             عن أشبال رواسم
           </h2>
           <span aria-hidden="true" className="mb-6 block h-[3px] w-14 rounded-full"
-            style={{ background: `linear-gradient(90deg, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66`, marginTop: '-16px' }} />
+            style={{ background: `linear-gradient(90deg, ${acc()}, transparent)`, boxShadow: `0 0 14px ${acc()}66`, marginTop: '-16px' }} />
           {ABOUT.map((p, i) => (
             <p key={i} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, marginBottom: i === 0 ? '14px' : 0 }}>{p}</p>
           ))}
@@ -212,7 +218,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
         <SectionTitle>لمن البرنامج؟</SectionTitle>
         <motion.div {...rise(0.08)} className="relative mx-auto mb-24 max-w-3xl overflow-hidden"
           style={glass({ borderRadius: '24px', padding: '32px 30px' })}>
-          <div style={{ position: 'absolute', top: 0, right: 0, width: '4px', height: '100%', background: `linear-gradient(180deg, ${ACCENT}, transparent)` }} />
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '4px', height: '100%', background: `linear-gradient(180deg, ${acc()}, transparent)` }} />
           <p className="text-center" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, margin: 0 }}>{FOR_WHO}</p>
         </motion.div>
 
@@ -228,10 +234,10 @@ export default function Ashbal({ onOpenPage = () => {} }) {
               style={glass({ borderRadius: '26px', padding: '32px 30px' })}>
               {/* خيط علوي بلون البرنامج */}
               <span aria-hidden="true" style={{ position: 'absolute', top: 0, insetInline: '18%', height: '2px',
-                background: `linear-gradient(90deg, transparent, ${ACCENT}99, transparent)` }} />
+                background: `linear-gradient(90deg, transparent, ${acc()}99, transparent)` }} />
               <IconChip src={h.icon} />
               <div className="mb-4 mt-5 flex items-center gap-3">
-                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 12px ${ACCENT}` }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: acc(), boxShadow: `0 0 12px ${acc()}` }} />
                 <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '22px', margin: 0 }}>{h.title}</h3>
               </div>
               <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2, margin: 0 }}>{h.body}</p>
@@ -248,10 +254,10 @@ export default function Ashbal({ onOpenPage = () => {} }) {
               whileHover={{ y: -4, transition: { duration: 0.22 } }}
               className="flex flex-col items-center gap-4 text-center"
               style={glass({ borderRadius: '24px', padding: '28px 20px' })}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 10px ${ACCENT}` }} />
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: acc(), boxShadow: `0 0 10px ${acc()}` }} />
               <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '18.5px', lineHeight: 1.7, margin: 0 }}>{b.value}</h3>
               <span className="mt-auto" style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '12.5px' }}>
-                يظهر في <span style={{ color: ACCENT, fontWeight: 500 }}>{b.project}</span>
+                يظهر في <span style={{ color: acc(), fontWeight: 500 }}>{b.project}</span>
               </span>
             </motion.div>
           ))}
@@ -282,12 +288,11 @@ export default function Ashbal({ onOpenPage = () => {} }) {
             <motion.div key={s.label} {...rise(0.06 * i)}
               className="flex flex-col items-center text-center"
               style={glass({ borderRadius: '26px', padding: '30px 20px 34px' })}>
-              <img src={s.icon} alt="" aria-hidden="true" draggable="false"
-                style={{ width: '52px', height: '52px', marginBottom: '16px' }} />
+              <PackIcon src={s.icon} size={52} style={{ marginBottom: '16px' }} />
               <span dir="ltr" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '44px', lineHeight: 1,
-                backgroundImage: 'linear-gradient(120deg, #cfe8f5, #7fb8d4)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                backgroundImage: `linear-gradient(120deg, ${gradPair()})`, WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{s.value}</span>
-              <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
+              <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${acc()}, transparent)` }} />
               <span style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '14px', marginTop: '10px' }}>{s.label}</span>
             </motion.div>
           ))}
@@ -300,7 +305,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
               background: 'radial-gradient(ellipse, rgba(127,184,212,0.2) 0%, transparent 65%)', filter: 'blur(55px)' }} />
           <div className="text-center">
             <h3 className="mb-2.5" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '24px', margin: 0,
-              backgroundImage: 'linear-gradient(120deg, #cfe8f5, #7fb8d4)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+              backgroundImage: `linear-gradient(120deg, ${gradPair()})`, WebkitBackgroundClip: 'text', backgroundClip: 'text',
               color: 'transparent', WebkitTextFillColor: 'transparent' }}>
               من التجربة إلى السلوك
             </h3>

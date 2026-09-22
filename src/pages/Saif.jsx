@@ -4,7 +4,8 @@ import { glass } from '../theme'
 /* وسائط البرامج من لوحة ديوان — الشعار والرسمة من بطاقات الرئيسية،
    وصورة البرنامج من قائمة «برامجنا». الفارغ لا يُعرض حتى يُرفع بديله. */
 import programsContent from '../../content/programs.json'
-import { useThemeMode } from '../themeMode'
+import { useThemeMode, getTheme } from '../themeMode'
+import PackIcon from '../components/PackIcon'
 const __IDX = { ashbal: 0, barie: 1, saif: 2 }
 const progMedia = (k) => {
   const card = (programsContent.cards || [])[__IDX[k]] || {}
@@ -28,7 +29,12 @@ const PROG = progMedia('saif')
 
 const titleFont = "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif"
 /* لون موسم الصيف — الأخضر التركوازي كما في بطاقته بالرئيسية */
-const ACCENT = '#5db8a4'
+/* لون البرنامج: في الفاتح يُستبدل بدرجة داكنة من لوحة الهوية حتى يبقى
+   مقروءاً على الخلفية الفاتحة (يُقرأ عند كل رسم، والصفحة تعيد الرسم مع تبدّل الوضع) */
+const ACCENT_DARK = '#5db8a4'
+const ACCENT_LIGHT = '#336E7C'
+const acc = () => (getTheme() === 'light' ? ACCENT_LIGHT : ACCENT_DARK)
+const gradPair = () => (getTheme() === 'light' ? '#7BB8AB, #336E7C' : '#a9e2d3, #5db8a4')
 
 const HERO_TEXT =
   'موسم سنوي تقدمه رواسم عبر مجموعة من الأندية والبرامج الموجهة لفئات عمرية متعددة، في تجربة صيفية تجمع بين القيم والمهارات والإبداع والترفيه، وتستثمر وقت المشاركين في أنشطة وتحديات وورش ورحلات وتجارب متنوعة.'
@@ -139,7 +145,7 @@ const SectionTitle = ({ children, delay = 0 }) => (
       {children}
     </h2>
     <span aria-hidden="true" className="mt-3 block h-[3px] w-14 rounded-full"
-      style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66` }} />
+      style={{ background: `linear-gradient(90deg, transparent, ${acc()}, transparent)`, boxShadow: `0 0 14px ${acc()}66` }} />
   </motion.div>
 )
 
@@ -187,7 +193,7 @@ export default function Saif({ onOpenPage = () => {} }) {
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(30px, 4vw, 52px)', lineHeight: 1.45 }}>
             صيفٌ تتحول فيه الأيام إلى تجارب{' '}
             <span style={{
-              backgroundImage: 'linear-gradient(120deg, #a9e2d3, #5db8a4)',
+              backgroundImage: `linear-gradient(120deg, ${gradPair()})`,
               WebkitBackgroundClip: 'text', backgroundClip: 'text',
               color: 'transparent', WebkitTextFillColor: 'transparent',
               padding: '0.35em 0.1em', margin: '-0.35em -0.1em',
@@ -205,7 +211,7 @@ export default function Saif({ onOpenPage = () => {} }) {
             ].map((c) => (
               <div key={c.k} className="flex items-center gap-3"
                 style={glass({ borderRadius: '999px', padding: '11px 22px' })}>
-                <span style={{ color: ACCENT, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.08em' }}>{c.k}</span>
+                <span style={{ color: acc(), fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.08em' }}>{c.k}</span>
                 <span style={{ width: '1px', height: '14px', background: 'var(--line-strong)' }} />
                 <span style={{ color: 'var(--ink)', fontWeight: 400, fontSize: '13.5px' }}>{c.v}</span>
               </div>
@@ -226,7 +232,7 @@ export default function Saif({ onOpenPage = () => {} }) {
             عن صيف رواسم
           </h2>
           <span aria-hidden="true" className="mb-6 block h-[3px] w-14 rounded-full"
-            style={{ background: `linear-gradient(90deg, ${ACCENT}, transparent)`, boxShadow: `0 0 14px ${ACCENT}66`, marginTop: '-16px' }} />
+            style={{ background: `linear-gradient(90deg, ${acc()}, transparent)`, boxShadow: `0 0 14px ${acc()}66`, marginTop: '-16px' }} />
           {ABOUT.map((p, i) => (
             <p key={i} style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.1, marginBottom: i === 0 ? '14px' : 0 }}>{p}</p>
           ))}
@@ -238,7 +244,7 @@ export default function Saif({ onOpenPage = () => {} }) {
           {FOR_WHO.map((p, i) => (
             <motion.div key={i} {...rise(0.08 + i * 0.08)} className="relative overflow-hidden"
               style={glass({ borderRadius: '24px', padding: '30px 28px' })}>
-              <div style={{ position: 'absolute', top: 0, right: 0, width: '4px', height: '100%', background: `linear-gradient(180deg, ${ACCENT}, transparent)` }} />
+              <div style={{ position: 'absolute', top: 0, right: 0, width: '4px', height: '100%', background: `linear-gradient(180deg, ${acc()}, transparent)` }} />
               <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15px', lineHeight: 2.05, margin: 0 }}>{p}</p>
             </motion.div>
           ))}
@@ -254,10 +260,10 @@ export default function Saif({ onOpenPage = () => {} }) {
               className="relative overflow-hidden"
               style={glass({ borderRadius: '26px', padding: '32px 28px' })}>
               <span aria-hidden="true" style={{ position: 'absolute', top: 0, insetInline: '18%', height: '2px',
-                background: `linear-gradient(90deg, transparent, ${ACCENT}99, transparent)` }} />
+                background: `linear-gradient(90deg, transparent, ${acc()}99, transparent)` }} />
               <IconChip src={c.icon} />
               <div className="mb-4 mt-5 flex items-center gap-3">
-                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 12px ${ACCENT}` }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: acc(), boxShadow: `0 0 12px ${acc()}` }} />
                 <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '21px', margin: 0 }}>{c.title}</h3>
               </div>
               <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 2, margin: 0 }}>{c.body}</p>
@@ -274,7 +280,7 @@ export default function Saif({ onOpenPage = () => {} }) {
                 {step}
               </span>
               {i < LOGIC.length - 1 && (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={acc()} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M15 18l-6-6 6-6" />
                 </svg>
               )}
@@ -289,7 +295,7 @@ export default function Saif({ onOpenPage = () => {} }) {
             style={{ top: '-40%', left: '-10%', width: '45%', height: '110%', borderRadius: '50%',
               background: 'radial-gradient(ellipse, rgba(93,184,164,0.16) 0%, transparent 65%)', filter: 'blur(55px)' }} />
           <div className="mb-6 flex flex-wrap items-center gap-3">
-            <span style={{ ...glass({ borderRadius: '999px', padding: '7px 16px' }), color: ACCENT, fontWeight: 600, fontSize: '12.5px',
+            <span style={{ ...glass({ borderRadius: '999px', padding: '7px 16px' }), color: acc(), fontWeight: 600, fontSize: '12.5px',
               border: '0.5px solid rgba(93,184,164,0.4)' }}>
               أحدث نسخة
             </span>
@@ -298,7 +304,7 @@ export default function Saif({ onOpenPage = () => {} }) {
           <div className="grid gap-x-8 gap-y-4 md:grid-cols-2">
             {SEASON_ROWS.map((r) => (
               <div key={r.k} className="flex items-start gap-3">
-                <span className="mt-2.5 flex-shrink-0" style={{ width: '7px', height: '7px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 10px ${ACCENT}` }} />
+                <span className="mt-2.5 flex-shrink-0" style={{ width: '7px', height: '7px', borderRadius: '50%', background: acc(), boxShadow: `0 0 10px ${acc()}` }} />
                 <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14.5px', lineHeight: 1.9, margin: 0 }}>
                   <span style={{ color: 'var(--ink)', fontWeight: 500 }}>{r.k}: </span>{r.v}
                 </p>
@@ -353,12 +359,11 @@ export default function Saif({ onOpenPage = () => {} }) {
             <motion.div key={s.label} {...rise(0.06 * i)}
               className="flex flex-col items-center text-center"
               style={glass({ borderRadius: '26px', padding: '30px 20px 34px' })}>
-              <img src={s.icon} alt="" aria-hidden="true" draggable="false"
-                style={{ width: '52px', height: '52px', marginBottom: '16px' }} />
+              <PackIcon src={s.icon} size={52} style={{ marginBottom: '16px' }} />
               <span dir="ltr" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '44px', lineHeight: 1,
-                backgroundImage: 'linear-gradient(120deg, #a9e2d3, #5db8a4)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                backgroundImage: `linear-gradient(120deg, ${gradPair()})`, WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{s.value}</span>
-              <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
+              <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${acc()}, transparent)` }} />
               <span style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '14px', marginTop: '10px' }}>{s.label}</span>
             </motion.div>
           ))}

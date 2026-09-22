@@ -116,6 +116,20 @@
   --page-bg: #EDF0F3;  /* رمادي الهوية الفاتح */
 }
 /* نصوص Tailwind البيضاء تتبع الحبر في الوضع الفاتح، وأيقونات الخطوط البيضاء كذلك */
+/* أيقونات الحزمة المضمّنة: الـ svg الداخلي يملأ الغلاف */
+.pack-icon > svg { width: 100%; height: 100%; display: block; }
+
+/* رموز البطاقة في الفاتح: كل سطح مبني على glass() يصير بطاقة بارزة —
+   بلون الصفحة، حدّ أبيض، وظل أبيض من الأعلى-اليمين وكحلي خفيف من الأسفل-اليسار.
+   (قيم أصغر قليلاً من بطاقات الرئيسية لأن بطاقات الصفحات أكثف وأصغر) */
+:root[data-theme="light"] {
+  --card-surface: #EDF0F3;
+  --card-border: 2px solid #ffffff;
+  --card-border-top: 2px solid #ffffff;
+  --card-shadow: 10px -10px 26px rgba(255,255,255,0.95), -10px 14px 30px rgba(14,65,86,0.11), inset 0 0 0 1px rgba(255,255,255,0.55);
+  --card-blur: none;
+}
+
 :root[data-theme="light"] .text-white { color: var(--ink); }
 :root[data-theme="light"] svg[stroke="white"]:not(.on-accent, .on-accent *) { stroke: var(--ink); }
 /* الوضع الفاتح خلفياته نظيفة: لا صور ولا فيديو ولا أنماط ولا توهجات —
@@ -145,6 +159,16 @@
 /* مع صورة الغلاف: تبقى الصورة والتظليل داخل حدود البطاقة، والشعار فوقهما */
 :root[data-theme="light"] .prog-card-cover img[data-logo="program"], :root[data-theme="light"] .prog-card-cover > img:not(.keep-light) { position: relative; z-index: 1; }
 /* شعارات البرامج المرفوعة بيضاء — تُعتَّم على الأسطح الفاتحة لتبقى مقروءة */
+/* حقول الإدخال في الفاتح: غائرة داخل البطاقة (عكس البطاقات البارزة) */
+:root[data-theme="light"] .sub-input {
+  background: #E4E9ED !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: inset 3px 3px 7px rgba(14,65,86,0.10), inset -3px -3px 7px rgba(255,255,255,0.9) !important;
+}
+:root[data-theme="light"] .sub-input:focus {
+  border-color: #EF9122 !important;
+  box-shadow: inset 3px 3px 7px rgba(14,65,86,0.10), inset -3px -3px 7px rgba(255,255,255,0.9), 0 0 0 3px rgba(239,145,34,0.18) !important;
+}
 :root[data-theme="light"] .sub-input::placeholder { color: #6f8a97; }
 :root[data-theme="light"] .post-body h2, :root[data-theme="light"] .post-body h3, :root[data-theme="light"] .post-body h4 { color: var(--ink); }
 :root[data-theme="light"] .post-body blockquote { color: var(--ink-3); }

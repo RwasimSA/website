@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { glass } from '../theme'
+import { glass, accentGrad } from '../theme'
 import { IMPACT_STEPS } from '../sections/ImpactPath'
 import statsData from '../../content/stats.json'
 import site from '../../content/site.json'
@@ -8,6 +8,7 @@ import site from '../../content/site.json'
    وصورة البرنامج من قائمة «برامجنا». الفارغ لا يُعرض حتى يُرفع بديله. */
 import programsContent from '../../content/programs.json'
 import { useThemeMode } from '../themeMode'
+import PackIcon from '../components/PackIcon'
 const __IDX = { ashbal: 0, barie: 1, saif: 2 }
 const progMedia = (k) => {
   const card = (programsContent.cards || [])[__IDX[k]] || {}
@@ -146,7 +147,7 @@ export default function Impact({ onOpenPage = () => {} }) {
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(28px, 3.8vw, 50px)', lineHeight: 1.5 }}>
             أثرنا الحقيقي هو{' '}
             <span style={{
-              backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)',
+              backgroundImage: accentGrad(),
               WebkitBackgroundClip: 'text', backgroundClip: 'text',
               color: 'transparent', WebkitTextFillColor: 'transparent',
               padding: '0.35em 0.1em', margin: '-0.35em -0.1em',
@@ -175,10 +176,10 @@ export default function Impact({ onOpenPage = () => {} }) {
               <span aria-hidden="true" style={{ position: 'absolute', top: 0, insetInline: '18%', height: '2px',
                 background: `linear-gradient(90deg, transparent, ${ACCENT}99, transparent)` }} />
               <div className="mb-5 flex items-center justify-between gap-3">
-                <img src={n.icon} alt="" aria-hidden="true" draggable="false" style={{ width: '48px', height: '48px' }} />
+                <PackIcon src={n.icon} size={48} />
                 <div className="text-left" dir="ltr">
                   <span style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '36px', lineHeight: 1,
-                    backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                    backgroundImage: accentGrad(), WebkitBackgroundClip: 'text', backgroundClip: 'text',
                     color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{n.value}</span>
                   <span className="block" style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '12.5px', marginTop: '6px', textAlign: 'left' }}>{n.label}</span>
                 </div>
@@ -204,7 +205,7 @@ export default function Impact({ onOpenPage = () => {} }) {
               <span className="mb-4 block" style={{ width: '10px', height: '10px', borderRadius: '50%', background: s.accent, boxShadow: `0 0 12px ${s.accent}` }} />
               <h3 style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '21px', margin: '0 0 10px',
                 ...(s.final
-                  ? { backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                  ? { backgroundImage: accentGrad(), WebkitBackgroundClip: 'text', backgroundClip: 'text',
                       color: 'transparent', WebkitTextFillColor: 'transparent' }
                   : { color: 'var(--ink)' }) }}>{s.title}</h3>
               <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '14px', lineHeight: 2, margin: 0 }}>{s.desc}</p>

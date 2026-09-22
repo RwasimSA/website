@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
-import { glass } from '../theme'
+import { glass, accentGrad } from '../theme'
 
 /* وسائط البرامج من لوحة ديوان — الشعار والرسمة من بطاقات الرئيسية،
    وصورة البرنامج من قائمة «برامجنا». الفارغ لا يُعرض حتى يُرفع بديله. */
 import programsContent from '../../content/programs.json'
 import { useThemeMode } from '../themeMode'
+import PackIcon from '../components/PackIcon'
 const __IDX = { ashbal: 0, barie: 1, saif: 2 }
 const progMedia = (k) => {
   const card = (programsContent.cards || [])[__IDX[k]] || {}
@@ -161,7 +162,7 @@ export default function Barie({ onOpenPage = () => {} }) {
             style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(30px, 4vw, 52px)', lineHeight: 1.45 }}>
             بيئة تربوية ترافق الطالب في رحلة{' '}
             <span style={{
-              backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)',
+              backgroundImage: accentGrad(),
               WebkitBackgroundClip: 'text', backgroundClip: 'text',
               color: 'transparent', WebkitTextFillColor: 'transparent',
               padding: '0.35em 0.1em', margin: '-0.35em -0.1em',
@@ -236,7 +237,7 @@ export default function Barie({ onOpenPage = () => {} }) {
               </span>
               <div className="mb-5 flex h-[62px] w-[62px] items-center justify-center rounded-2xl"
                 style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
-                <img src={h.icon} alt="" aria-hidden="true" draggable="false" style={{ width: '38px', height: '38px' }} />
+                <PackIcon src={h.icon} size={38} />
               </div>
               <div className="mb-4 flex items-center gap-3">
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: ACCENT, boxShadow: `0 0 12px ${ACCENT}` }} />
@@ -287,7 +288,7 @@ export default function Barie({ onOpenPage = () => {} }) {
               <div className="flex items-center gap-4">
                 <div className="flex h-[58px] w-[58px] flex-shrink-0 items-center justify-center rounded-2xl"
                   style={{ background: 'rgba(239,145,34,0.1)', border: '0.5px solid rgba(239,145,34,0.3)' }}>
-                  <img src={d.icon} alt="" aria-hidden="true" draggable="false" style={{ width: '36px', height: '36px' }} />
+                  <PackIcon src={d.icon} size={36} />
                 </div>
                 <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '22px', margin: 0 }}>{d.title}</h3>
               </div>
@@ -303,10 +304,9 @@ export default function Barie({ onOpenPage = () => {} }) {
             <motion.div key={s.label} {...rise(0.06 * i)}
               className="flex flex-col items-center text-center"
               style={glass({ borderRadius: '26px', padding: '30px 20px 34px' })}>
-              <img src={s.icon} alt="" aria-hidden="true" draggable="false"
-                style={{ width: '52px', height: '52px', marginBottom: '16px' }} />
+              <PackIcon src={s.icon} size={52} style={{ marginBottom: '16px' }} />
               <span dir="ltr" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: '44px', lineHeight: 1,
-                backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                backgroundImage: accentGrad(), WebkitBackgroundClip: 'text', backgroundClip: 'text',
                 color: 'transparent', WebkitTextFillColor: 'transparent', padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>{s.value}</span>
               <span className="mt-3 block h-0.5 w-7 rounded-full" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
               <span style={{ color: 'var(--ink-3)', fontWeight: 300, fontSize: '14px', marginTop: '10px' }}>{s.label}</span>
@@ -321,7 +321,7 @@ export default function Barie({ onOpenPage = () => {} }) {
               background: 'radial-gradient(ellipse, rgba(239,145,34,0.18) 0%, transparent 65%)', filter: 'blur(55px)' }} />
           <div className="flex flex-col items-center gap-6 text-center md:flex-row md:text-right">
             <span dir="ltr" style={{ fontFamily: titleFont, fontWeight: 700, fontSize: 'clamp(52px, 6vw, 84px)', lineHeight: 1,
-              backgroundImage: 'linear-gradient(120deg, #ffb85c, #ef9122)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+              backgroundImage: accentGrad(), WebkitBackgroundClip: 'text', backgroundClip: 'text',
               color: 'transparent', WebkitTextFillColor: 'transparent', flexShrink: 0, padding: '0.1em 0.05em', margin: '-0.1em -0.05em' }}>
               90%
             </span>
