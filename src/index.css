@@ -151,6 +151,13 @@
   backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
 }
 /* عقد الأرقام في «كيف نصنع الأثر» بالفاتح: بلا توهج، حدّ أبيض وظل بارز كالبطاقات */
+/* مفتاح تبديل الوضع في الفاتح: بارز بنفس لغة البطاقات */
+:root[data-theme="light"] .theme-switch {
+  background: #EDF0F3 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 7px -7px 16px rgba(255,255,255,0.95), -7px 9px 18px rgba(14,65,86,0.14) !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
 :root[data-theme="light"] .impact-node {
   border: 2px solid #ffffff !important;
   box-shadow: 6px -6px 16px rgba(255,255,255,0.95), -6px 8px 18px rgba(14,65,86,0.2) !important;
