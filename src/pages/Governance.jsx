@@ -330,6 +330,11 @@ function GovExecutive({ onOpenPage }) {
 }
 
 /* ═══════════ 4) الجمعية العمومية ═══════════ */
+/* دعوة الانضمام — النصّ والزر يُحرَّران من لوحة التحكم (people.joinNote) */
+const JOIN = people.joinNote || {}
+const JOIN_TEXT = JOIN.text || 'تسعد رواسم بانضمام من يشاركها رسالتها في تنمية الطفل. للتقدّم بطلب عضوية في الجمعية العمومية، تواصل معنا وسنوافيك بالتفاصيل والإجراءات.'
+const JOIN_CTA = JOIN.cta || 'قدّم طلب عضوية'
+
 function GovAssembly({ onOpenPage }) {
   return (
     <GovShell current="gov-assembly" onOpenPage={onOpenPage}
@@ -341,6 +346,38 @@ function GovAssembly({ onOpenPage }) {
             : <MemberCard key={m.name} name={m.name} role={m.role || 'عضو مؤسس'} delay={0.05 * i} accent="#7fb8d4" />
         ))}
       </div>
+
+      {/* ═══ للانضمام معنا ═══ */}
+      <motion.div {...rise(0.12)} className="relative mx-auto mt-16 w-full max-w-3xl overflow-hidden text-center"
+        style={glass({ borderRadius: '28px', padding: 'clamp(28px, 4vw, 40px)' })}>
+        <span aria-hidden="true" style={{ position: 'absolute', top: 0, insetInline: '30%', height: '2px',
+          background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
+        <h2 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: 'clamp(22px, 2.6vw, 30px)', margin: '0 0 12px' }}>
+          للانضمام معنا
+        </h2>
+        <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '15.5px', lineHeight: 2.05, margin: '0 auto 26px', maxWidth: '44rem' }}>
+          {JOIN_TEXT}
+        </p>
+        <motion.button
+          type="button" onClick={() => onOpenPage('inquiries')}
+          whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+          className="mx-auto flex items-center gap-3"
+          style={{
+            borderRadius: '999px', padding: '8px 26px 8px 8px', cursor: 'pointer',
+            background: 'linear-gradient(135deg, #ef9122 0%, #c9760f 100%)',
+            border: '1px solid rgba(255,200,120,0.5)',
+            boxShadow: '0 10px 26px rgba(239,145,34,0.34)',
+          }}
+        >
+          <span style={{ color: 'var(--on-accent)', fontWeight: 600, fontSize: '15px' }}>{JOIN_CTA}</span>
+          <span style={{ width: '38px', height: '38px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.35)' }}>
+            <svg className="on-accent" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 5 12 12 19" />
+            </svg>
+          </span>
+        </motion.button>
+      </motion.div>
     </GovShell>
   )
 }
