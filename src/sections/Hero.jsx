@@ -186,7 +186,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
 
       </div>
 
-      {/* عبارة الهيرو — سطران متوازنان، كلمة «أثره» بتدرّج لوني متحرك */}
+      {/* عبارة الهيرو — سطران متوازنان، كلمة «الأثر» بتدرّج لوني متحرك */}
       <motion.h1
         className="relative mb-6 flex flex-col items-center"
         style={{ fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif", color: 'var(--ink)', fontWeight: 700, fontSize: 'clamp(46px, 7.4vw, 92px)', lineHeight: 1.22, letterSpacing: '-0.01em' }}
@@ -198,7 +198,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
         </span>
         <span style={{ display: 'inline-block', whiteSpace: 'nowrap', padding: '0.08em 0',
           fontFeatureSettings: '"swsh" 1', WebkitFontFeatureSettings: '"swsh" 1' }}>
-          ويصنع <GradWord>أثـره</GradWord>
+          ويصنع <GradWord>الأثـر</GradWord>
         </span>
       </motion.h1>
 
