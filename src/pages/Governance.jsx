@@ -13,7 +13,7 @@ import site from '../../content/site.json'
    gov-board      → مجلس الإدارة
    gov-executive  → الإدارة التنفيذية (المدير التنفيذي)
    gov-assembly   → الجمعية العمومية
-   gov-reports    → التقارير والقوائم المالية
+   gov-reports    → القوائم المالية (التقارير السنوية انتقلت للمركز الإعلامي)
    gov-policies   → اللوائح والسياسات والإفصاحات
    gov-complaints → الشكاوى والبلاغات
    لا تُفترض وثائق لم تُستلم — أقسام المكتبة بحالات صادقة.
@@ -27,6 +27,7 @@ const ACCENT = '#ef9122'
 /* روابط صفحات الحوكمة — معرّفة في navPages.js ليستوردها الهيدر وحده */
 export { GOV_PAGES } from './navPages'
 import { GOV_PAGES } from './navPages'
+import { bannerFor } from '../banners'
 
 /* البيانات الرسمية من content/official.json — تُحرَّر من لوحة ديوان */
 const OFFICIAL = official.items
@@ -118,15 +119,15 @@ const MemberCard = ({ name, role, delay = 0, accent = ACCENT }) => (
 function GovShell({ title, children, current, onOpenPage }) {
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '76px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '76px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          {site.backNumbers && <img src={site.backNumbers} alt="" aria-hidden="true" draggable="false"
+          {bannerFor('governance', site.backNumbers || site.heroPoster) && <img src={bannerFor('governance', site.backNumbers || site.heroPoster)} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
-          <motion.span {...rise(0)} style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.05em', marginBottom: '14px' }}>
+          <motion.span {...rise(0)} style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px', marginBottom: '14px' }}>
             الحوكمة
           </motion.span>
           <motion.h1 {...rise(0.05)} className="mb-6 text-white"
@@ -172,7 +173,7 @@ function GovData({ onOpenPage }) {
             style={glass({ borderRadius: '22px', padding: '22px 24px' })}>
             <span aria-hidden="true" style={{ position: 'absolute', top: 0, insetInline: '18%', height: '2px',
               background: `linear-gradient(90deg, transparent, ${ACCENT}80, transparent)` }} />
-            <span className="mb-2 block" style={{ color: 'var(--accent-text)', fontWeight: 600, fontSize: '12px', letterSpacing: '0.06em' }}>{o.k}</span>
+            <span className="mb-2 block" style={{ color: 'var(--accent-text)', fontWeight: 600, fontSize: '12px' }}>{o.k}</span>
             {o.href ? (
               <a href={o.href} className="footer-link" style={{ color: 'var(--ink)', fontWeight: 500, fontSize: '16px', textDecoration: 'none' }} dir="ltr">{o.v}</a>
             ) : (
@@ -387,13 +388,14 @@ function GovAssembly({ onOpenPage }) {
 const DOC_TYPES = docs.types || {}
 const managed = (k, defs) => ((DOC_TYPES[k] || []).filter(Boolean).length ? DOC_TYPES[k].filter(Boolean) : defs)
 
-const REPORT_TYPES = managed('reports', ['التقارير السنوية', 'القوائم المالية'])
-const REPORT_FILES = docs.reports.map((d) => ({ ...d, file: d.file || null }))
+/* القوائم المالية فقط — التقارير السنوية صفحة مستقلة في المركز الإعلامي */
+const REPORT_TYPES = managed('reports', ['القوائم المالية']).filter((t) => !/سنوي/.test(t))
+const REPORT_FILES = docs.reports.filter((d) => !/سنوي/.test(d.type || '')).map((d) => ({ ...d, file: d.file || null }))
 
 function GovReports({ onOpenPage }) {
   return (
     <GovShell current="gov-reports" onOpenPage={onOpenPage}
-      title="التقارير والقوائم المالية">
+      title="القوائم المالية">
       <FileCards files={REPORT_FILES} types={REPORT_TYPES}
         emptyNote="تُنشر النسخ المعتمدة للنشر هنا فور اعتمادها." />
     </GovShell>

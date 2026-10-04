@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { glass } from '../theme'
 import site from '../../content/site.json'
+import { bannerFor } from '../banners'
+import { activeSocials } from '../socials'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «تواصل معنا» — وفق خطة المحتوى المعتمدة:
@@ -26,10 +28,6 @@ const CHANNELS = [
     icon: <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm18 2l-10 7L2 6" />,
   },
   {
-    k: 'الهاتف الرسمي', v: PHONE_DISPLAY, href: `tel:+${PHONE_INTL}`, ltr: true,
-    icon: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />,
-  },
-  {
     k: 'واتساب', v: PHONE_DISPLAY, href: `https://wa.me/${PHONE_INTL}`, ltr: true,
     icon: <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z" />,
   },
@@ -39,12 +37,6 @@ const CHANNELS = [
   },
 ]
 
-const SOCIALS = [
-  { label: 'إكس', href: 'https://x.com/RwasimSA' },
-  { label: 'إنستجرام', href: 'https://www.instagram.com/RwasimSA' },
-  { label: 'يوتيوب', href: 'https://www.youtube.com/@RwasimSA' },
-  { label: 'سناب شات', href: 'https://www.snapchat.com/add/RwasimSA' },
-]
 
 /* المسارات المتخصصة — كل طلب لقناته (قاعدة الخطة) */
 const ROUTES = [
@@ -94,9 +86,9 @@ export default function Contact({ onOpenPage = () => {} }) {
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
 
       {/* ═══ افتتاحية التواصل ═══ */}
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          {site.heroImage && <img src={site.heroImage} alt="" aria-hidden="true" draggable="false"
+          {bannerFor('contact', site.heroImage || site.heroPoster) && <img src={bannerFor('contact', site.heroImage || site.heroPoster)} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
@@ -120,7 +112,7 @@ export default function Contact({ onOpenPage = () => {} }) {
 
         {/* ═══ قنوات التواصل ═══ */}
         <SectionTitle>قنوات التواصل</SectionTitle>
-        <div className="mb-8 mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-8 mt-12 grid gap-4 sm:grid-cols-3">
           {CHANNELS.map((c, i) => (
             <motion.div key={c.k} {...rise(0.05 * i)}
               whileHover={{ y: -4, transition: { duration: 0.22 } }}
@@ -148,8 +140,8 @@ export default function Contact({ onOpenPage = () => {} }) {
         {/* الحسابات الرسمية */}
         <motion.div {...rise(0.1)} className="mb-24 flex flex-wrap items-center justify-center gap-3">
           <span style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '13.5px' }}>حساباتنا الرسمية:</span>
-          {SOCIALS.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+          {activeSocials().map((s) => (
+            <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer"
               style={{ ...glass({ borderRadius: '999px', padding: '8px 18px' }), color: 'var(--ink)', fontWeight: 500, fontSize: '13px',
                 textDecoration: 'none', border: '0.5px solid rgba(239,145,34,0.3)' }}>
               {s.label}

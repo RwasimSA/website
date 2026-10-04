@@ -27,6 +27,7 @@ import Navbar from './components/Navbar'
 import SectionIndex from './components/SectionIndex'
 import ThemeToggle from './components/ThemeToggle'
 import { useThemeMode } from './themeMode'
+import RequestFormHost from './components/RequestForm'
 
 const backgrounds = {
   hero:     'radial-gradient(ellipse 65% 55% at 78% 78%, rgba(239,145,34,0.18) 0%, transparent 60%), radial-gradient(ellipse 90% 85% at 50% 42%, #2d7d99 0%, #175b75 32%, #0d3a4d 58%, #082633 80%, #041720 100%)',
@@ -86,21 +87,40 @@ const PAGE_TITLES = {
   saif: 'صيف رواسم', impact: 'أثرنا', news: 'المركز الإعلامي', volunteer: 'التطوع',
   'media-news': 'آخر الأخبار', 'media-coverage': 'التغطيات',
   'media-releases': 'المحتوى والإصدارات', 'media-progreports': 'تقارير البرامج والمشاريع',
+  'media-annual': 'التقارير السنوية',
   partners: 'الشراكات', inquiries: 'تواصل معنا', policies: 'الحوكمة',
   'gov-data': 'البيانات الرسمية', 'gov-board': 'مجلس الإدارة',
   'gov-executive': 'الإدارة التنفيذية', 'gov-assembly': 'الجمعية العمومية',
   'gov-committees': 'اللجان الدائمة',
-  'gov-reports': 'التقارير والقوائم المالية', 'gov-minutes': 'المحاضر',
+  'gov-reports': 'القوائم المالية', 'gov-minutes': 'المحاضر',
   'gov-policies': 'اللوائح والسياسات',
   'gov-complaints': 'الشكاوى والبلاغات',
 }
 
-/* عدّاد الزيارات الداخلي: إشارة خفيفة لكل صفحة تُعرض — بلا كوكيز
-   وبلا أي بيانات شخصية، تُجمع في قاعدة D1 وتُعرض في لوحة ديوان */
+/* عدّاد الزيارات الداخلي — بلا كوكيز وبلا أي بيانات شخصية:
+   - «مشاهدة صفحة»: لكل صفحة تُعرض (لمعرفة الصفحات الأكثر قراءة)
+   - «زيارة»: مرة واحدة لكل جلسة؛ التنقّل بين الصفحات لا يُعدّ زيارة جديدة.
+     الجلسة تنتهي بعد 30 دقيقة دون نشاط (التعريف المعتمد في أدوات التحليل).
+     الطابع الزمني يبقى في متصفح الزائر ولا يُرسل */
+const VISIT_GAP = 30 * 60 * 1000
+let visitCounted = false
+const isNewVisit = () => {
+  try {
+    const now = Date.now()
+    const last = Number(localStorage.getItem('rw_last_seen') || 0)
+    localStorage.setItem('rw_last_seen', String(now))
+    return !last || now - last > VISIT_GAP
+  } catch {
+    /* تخزين محجوب: أول صفحة في هذا التحميل فقط هي الزيارة */
+    if (visitCounted) return false
+    visitCounted = true
+    return true
+  }
+}
 const trackHit = (page) => {
   try {
     const path = page ? `/${page}` : '/'
-    const body = JSON.stringify({ path })
+    const body = JSON.stringify({ path, visit: isNewVisit() })
     if (navigator.sendBeacon) navigator.sendBeacon('/api/hit', body)
     else fetch('/api/hit', { method: 'POST', body, keepalive: true })
   } catch { /* لا شيء */ }
@@ -324,6 +344,7 @@ export default function App() {
 
       {/* زر تبديل الوضع الداكن/الفاتح — لسان عائم على الحافة اليسرى */}
       <ThemeToggle />
+      <RequestFormHost />
 
       {/* فهرس أقسام الرئيسية — سطح المكتب فقط وخارج الصفحات الداخلية */}
       {!page && !isMobile && (
@@ -358,6 +379,13 @@ export default function App() {
         <div className="relative z-10"><ComingSoon {...COMING_SOON[page]} /></div>
       ) : null}
       </Suspense>
+
+      {/* الفوتر أسفل كل صفحة داخلية — نسخته المدمجة (بلا ملء شاشة) */}
+      {page && (
+        <div className="relative z-10">
+          <Footer compact onTop={() => window.scrollTo({ top: 0, behavior: 'smooth' })} onOpenPage={openPage} />
+        </div>
+      )}
 
       {!page && (isMobile ? (
         // الجوال: كل الأقسام متتالية بتمرير طبيعي — بلا فجوات بينها،

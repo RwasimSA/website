@@ -116,6 +116,52 @@
   --page-bg: #EDF0F3;  /* رمادي الهوية الفاتح */
 }
 /* نصوص Tailwind البيضاء تتبع الحبر في الوضع الفاتح، وأيقونات الخطوط البيضاء كذلك */
+/* زخارف الهيرو: صعود بطيء مستمر، والتأخير السالب يبدأ كل قطعة من منتصف مسارها */
+@keyframes doodleRise {
+  0%   { transform: translateY(40px) rotate(0deg); opacity: 0; }
+  12%  { opacity: 0.3; }
+  78%  { opacity: 0.3; }
+  100% { transform: translateY(var(--rise)) rotate(var(--rot)); opacity: 0; }
+}
+.hero-doodle { filter: blur(4px); animation-name: doodleRise; animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform, opacity; }
+
+/* فوتر الصفحات الداخلية: يفصله عن المحتوى خط رفيع */
+.site-footer-compact { border-top: 1px solid var(--line); }
+
+/* ══ مناطق داكنة دائماً: الهيرو وبنرات رؤوس الصفحات ══
+   تعيد تعريف رموز الألوان على شجرتها فقط، فتُرسم بالداكن في الوضعين
+   كما هي تماماً — والشريط العلوي الأبيض فوقها يُشعر بتبدّل الوضع. */
+:root[data-theme="light"] .force-dark {
+  color-scheme: dark;
+  background-color: #0E4156;
+  --ink: #ffffff; --ink-2: #dcebf2; --ink-3: #b6ccd6; --muted: #a2becf;
+  --accent-text: #f4a63f; --gold: #d8c8a4; --on-accent: #ffffff;
+  --glass-a: rgba(255,255,255,0.08); --glass-b: rgba(255,255,255,0.03);
+  --line: rgba(255,255,255,0.16); --line-strong: rgba(255,255,255,0.28);
+  --pill: linear-gradient(135deg, rgba(13,58,77,0.6) 0%, rgba(8,38,51,0.6) 100%);
+  --panel: linear-gradient(160deg, rgba(11,39,51,0.98) 0%, rgba(6,26,35,0.98) 100%);
+  --shadow: rgba(3,15,21,0.4); --card-shadow: none;
+  --text-shadow: 0 2px 12px rgba(3,15,21,0.9);
+  --img-overlay: linear-gradient(180deg, rgba(8,38,51,0.9) 0%, rgba(13,58,77,0.8) 45%, rgba(4,23,32,0.97) 100%);
+  --img-overlay-soft: linear-gradient(180deg, rgba(8,38,51,0.28) 0%, rgba(8,38,51,0.55) 62%, rgba(10,42,56,0.96) 100%);
+  /* بطاقات glass() داخلها تعود زجاجاً داكناً */
+  --card-surface: initial; --card-border: initial; --card-border-top: initial; --card-blur: initial;
+}
+/* داخلها تظهر الخلفيات والزخارف التي يخفيها الوضع الفاتح في بقية الصفحة */
+:root[data-theme="light"] .force-dark .bg-fx,
+:root[data-theme="light"] .force-dark [aria-hidden="true"].pointer-events-none.absolute { display: revert !important; }
+@media (min-width: 768px) {
+  :root[data-theme="light"] .force-dark .hero-doodles { display: block !important; }
+}
+
+/* الشريط العلوي في الفاتح: أبيض صريح فوق الهيرو والبنرات الداكنة */
+:root[data-theme="light"] .site-nav {
+  background: #ffffff !important;
+  border-color: rgba(14,65,86,0.08) !important;
+  box-shadow: 0 6px 24px rgba(14,65,86,0.10) !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
+
 /* أيقونات الحزمة المضمّنة: الـ svg الداخلي يملأ الغلاف */
 .pack-icon > svg { width: 100%; height: 100%; display: block; }
 
@@ -181,6 +227,22 @@
   box-shadow: inset 3px 3px 7px rgba(14,65,86,0.10), inset -3px -3px 7px rgba(255,255,255,0.9), 0 0 0 3px rgba(239,145,34,0.18) !important;
 }
 :root[data-theme="light"] .sub-input::placeholder { color: #6f8a97; }
+/* حقول القوائم المنسدلة: سهم مرسوم بمسافة واضحة من الحافة بدل سهم المتصفح الملتصق بها
+   (في العربية الطرف الأيسر هو نهاية الحقل) */
+:root select.sub-input,
+:root[data-theme="light"] select.sub-input {
+  appearance: none; -webkit-appearance: none;
+  padding-inline-start: 18px !important;
+  padding-inline-end: 46px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b6ccd6' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: left 18px center !important;
+  background-size: 15px 15px !important;
+}
+:root[data-theme="light"] select.sub-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E4156' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+}
+
 :root[data-theme="light"] .post-body h2, :root[data-theme="light"] .post-body h3, :root[data-theme="light"] .post-body h4 { color: var(--ink); }
 :root[data-theme="light"] .post-body blockquote { color: var(--ink-3); }
 :root[data-theme="light"] .skeleton { background: rgba(13,58,77,0.05); border-color: rgba(13,58,77,0.1); }
@@ -319,11 +381,22 @@ body {
   /* الرئيسية على الجوال: الأقسام تأخذ ارتفاع محتواها فقط (لا ملء شاشة كامل
      يُبعدها عن بعضها)، بهامش رأسي موحّد — الهيرو وحده يبقى بملء الشاشة */
   .home-mobile section:not(.hero-section) { min-height: auto !important; padding-top: 44px !important; padding-bottom: 44px !important; }
-  /* الهيرو على الجوال: بارتفاع محتواه تحت شريط التنقل، فلا تبقى فراغات
-     كبيرة تحت أزراره، ويبدو عنوان القسم التالي أسفل الشاشة الأولى */
-  .home-mobile .hero-section { min-height: auto !important; padding-top: 132px !important; padding-bottom: 44px !important; }
-  /* الباترن يبقى متوسّطاً على المحتوى (لا على القسم): نصف فرق الحشوتين = 44px */
-  .home-mobile .hero-section > img.keep-light { top: calc(50% + 44px) !important; }
+  /* الهيرو على الجوال: بملء الشاشة الظاهرة ومحتواه في منتصفها عمودياً وأفقياً —
+     الحشوة العلوية أكبر قليلاً لتعويض الشريط العلوي فيبدو المحتوى في المنتصف بصرياً */
+  .home-mobile .hero-section { min-height: var(--vh-full) !important; padding-top: 96px !important; padding-bottom: 40px !important; }
+}
+
+/* ══ معايرة الحجم على الجوال ══
+   التصميم يبدو كبيراً على شاشات الجوال فيضطر الزائر للتصغير — نصغّر كل شيء
+   متناسقاً بـ zoom كما في الشاشات المتوسطة، ونعوّض وحدات الشاشة بالمعامل نفسه.
+   (svh = ارتفاع الشاشة الظاهر فعلاً بعد شريط المتصفح) */
+@media (max-width: 767px) {
+  body { zoom: 0.9; }
+  :root { --vh-full: calc(100svh / 0.9); --vw-full: calc(100vw / 0.9); }
+  .h-screen { height: var(--vh-full) !important; }
+  .min-h-screen { min-height: var(--vh-full) !important; }
+  .w-screen { width: var(--vw-full) !important; }
+  .site-nav { width: calc(var(--vw-full) - 2rem) !important; }
 }
 
 /* رواسم في أرقام: تصغير الأرقام وارتفاع البطاقات على الجوال حتى لا تنقطع */
@@ -355,6 +428,9 @@ body {
 
 .partner-cell {
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  /* صناديق الشعارات بيضاء صريحة في الوضعين — الشعارات مصمّمة على الأبيض */
+  background: #ffffff !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
 }
 /* الشعار يتمدّد داخل البطاقة المربّعة ولا يتجاوزها، فيبقى الضلعان متساويين */
 .partner-logo { max-height: 100%; }
@@ -410,8 +486,13 @@ body {
   border-color: rgba(239,145,34, 0.4) !important;
   transform: translateY(-1px);
 }
+/* وكذلك عناصر القائمة المنسدلة في الفاتح: نص كحلي على خلفية برتقالية فاتحة */
+:root[data-theme="light"] .nav-box:hover { color: #0E4156 !important; background: rgba(239,145,34, 0.12) !important; }
 
 /* روابط الهيدر المسطحة */
 .nav-flat-link:hover {
   color: #ffffff !important;
 }
+/* في الفاتح الشريط أبيض: التبويب عند المرور يتلوّن ببرتقالي الهوية الداكن بدل الأبيض */
+:root[data-theme="light"] .nav-flat-link:hover,
+:root[data-theme="light"] .nav-flat-link.is-open { color: #c46a0a !important; }

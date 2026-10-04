@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import site from '../../content/site.json'
 import { useThemeMode } from '../themeMode'
+import { openRequestForm } from '../components/RequestForm'
 
 /* ─────────────────────────────────────────────────────────────
    الدعوة الختامية — لوحة واحدة كبيرة:
@@ -124,7 +125,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
           {/* المحتوى */}
           <div className="relative flex flex-col items-center px-7 py-16 text-center md:px-16 md:py-20">
             <motion.span {...rise(0.25)}
-              style={{ color: 'var(--accent-text)', fontSize: '13.5px', fontWeight: 500, letterSpacing: '0.22em', marginBottom: '16px' }}>
+              style={{ color: 'var(--accent-text)', fontSize: '13.5px', fontWeight: 500, marginBottom: '16px' }}>
               رحلة جيلٍ كامل تبدأ بخطوتك
             </motion.span>
 
@@ -149,7 +150,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
             >
               {/* كن شريكًا — رئيسي */}
               <motion.button
-                onClick={() => onOpenPage('partners')}
+                onClick={() => openRequestForm('partner')}
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
                 className="flex items-center gap-4"
                 style={{
@@ -162,7 +163,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
                 }}
               >
                 <span className="flex flex-col items-start" style={{ lineHeight: 1.35 }}>
-                  <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '10.5px', fontWeight: 400, letterSpacing: '0.1em' }}>للجهات</span>
+                  <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '10.5px', fontWeight: 400 }}>للجهات</span>
                   <span style={{ color: 'var(--on-accent)', fontWeight: 700, fontSize: '17px' }}>كن شريكًا</span>
                 </span>
                 <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -175,7 +176,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
 
               {/* تطوّع معنا — زجاجي */}
               <motion.button
-                onClick={() => onOpenPage('volunteer')}
+                onClick={() => openRequestForm('volunteer')}
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
                 className="flex items-center gap-4"
                 style={{
@@ -190,7 +191,7 @@ export default function FinalCTA({ onOpenPage = () => {} }) {
                 }}
               >
                 <span className="flex flex-col items-start" style={{ lineHeight: 1.35 }}>
-                  <span style={{ color: light ? '#336E7C' : '#8fd0e8', fontSize: '10.5px', fontWeight: 400, letterSpacing: '0.1em' }}>للأفراد</span>
+                  <span style={{ color: light ? '#336E7C' : '#8fd0e8', fontSize: '10.5px', fontWeight: 400 }}>للأفراد</span>
                   <span style={{ color: 'var(--ink)', fontWeight: 700, fontSize: '17px' }}>تطوّع معنا</span>
                 </span>
                 <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',

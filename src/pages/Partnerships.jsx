@@ -3,6 +3,8 @@ import { glass, accentGrad } from '../theme'
 import partnersData from '../../content/partners.json'
 import site from '../../content/site.json'
 import PackIcon from '../components/PackIcon'
+import { bannerFor } from '../banners'
+import { openRequestForm } from '../components/RequestForm'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «الشراكات» — وفق خطة المحتوى المعتمدة:
@@ -69,9 +71,9 @@ export default function Partnerships({ onOpenPage = () => {} }) {
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
 
       {/* ═══ افتتاحية الشراكات ═══ */}
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          {site.backCta && <img src={site.backCta} alt="" aria-hidden="true" draggable="false"
+          {bannerFor('partners', site.backCta) && <img src={bannerFor('partners', site.backCta)} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
@@ -155,7 +157,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
             style={{ top: '-40%', right: '-8%', width: '42%', height: '120%', borderRadius: '50%',
               background: 'radial-gradient(ellipse, rgba(239,145,34,0.18) 0%, transparent 65%)', filter: 'blur(55px)' }} />
           <div className="flex flex-col items-center text-center">
-            <span style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.04em' }}>ابدأ شراكة مع رواسم</span>
+            <span style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px' }}>ابدأ شراكة مع رواسم</span>
             <h3 className="mt-3" style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: 'clamp(26px, 3.2vw, 40px)', margin: '12px 0 0' }}>
               لنبنِ{' '}
               <span style={{
@@ -170,7 +172,7 @@ export default function Partnerships({ onOpenPage = () => {} }) {
               وبحث إمكانات العمل المشترك.
             </p>
             <motion.button
-              type="button" onClick={() => onOpenPage('inquiries')}
+              type="button" onClick={() => openRequestForm('partner')}
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
               className="mt-8 flex cursor-pointer items-center gap-2.5"
               style={{ borderRadius: '999px', padding: '14px 30px', border: 'none',

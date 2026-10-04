@@ -12,7 +12,7 @@ const rise = (delay = 0) => ({
 export default function ComingSoon({ eyebrow = 'المركز الإعلامي', title = 'قريباً', subtitle = 'نعمل على تجهيز هذا القسم وسيكون متاحاً قريباً.' }) {
   return (
     <div dir="rtl" className="relative mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center px-6 pb-28 pt-36 text-center md:px-10">
-      <motion.p style={{ color: color.copper, fontSize: '14px', fontWeight: 300, letterSpacing: '0.22em', marginBottom: '18px' }} {...rise(0)}>{eyebrow}</motion.p>
+      <motion.p style={{ color: color.copper, fontSize: '14px', fontWeight: 300, marginBottom: '18px' }} {...rise(0)}>{eyebrow}</motion.p>
 
       <motion.div {...rise(0.06)} className="mb-7 flex h-20 w-20 items-center justify-center rounded-2xl"
         style={glass({ borderRadius: '22px' })}>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useThemeMode } from '../themeMode'
 
@@ -18,14 +19,27 @@ const styleFor = (abs, light) => ({
   fontSize: `${[19.5, 14, 12, 11][Math.min(abs, 3)]}px`,
   fontWeight: abs === 0 ? 700 : 400,
   color: abs === 0 ? (light ? '#0E4156' : '#ffffff') : (light ? '#336E7C' : '#bcd9e6'),
-  letterSpacing: abs === 0 ? '0.02em' : '0em',
+  letterSpacing: 0,
   /* عمق ميداني: ما بعُد عن القسم الحالي يخفت ويميل للضبابية */
   filter: abs === 0 ? 'blur(0px)' : `blur(${Math.min(abs, 3) * 0.45}px)`,
 })
 
 
+/* حين يمرّ المؤشر على الفهرس «يستيقظ»: تتضح كل العناوين لتُقرأ وتُختار،
+   والعنوان الذي تحت المؤشر يكبر ويتلوّن بالبرتقالي وينزاح قليلاً */
+const awakeStyle = (abs, light, isHovered) => {
+  const base = styleFor(abs, light)
+  if (isHovered) {
+    return { ...base, opacity: 1, filter: 'blur(0px)', x: -8,
+      fontSize: `${Math.max(parseFloat(base.fontSize), 16.5)}px`,
+      color: light ? '#c46a0a' : '#f4a63f' }
+  }
+  return { ...base, x: 0, opacity: abs === 0 ? 1 : 0.78, filter: 'blur(0px)' }
+}
+
 export default function SectionIndex({ items = [], current, onGo = () => {} }) {
   const light = useThemeMode() === 'light'
+  const [hovered, setHovered] = useState(null)
   const idx = Math.max(items.findIndex((s) => s.key === current), 0)
   const mid = (items.length - 1) / 2
   const height = items.length * ROW
@@ -80,9 +94,12 @@ export default function SectionIndex({ items = [], current, onGo = () => {} }) {
               className="pointer-events-auto block cursor-pointer whitespace-nowrap border-none bg-transparent p-0 text-right"
               style={{ textShadow: light ? 'none' : active ? '0 2px 18px rgba(239,145,34,0.35), 0 2px 12px rgba(3,15,21,0.9)' : '0 2px 12px rgba(3,15,21,0.9)',
                 fontFamily: "'TheYearofHandicrafts', 'IBM Plex Sans Arabic', sans-serif" }}
-              animate={styleFor(abs, light)}
-              whileHover={active ? undefined : { opacity: 0.9, filter: 'blur(0px)' }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered((h) => (h === i ? null : h))}
+              onFocus={() => setHovered(i)}
+              onBlur={() => setHovered(null)}
+              animate={hovered === null ? { ...styleFor(abs, light), x: 0 } : awakeStyle(abs, light, hovered === i)}
+              transition={{ duration: hovered === null ? 0.45 : 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
               {s.label}
             </motion.button>

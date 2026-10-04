@@ -6,6 +6,7 @@ import { glass } from '../theme'
 import programsContent from '../../content/programs.json'
 import { useThemeMode, getTheme } from '../themeMode'
 import PackIcon from '../components/PackIcon'
+import { bannerFor } from '../banners'
 const __IDX = { ashbal: 0, barie: 1, saif: 2 }
 const progMedia = (k) => {
   const card = (programsContent.cards || [])[__IDX[k]] || {}
@@ -147,9 +148,9 @@ export default function Ashbal({ onOpenPage = () => {} }) {
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
 
       {/* ═══ افتتاحية البرنامج ═══ */}
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '90px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '90px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          {PROG.img && <img src={PROG.img} alt="" aria-hidden="true" draggable="false"
+          {bannerFor('ashbal', PROG.img) && <img src={bannerFor('ashbal', PROG.img)} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
@@ -187,7 +188,7 @@ export default function Ashbal({ onOpenPage = () => {} }) {
             ].map((c) => (
               <div key={c.k} className="flex items-center gap-3"
                 style={glass({ borderRadius: '999px', padding: '11px 22px' })}>
-                <span style={{ color: acc(), fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.08em' }}>{c.k}</span>
+                <span style={{ color: acc(), fontWeight: 600, fontSize: '12.5px' }}>{c.k}</span>
                 <span style={{ width: '1px', height: '14px', background: 'var(--line-strong)' }} />
                 <span style={{ color: 'var(--ink)', fontWeight: 400, fontSize: '13.5px' }}>{c.v}</span>
               </div>

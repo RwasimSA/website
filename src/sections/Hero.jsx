@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import site from '../../content/site.json'
-import { useThemeMode, getTheme } from '../themeMode'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -71,10 +70,8 @@ const GradWord = ({ children }) => (
     // حتى لا تُقص الهمزة/المدّة الممتدة فوق ارتفاع السطر (background-clip: text)
     padding: '0.35em 0.1em',
     margin: '-0.35em -0.1em',
-    /* في الفاتح: أطراف التدرّج تُعمَّق بألوان الهوية حتى تبقى الكلمة مقروءة */
-    backgroundImage: getTheme() === 'light'
-      ? 'linear-gradient(100deg, #c46a0a, #EF9122, #336E7C, #0E4156, #336E7C, #EF9122, #c46a0a)'
-      : 'linear-gradient(100deg, #ffb85c, #ef9122, #4db3d4, #35a3c8, #4db3d4, #ef9122, #ffb85c)',
+    /* الهيرو داكن في الوضعين، فالتدرّج واحد */
+    backgroundImage: 'linear-gradient(100deg, #ffb85c, #ef9122, #4db3d4, #35a3c8, #4db3d4, #ef9122, #ffb85c)',
     backgroundSize: '220% 100%',
     animation: 'gradShift 5s linear infinite',
     WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent',
@@ -82,13 +79,11 @@ const GradWord = ({ children }) => (
 )
 
 export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
-  /* فيديو الخلفية: لا يُحمّل مع أول رسم للصفحة، بل بعد أن تهدأ
-     (وقت الخمول) وعلى الشاشات العريضة فقط — فالجوال تكفيه صورة الغلاف */
+  /* فيديو الخلفية: لا يُحمّل مع أول رسم للصفحة بل بعد أن تهدأ (وقت الخمول)،
+     ويعمل على الجوال وسطح المكتب — إلا عند «توفير البيانات» أو شبكة 2G */
   const [showVideo, setShowVideo] = useState(false)
-  const light = useThemeMode() === 'light'
   useEffect(() => {
     if (typeof window === 'undefined') return
-    if (window.matchMedia('(max-width: 767px)').matches) return
     const conn = navigator.connection
     if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return
     const start = () => setShowVideo(true)
@@ -99,7 +94,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
   }, [])
 
   return (
-    <section className="hero-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+    <section className="hero-section force-dark relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
 
       {/* فيديو «ليلة الختام» مستضاف محلياً — أقصى الخلف، مكتوم ويعيد نفسه،
           وخلفه صورة غطاء احتياطية لحين تحميله */}
@@ -107,8 +102,7 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
         {(site.heroImage || site.heroPoster) && <img src={site.heroImage || site.heroPoster} alt="" aria-hidden="true" draggable="false"
           fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover" />}
-        {/* الفيديو يُحمّل بعد أن تستقر الصفحة (وليس مع أول تحميل)، وعلى
-            الجوال لا يُحمّل إطلاقاً — تكفيه صورة الغلاف توفيراً للبيانات */}
+        {/* الفيديو يُحمّل بعد أن تستقر الصفحة (وليس مع أول تحميل) */}
         {site.heroVideo && showVideo && <video
           src={site.heroVideo}
           poster={site.heroPoster || site.heroImage || undefined}
@@ -120,38 +114,26 @@ export default function Hero({ onPrograms = () => {}, onAbout = () => {} }) {
           background: 'var(--img-overlay)' }} />
       </div>
 
-      {/* نودلز رواسم — تصعد ضبابيةً وبنعومة من أسفل إلى أعلى خلف الباترن
+      {/* نودلز رواسم — تصعد ضبابيةً وبنعومة من أسفل إلى أعلى. كل قطعة تبدأ
+          من نقطة مختلفة في مسارها (تأخير سالب) فتظهر كلها من أول لحظة
           (تُخفى على الجوال توفيراً لمعالجته — hero-doodles في index.css) */}
       <div className="hero-doodles pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
-        {floatingDoodles.map(({ shape, style, rise: riseBy, rot, dur, delay }, i) => {
+        {floatingDoodles.map(({ shape, style, rise: riseBy, rot, dur }, i) => {
           const { viewBox, paths } = doodleShapes[shape]
           return (
-            <motion.div
+            <div
               key={i}
-              className="absolute"
-              style={{ ...style, filter: 'blur(4px)' }}
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: [40, -riseBy], rotate: [0, rot], opacity: [0, 0.3, 0.3, 0] }}
-              transition={{
-                duration: dur, delay, repeat: Infinity, ease: 'linear',
-                opacity: { duration: dur, delay, repeat: Infinity, times: [0, 0.18, 0.75, 1], ease: 'easeInOut' },
-              }}
+              className="hero-doodle absolute"
+              style={{ ...style, '--rise': `${-riseBy}px`, '--rot': `${rot}deg`,
+                animationDuration: `${dur}s`, animationDelay: `${-(dur * (0.18 + (i * 0.37) % 0.6)).toFixed(1)}s` }}
             >
               <svg viewBox={viewBox} style={{ width: '100%', height: 'auto', display: 'block' }}>
                 {paths.map((p, j) => <path key={j} d={p.d} fill={p.fill} />)}
               </svg>
-            </motion.div>
+            </div>
           )
         })}
       </div>
-
-      {/* باترن الهوية — شريط منحنٍ بعرض كامل، متوسّط رأسياً مع تمويه خفيف */}
-      <img src={light ? '/images/hero-pattern-light.webp' : '/images/hero-pattern.webp'} alt="" aria-hidden="true" draggable="false"
-        className="keep-light pointer-events-none absolute left-0 w-full"
-        style={{
-          top: '50%', transform: 'translateY(-50%)', zIndex: 0,
-          opacity: light ? 0.9 : 0.5, filter: light ? 'none' : 'blur(9px)',
-        }} />
 
       {/* توهّجات متنفّسة خلف الشعار — تُخفى على الجوال (fx-glow) */}
       <motion.div

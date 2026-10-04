@@ -46,7 +46,8 @@ export const fluid = {
 }
 
 export const leading = { heading: 1.3, title: 1.4, body: 1.7, none: 1 }
-export const tracking = { eyebrow: '0.20em', wide: '0.14em', label: '0.12em' }
+/* العربية حروفها متصلة: أي تباعد موجب يفكّها ويشوّه الكلمة — فالقيم صفر */
+export const tracking = { eyebrow: '0', wide: '0', label: '0' }
 
 /**
  * أدوار النصوص — كل دور كائن نمط جاهز (style object) كامل.

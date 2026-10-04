@@ -60,7 +60,7 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
             >
               {/* الشريط */}
               <nav
-                className="flex w-[min(60rem,calc(100vw-2rem))] items-center justify-between gap-6 rounded-full px-6 py-4"
+                className="site-nav flex w-[min(60rem,calc(100vw-2rem))] items-center justify-between gap-6 rounded-full px-6 py-4"
                 style={{ ...glass, boxShadow: 'var(--nav-shadow), inset 0 1px 0 var(--glass-a)' }}
               >
                 <img src={logo} alt="جمعية رواسم" className="h-8 w-auto cursor-pointer object-contain"
@@ -73,8 +73,8 @@ export default function Navbar({ collapsed = false, progress = 0, onOpenPage = (
                       onMouseLeave={tab.children ? () => setDropOpen(null) : undefined}>
                       {tab.children ? (
                         <>
-                          <a href="#" className="nav-flat-link flex items-center gap-1.5 whitespace-nowrap text-[15px] transition-colors"
-                            style={{ color: dropOpen === tab.label ? '#ffffff' : 'var(--ink-3)', fontWeight: 400 }}
+                          <a href="#" className={`nav-flat-link flex items-center gap-1.5 whitespace-nowrap text-[15px] transition-colors${dropOpen === tab.label ? ' is-open' : ''}`}
+                            style={{ color: dropOpen === tab.label ? 'var(--ink)' : 'var(--ink-3)', fontWeight: 400 }}
                             onClick={(e) => { e.preventDefault(); setDropOpen((o) => (o === tab.label ? null : tab.label)) }}>
                             {tab.label}
                             <Chevron open={dropOpen === tab.label} />

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { glass, color } from '../theme'
 import { text } from '../typography'
 import { useThemeMode } from '../themeMode'
+import { activeSocials, SocialIcon } from '../socials'
 
 const navLinks = [
   { label: 'عن رواسم', page: 'about-us' },
@@ -14,7 +15,7 @@ const navLinks = [
 const bottomLinks = [
   { label: 'اللوائح والسياسات', page: 'gov-policies' },
   { label: 'الشكاوى والبلاغات', page: 'gov-complaints' },
-  { label: 'التقارير', page: 'gov-reports' },
+  { label: 'التقارير السنوية', page: 'media-annual' },
 ]
 
 /* بيانات التواصل الرسمية */
@@ -50,13 +51,6 @@ const GlobeIcon = () => (
   </svg>
 )
 
-/* حسابات التواصل — المعرّف الموحّد RwasimSA */
-const socials = [
-  { label: 'يوتيوب', href: 'https://www.youtube.com/@RwasimSA', icon: <><rect x="2" y="5" width="20" height="14" rx="4" /><path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none" /></> },
-  { label: 'إنستجرام', href: 'https://www.instagram.com/RwasimSA', icon: <><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></> },
-  { label: 'سناب شات', href: 'https://www.snapchat.com/add/RwasimSA', icon: <path d="M12 2.5c2.9 0 4.9 2.1 4.9 5v2.4c.7 1 1.8 1.5 2.9 1.7-.3 1-1.2 1.6-2.3 1.8.2.9 1 1.5 2.3 1.8-.5 1.2-1.9 1.9-3.5 2-.6 1.3-2.2 2.3-4.3 2.3s-3.7-1-4.3-2.3c-1.6-.1-3-.8-3.5-2 1.3-.3 2.1-.9 2.3-1.8-1.1-.2-2-.8-2.3-1.8 1.1-.2 2.2-.7 2.9-1.7V7.5c0-2.9 2-5 4.9-5z" /> },
-  { label: 'إكس', href: 'https://x.com/RwasimSA', icon: <path d="M4 4l16 16M20 4 4 20" /> },
-]
 
 const ColTitle = ({ children }) => (
   <h3 style={{ ...text.cardTitle, fontSize: '16px', marginBottom: '22px', position: 'relative', paddingBottom: '12px' }}>
@@ -66,10 +60,13 @@ const ColTitle = ({ children }) => (
 )
 
 
-export default function Footer({ onTop, onOpenPage = () => {} }) {
+export default function Footer({ onTop, onOpenPage = () => {}, compact = false }) {
   const theme = useThemeMode()
   return (
-    <section className="relative flex min-h-screen flex-col justify-center px-6 py-16 md:px-16" dir="rtl">
+    <section dir="rtl"
+      className={compact
+        ? 'site-footer-compact relative flex flex-col justify-center px-6 py-14 md:px-16'
+        : 'relative flex min-h-screen flex-col justify-center px-6 py-16 md:px-16'}>
       <div className="mx-auto w-full max-w-6xl">
 
         {/* الأعمدة */}
@@ -85,11 +82,11 @@ export default function Footer({ onTop, onOpenPage = () => {} }) {
               نسعى لتنمية الطفل وتعزيز قدراته في الجوانب المعرفية والسلوكية.
             </p>
             <div className="mt-auto flex gap-3 pt-2">
-              {socials.map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
+              {activeSocials().map((s) => (
+                <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} title={s.label}
                   className="footer-social flex h-9 w-9 items-center justify-center"
                   style={{ ...glass(), borderRadius: '12px', color: 'var(--ink)' }}>
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{s.icon}</svg>
+                  <SocialIcon icon={s.icon} />
                 </a>
               ))}
             </div>

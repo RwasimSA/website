@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import SectionCta from '../components/SectionCta'
 import programsContent from '../../content/programs.json'
 import { useThemeMode } from '../themeMode'
+import { openProgram } from '../programLinks'
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -73,8 +74,8 @@ const ProgramCard = ({ program, delay, onHover = () => {}, onOpen = () => {} }) 
     whileHover={{ y: -6, transition: { duration: 0.25, ease: 'easeOut' } }}
     onHoverStart={() => onHover(program.key)}
     onHoverEnd={() => onHover(null)}
-    // رابط مخصص من اللوحة يفتح في تبويب جديد؛ وإلا تُفتح صفحة البرنامج الداخلية
-    onClick={() => (program.link ? window.open(program.link, '_blank', 'noopener') : onOpen(program.key))}
+    // صفحة البرنامج المختارة من اللوحة، أو رابطه الخارجي، أو صفحته الداخلية المعروفة
+    onClick={() => openProgram(program, onOpen)}
     className="group relative w-full max-w-[290px] flex-1"
     style={{ minWidth: 0, cursor: 'pointer', willChange: 'transform' }}
   >

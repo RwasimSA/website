@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { glass } from '../theme'
 import FileCards from '../components/FileCards'
 import mediaData from '../../content/media.json'
+import docsData from '../../content/documents.json'
 
 /* ─────────────────────────────────────────────────────────────
    «المركز الإعلامي» — مقسّم لصفحات مستقلة تُفتح من القائمة
@@ -20,6 +21,8 @@ const ACCENT = '#ef9122'
 /* صفحات المركز الإعلامي — معرّفة في navPages.js ليستوردها الهيدر وحده */
 export { MEDIA_PAGES } from './navPages'
 import { MEDIA_PAGES } from './navPages'
+import { bannerFor } from '../banners'
+import { activeSocials } from '../socials'
 
 /* المحتوى من content/media.json — يُحرَّر من لوحة التحكم */
 const COVERAGE = mediaData.coverage
@@ -40,6 +43,25 @@ const RELEASE_TYPES = (mediaData.releaseTypes || []).filter(Boolean).length
   : ['الأدلة', 'الحقائب', 'الإصدارات']
 const RELEASES = mediaData.releases.map((r) => ({ ...r, file: r.file || null }))
 const PROG_REPORTS = (mediaData.progReports || []).map((r) => ({ ...r, file: r.file || null }))
+/* التقارير السنوية — قائمة مستقلة في اللوحة (media.annualReports)، ويُضاف إليها
+   أي تقرير قديم صُنّف «التقارير السنوية» داخل وثائق الحوكمة فلا يضيع شيء */
+const ANNUAL_REPORTS = [
+  ...(mediaData.annualReports || []),
+  ...((docsData.reports || []).filter((r) => /سنوي/.test(r.type || ''))),
+].map((r) => ({ ...r, file: r.file || null }))
+
+/* مساحة صورة البطاقة: ثابتة 16:9 دائماً — بصورة الخبر أو بديل بألوان الهوية،
+   فتتساوى البطاقات مهما اختلف الخبر */
+const NewsThumb = ({ src, radius }) => (
+  <div className="relative overflow-hidden" style={{ aspectRatio: '16 / 9', borderRadius: radius }}>
+    {src
+      ? <img src={src} alt="" draggable="false" loading="lazy" className="h-full w-full object-cover" />
+      : <div className="flex h-full w-full items-center justify-center"
+          style={{ background: 'linear-gradient(135deg, #0E4156 0%, #336E7C 100%)' }}>
+          <img src="/images/rawasim-icon-white.svg" alt="" aria-hidden="true" draggable="false" style={{ height: '38%', opacity: 0.85 }} />
+        </div>}
+  </div>
+)
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 26 },
@@ -52,15 +74,15 @@ const rise = (delay = 0) => ({
 function MediaShell({ title, children, current, onOpenPage }) {
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '76px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '76px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          <img src="https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg" alt="" aria-hidden="true" draggable="false"
+          <img src={bannerFor('media', 'https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg')} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
         </div>
         <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center">
-          <motion.span {...rise(0)} style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px', letterSpacing: '0.05em', marginBottom: '14px' }}>
+          <motion.span {...rise(0)} style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '13.5px', marginBottom: '14px' }}>
             المركز الإعلامي
           </motion.span>
           <motion.h1 {...rise(0.05)} className="mb-6 text-white"
@@ -149,21 +171,16 @@ function MediaNews({ onOpenPage }) {
               onClick={() => onOpenPage(newsSlug(n, i))}
               className="relative flex cursor-pointer flex-col overflow-hidden"
               style={glass({ borderRadius: '24px' })}>
-              {n.image && (
-                <div className="relative" style={{ aspectRatio: '16 / 9' }}>
-                  <img src={n.image} alt="" draggable="false" className="h-full w-full object-cover" />
-                  <div style={{ position: 'absolute', inset: 0,
-                    background: 'linear-gradient(180deg, transparent 45%, rgba(10,42,56,0.85) 100%)' }} />
-                </div>
-              )}
+              <NewsThumb src={n.image} />
               <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
                 <div className="mb-2.5 flex flex-wrap items-center gap-2">
                   {n.tag && <span style={{ color: 'var(--accent-text)', fontWeight: 600, fontSize: '11.5px' }}>{n.tag}</span>}
                   {n.date && <span style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '11.5px' }} dir="ltr">{n.date}</span>}
                 </div>
-                <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '17px', lineHeight: 1.7, margin: '0 0 8px' }}>{n.title}</h3>
-                {n.summary && <p style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.95, margin: 0 }}>{n.summary}</p>}
-                <span className="mt-4 flex items-center gap-1.5"
+                {/* عنوان بسطرين وملخص بثلاثة أسطر — بارتفاع محجوز فتتساوى البطاقات */}
+                <h3 className="line-clamp-2" style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '17px', lineHeight: 1.7, margin: '0 0 8px', minHeight: 'calc(17px * 1.7 * 2)' }}>{n.title}</h3>
+                <p className="line-clamp-3" style={{ color: 'var(--ink-2)', fontWeight: 300, fontSize: '13.5px', lineHeight: 1.95, margin: 0, minHeight: 'calc(13.5px * 1.95 * 3)' }}>{n.summary || ''}</p>
+                <span className="mt-auto flex items-center gap-1.5 pt-4"
                   style={{ color: 'var(--accent-text)', fontWeight: 500, fontSize: '12.5px' }}>
                   اقرأ الخبر
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"
@@ -187,12 +204,7 @@ function MediaNews({ onOpenPage }) {
             حتى ذلك الحين، تابع جديدنا لحظة بلحظة عبر حساباتنا الرسمية.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            {[
-              { label: 'إكس', href: 'https://x.com/RwasimSA' },
-              { label: 'إنستجرام', href: 'https://www.instagram.com/RwasimSA' },
-              { label: 'يوتيوب', href: 'https://www.youtube.com/@RwasimSA' },
-              { label: 'سناب شات', href: 'https://www.snapchat.com/add/RwasimSA' },
-            ].map((s) => (
+            {activeSocials().map((s) => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
                 style={{ ...glass({ borderRadius: '999px', padding: '9px 20px' }), color: 'var(--ink)', fontWeight: 500, fontSize: '13px',
                   textDecoration: 'none', border: '0.5px solid rgba(239,145,34,0.32)' }}>
@@ -218,10 +230,10 @@ function NewsArticle({ slug, onOpenPage }) {
   return (
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
       {/* رأس الصفحة بصورة الخبر */}
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '70px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '70px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          {n.image
-            ? <img src={n.image} alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />
+          {(n.cover || n.image)
+            ? <img src={n.cover || n.image} alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />
             : <img src="https://i.ytimg.com/vi/cTz5Kf4vClE/hqdefault.jpg" alt="" aria-hidden="true" draggable="false" className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
@@ -253,11 +265,12 @@ function NewsArticle({ slug, onOpenPage }) {
       </div>
 
       <div className="relative mx-auto w-full max-w-3xl px-6 pt-12 md:px-10 md:pt-16">
-        {/* صورة الخبر كاملة */}
-        {n.image && (
+        {/* صورة الخبر الداخلية بأبعادها الكاملة دون قص — تُرفع مستقلة من اللوحة،
+            وإن لم تُرفع تُعرض صورة البطاقة */}
+        {(n.cover || n.image) && (
           <motion.div {...rise(0.05)} className="mb-10 overflow-hidden"
             style={{ borderRadius: '24px', border: '0.5px solid var(--line)', boxShadow: '0 22px 50px var(--shadow)' }}>
-            <img src={n.image} alt={n.title} draggable="false" className="block w-full" />
+            <img src={n.cover || n.image} alt={n.title} draggable="false" className="block h-auto w-full" />
           </motion.div>
         )}
 
@@ -284,14 +297,10 @@ function NewsArticle({ slug, onOpenPage }) {
                   onClick={() => onOpenPage(newsSlug(x, i))}
                   className="flex cursor-pointer flex-col overflow-hidden"
                   style={glass({ borderRadius: '18px' })}>
-                  {x.image && (
-                    <div style={{ aspectRatio: '16 / 9' }}>
-                      <img src={x.image} alt="" draggable="false" className="h-full w-full object-cover" />
-                    </div>
-                  )}
+                  <NewsThumb src={x.image} />
                   <div className="px-4 pb-4 pt-3">
                     {x.date && <span dir="ltr" style={{ color: 'var(--muted)', fontWeight: 300, fontSize: '11px' }}>{x.date}</span>}
-                    <h3 style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '13.5px', lineHeight: 1.75, margin: '4px 0 0' }}>{x.title}</h3>
+                    <h3 className="line-clamp-2" style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '13.5px', lineHeight: 1.75, margin: '4px 0 0', minHeight: 'calc(13.5px * 1.75 * 2)' }}>{x.title}</h3>
                   </div>
                 </motion.article>
               ))}
@@ -395,6 +404,17 @@ function MediaProgReports({ onOpenPage }) {
   )
 }
 
+/* ═══════════ 5) التقارير السنوية ═══════════ */
+function MediaAnnual({ onOpenPage }) {
+  return (
+    <MediaShell current="media-annual" onOpenPage={onOpenPage}
+      title="التقارير السنوية">
+      <FileCards files={ANNUAL_REPORTS}
+        emptyNote="تُنشر التقارير السنوية المعتمدة هنا فور اعتماد نسخها للنشر." />
+    </MediaShell>
+  )
+}
+
 /* المدخل: يختار صفحة المركز الإعلامي حسب القسم المطلوب */
 export default function MediaCenter({ section = 'media-news', onOpenPage = () => {} }) {
   if (section.startsWith('news-')) return <NewsArticle slug={section} onOpenPage={onOpenPage} />
@@ -402,6 +422,7 @@ export default function MediaCenter({ section = 'media-news', onOpenPage = () =>
     case 'media-coverage': return <MediaCoverage onOpenPage={onOpenPage} />
     case 'media-releases': return <MediaReleases onOpenPage={onOpenPage} />
     case 'media-progreports': return <MediaProgReports onOpenPage={onOpenPage} />
+    case 'media-annual': return <MediaAnnual onOpenPage={onOpenPage} />
     default: return <MediaNews onOpenPage={onOpenPage} />
   }
 }

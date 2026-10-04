@@ -3,6 +3,8 @@ import { glass, accentGrad } from '../theme'
 import statsData from '../../content/stats.json'
 import programsContent from '../../content/programs.json'
 import PackIcon from '../components/PackIcon'
+import { bannerFor } from '../banners'
+import { openRequestForm } from '../components/RequestForm'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «التطوع» — وفق خطة المحتوى المعتمدة (صفحة داخلية):
@@ -46,9 +48,9 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
 
       {/* ═══ الافتتاحية ═══ */}
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          {programsContent.pageBack && <img src={programsContent.pageBack} alt="" aria-hidden="true" draggable="false"
+          {bannerFor('volunteer', programsContent.pageBack) && <img src={bannerFor('volunteer', programsContent.pageBack)} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
@@ -107,7 +109,7 @@ export default function VolunteerPage({ onOpenPage = () => {} }) {
             إن كنت مهتمًا بالانضمام لفريق التطوع، شاركنا اهتمامك وسنتواصل معك عند توفر الفرصة المناسبة.
           </p>
           <motion.button
-            type="button" onClick={() => onOpenPage('inquiries')}
+            type="button" onClick={() => openRequestForm('volunteer')}
             whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
             className="relative mt-8 flex cursor-pointer items-center gap-2.5"
             style={{ margin: '32px auto 0', borderRadius: '999px', padding: '14px 30px', border: 'none',

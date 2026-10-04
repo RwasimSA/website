@@ -9,6 +9,7 @@ import site from '../../content/site.json'
 import programsContent from '../../content/programs.json'
 import { useThemeMode } from '../themeMode'
 import PackIcon from '../components/PackIcon'
+import { bannerFor } from '../banners'
 const __IDX = { ashbal: 0, barie: 1, saif: 2 }
 const progMedia = (k) => {
   const card = (programsContent.cards || [])[__IDX[k]] || {}
@@ -135,9 +136,9 @@ export default function Impact({ onOpenPage = () => {} }) {
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
 
       {/* ═══ افتتاحية أثرنا ═══ */}
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '84px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '84px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          {site.backImpact && <img src={site.backImpact} alt="" aria-hidden="true" draggable="false"
+          {bannerFor('impact', site.backImpact) && <img src={bannerFor('impact', site.backImpact)} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
@@ -227,7 +228,7 @@ export default function Impact({ onOpenPage = () => {} }) {
                   background: `radial-gradient(ellipse, ${e.color}24 0%, transparent 65%)`, filter: 'var(--fx-blur, blur(46px))' }} />
               <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
-                  <span style={{ color: e.color, fontWeight: 600, fontSize: '12.5px', letterSpacing: '0.06em' }}>{e.program}</span>
+                  <span style={{ color: e.color, fontWeight: 600, fontSize: '12.5px' }}>{e.program}</span>
                   <h3 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 700, fontSize: '23px', margin: '6px 0 0' }}>{e.title}</h3>
                 </div>
                 {e.logo && <img src={pick(e)} alt={e.program} draggable="false" data-logo="program" className="h-[46px] w-auto flex-shrink-0 object-contain opacity-90" />}
@@ -294,7 +295,7 @@ export default function Impact({ onOpenPage = () => {} }) {
               </p>
             </div>
             <motion.button
-              type="button" onClick={() => onOpenPage('gov-reports')}
+              type="button" onClick={() => onOpenPage('media-annual')}
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
               className="flex flex-shrink-0 cursor-pointer items-center gap-2.5"
               style={{ borderRadius: '999px', padding: '13px 26px', border: 'none',

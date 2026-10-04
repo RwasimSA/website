@@ -8,7 +8,7 @@ export const GOV_PAGES = [
   { key: 'gov-executive', label: 'الإدارة التنفيذية' },
   { key: 'gov-assembly', label: 'الجمعية العمومية' },
   { key: 'gov-committees', label: 'اللجان الدائمة' },
-  { key: 'gov-reports', label: 'التقارير والقوائم المالية' },
+  { key: 'gov-reports', label: 'القوائم المالية' },
   { key: 'gov-minutes', label: 'المحاضر' },
   { key: 'gov-policies', label: 'اللوائح والسياسات والإفصاحات' },
   { key: 'gov-complaints', label: 'الشكاوى والبلاغات' },
@@ -19,4 +19,5 @@ export const MEDIA_PAGES = [
   { key: 'media-coverage', label: 'التغطيات' },
   { key: 'media-releases', label: 'المحتوى والإصدارات' },
   { key: 'media-progreports', label: 'تقارير البرامج والمشاريع' },
+  { key: 'media-annual', label: 'التقارير السنوية' },
 ]

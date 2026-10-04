@@ -12,5 +12,11 @@ export default defineConfig({
     host: true, // كشف الخادم على الشبكة المحلية للوصول من الهاتف
     port: 5173,
     allowedHosts: true, // السماح لنفق المعاينة الخارجي (trycloudflare)
+    /* التطوير المحلي يقرأ المحتوى والملفات الحقيقية من الموقع المنشور (قراءة فقط)،
+       ولا يُمرَّر عدّاد الزيارات حتى لا تختلط زيارات التطوير بإحصاءات الموقع */
+    proxy: {
+      '/api/content': { target: 'https://rwasim.sa', changeOrigin: true },
+      '/files': { target: 'https://rwasim.sa', changeOrigin: true },
+    },
   },
 })

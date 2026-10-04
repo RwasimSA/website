@@ -3,6 +3,8 @@ import { glass } from '../theme'
 import programsContent from '../../content/programs.json'
 import { useThemeMode } from '../themeMode'
 import PackIcon from '../components/PackIcon'
+import { bannerFor } from '../banners'
+import { inferProgramPage, programTarget, openProgram } from '../programLinks'
 
 /* ─────────────────────────────────────────────────────────────
    صفحة «برامجنا» المجمّعة — وفق خطة المحتوى المعتمدة:
@@ -30,7 +32,7 @@ const DECOR = {
 const MAIN = (programsContent.main || []).map((p) => ({
   color: ACCENT,
   colorSoft: 'rgba(239,145,34,0.22)',
-  ...(DECOR[p.key] || {}),
+  ...(DECOR[inferProgramPage(p)] || {}),
   ...p,
 }))
 
@@ -90,11 +92,12 @@ const Lead = ({ children, delay = 0.08 }) => (
 const ProgramCard = ({ p, delay, onOpen }) => {
   const light = useThemeMode() === 'light'
   const logo = light && p.logoLight ? p.logoLight : p.logo
-  const clickable = !!(p.link || (p.key && DECOR[p.key]))
+  /* صفحة البرنامج المختارة من اللوحة، أو رابطه، أو صفحته المستنتجة من اسمه */
+  const clickable = !!programTarget(p)
   return (
   <motion.div {...rise(delay)}
     whileHover={{ y: -7, transition: { duration: 0.25, ease: 'easeOut' } }}
-    onClick={() => (p.link ? window.open(p.link, '_blank', 'noopener') : clickable && onOpen(p.key))}
+    onClick={() => openProgram(p, onOpen)}
     className={`group relative flex-1 overflow-visible${clickable ? ' cursor-pointer' : ''}`}
     style={{ minWidth: 0, flexBasis: '30%', maxWidth: '420px' }}>
     {/* توهج بلون البرنامج */}
@@ -154,9 +157,9 @@ export default function ProgramsPage({ onOpenPage = () => {} }) {
     <div dir="rtl" className="relative w-full overflow-hidden pb-28">
 
       {/* ═══ الافتتاحية ═══ */}
-      <div className="relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
+      <div className="force-dark page-banner relative overflow-hidden" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
         <div className="bg-fx pointer-events-none absolute inset-0">
-          {programsContent.pageBack && <img src={programsContent.pageBack} alt="" aria-hidden="true" draggable="false"
+          {bannerFor('programs', programsContent.pageBack) && <img src={bannerFor('programs', programsContent.pageBack)} alt="" aria-hidden="true" draggable="false"
             className="h-full w-full object-cover" />}
           <div style={{ position: 'absolute', inset: 0,
             background: 'var(--img-overlay)' }} />
