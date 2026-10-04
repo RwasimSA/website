@@ -35,26 +35,20 @@ const sha256hex = async (s) => [...new Uint8Array(await crypto.subtle.digest('SH
 async function notifyByEmail(env, kind, data) {
   if (!env.NOTIFY || !env.NOTIFY_FROM || !env.NOTIFY_TO) return
   const spec = FORM_SPECS[kind]
-  const { EmailMessage } = await import('cloudflare:email')
-  const b64 = (str) => btoa(unescape(encodeURIComponent(str)))
   const lines = spec.fields
     .filter((k) => (Array.isArray(data[k]) ? data[k].length : data[k]))
     .map((k) => `${spec.labels[k]}: ${Array.isArray(data[k]) ? data[k].join('، ') : data[k]}`)
-  const body = `${spec.title} جديد من موقع رواسم\n\n${lines.join('\n')}\n\nتجد كل الطلبات في لوحة التحكم ← الطلبات الواردة:\nhttps://cms.rwasim.sa`
+  const text = `${spec.title} جديد من موقع رواسم\n\n${lines.join('\n')}\n\nتجد كل الطلبات في لوحة التحكم ← الطلبات الواردة:\nhttps://cms.rwasim.sa`
   const subject = `${spec.title} جديد — ${data.org || data.name || ''}`.trim()
-  const mime = [
-    `From: =?UTF-8?B?${b64('موقع رواسم')}?= <${env.NOTIFY_FROM}>`,
-    `To: ${env.NOTIFY_TO}`,
-    `Subject: =?UTF-8?B?${b64(subject)}?=`,
-    `Message-ID: <${crypto.randomUUID()}@rwasim.sa>`,
-    `Date: ${new Date().toUTCString()}`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding: base64',
-    '',
-    b64(body).replace(/.{76}/g, '$&\r\n'),
-  ].join('\r\n')
-  await env.NOTIFY.send(new EmailMessage(env.NOTIFY_FROM, env.NOTIFY_TO, mime))
+  /* «الرد» على الرسالة يذهب مباشرة إلى بريد صاحب الطلب */
+  const replyTo = typeof data.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email) ? data.email : undefined
+  await env.NOTIFY.send({
+    to: env.NOTIFY_TO,
+    from: { email: env.NOTIFY_FROM, name: 'موقع رواسم' },
+    subject,
+    text,
+    ...(replyTo ? { replyTo } : {}),
+  })
 }
 
 export default {

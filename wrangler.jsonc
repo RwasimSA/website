@@ -27,6 +27,16 @@
       "database_id": "f5532985-e471-4af8-8916-23163743462d"
     }
   ],
+  // إشعار بريدي إلى info@ عند كل طلب شراكة أو تطوع (Cloudflare Email Service).
+  // يعمل بعد تفعيل الإرسال لنطاق rwasim.sa وتوثيق info@rwasim.sa كعنوان مستلم؛
+  // وقبل ذلك يفشل الإرسال بصمت ويبقى الطلب محفوظاً في اللوحة.
+  "send_email": [
+    { "name": "NOTIFY" }
+  ],
+  "vars": {
+    "NOTIFY_FROM": "no-reply@rwasim.sa",
+    "NOTIFY_TO": "info@rwasim.sa"
+  },
   "r2_buckets": [
     {
       // ملفات لوحة ديوان — تُقدَّم عبر GET /files/<key>
