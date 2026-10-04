@@ -136,7 +136,7 @@ const Lead = ({ children, delay = 0.08 }) => (
 const IconChip = ({ src, size = 62 }) => (
   <div className="flex flex-shrink-0 items-center justify-center rounded-2xl"
     style={{ width: `${size}px`, height: `${size}px`, background: 'rgba(127,184,212,0.1)', border: '0.5px solid rgba(127,184,212,0.32)' }}>
-    <img src={src} alt="" aria-hidden="true" draggable="false" style={{ width: `${Math.round(size * 0.6)}px`, height: `${Math.round(size * 0.6)}px` }} />
+    <PackIcon src={src} size={Math.round(size * 0.6)} />
   </div>
 )
 

@@ -6,6 +6,7 @@ import { text } from '../typography'
 import statsData from '../../content/stats.json'
 import site from '../../content/site.json'
 import { useThemeMode } from '../themeMode'
+import { SHADE, shadeTone } from '../components/PackIcon'
 
 /* مؤشرات «أثرنا بالأرقام» — القيم من content/stats.json (تُحرَّر من لوحة التحكم) */
 const STATS = [
@@ -86,8 +87,11 @@ function DrawnIcon({ src }) {
   const light = useThemeMode() === 'light'
   const tone = (c) => {
     const v = (c || '#ffffff').toLowerCase()
-    return light && (v === '#ffffff' || v === '#fff' || v === 'white' || v === '#cee1f2') ? '#0E4156' : (c || '#ffffff')
+    if (SHADE.test(v)) return shadeTone(light).color
+    return light && (v === '#ffffff' || v === '#fff' || v === 'white') ? '#0E4156' : (c || '#ffffff')
   }
+  /* طبقة الظل الداخلي شبه شفافة */
+  const alpha = (c) => (SHADE.test(c || '') ? shadeTone(light).opacity : undefined)
   if (!data) return <span style={{ width: 50, height: 50, display: 'block' }} />
 
   return (
@@ -97,7 +101,7 @@ function DrawnIcon({ src }) {
         const El = motion[s.tag]
         const { fill, ...rest } = s.attrs
         return (
-          <El key={`f${i}`} {...rest} fill={tone(fill)} stroke="none"
+          <El key={`f${i}`} {...rest} fill={tone(fill)} fillOpacity={alpha(fill)} stroke="none"
             transition={{ duration: 0.45, delay: 1.05 + i * 0.1, ease: 'easeOut' }} />
         )
       })}
@@ -106,7 +110,7 @@ function DrawnIcon({ src }) {
         const El = motion[s.tag]
         const { fill, ...rest } = s.attrs
         return (
-          <El key={`s${i}`} {...rest} fill="none" stroke={tone(fill)}
+          <El key={`s${i}`} {...rest} fill="none" stroke={tone(fill)} strokeOpacity={alpha(fill)}
             strokeWidth="12" strokeLinecap="round" strokeLinejoin="round"
             initial={{ pathLength: 0, opacity: 1 }}
             animate={{ pathLength: 1, opacity: 0 }}

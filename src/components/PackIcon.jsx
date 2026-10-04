@@ -28,9 +28,22 @@ function useSvgMarkup(src) {
   return markup
 }
 
+/* طبقة الظل الداخلي في أيقونات الحزمة (الأزرق الفاتح #cee1f2 على أحد جانبي
+   الأيقونة) تُرسم شبه شفافة بلون الأيقونة نفسها حتى تُقرأ ظلاً لا جزءاً مصمتاً */
+export const SHADE = /#cee1f2|#c2d9ef/i
+export const shadeTone = (light) => (light
+  ? { color: '#0E4156', opacity: 0.22 }
+  : { color: '#ffffff', opacity: 0.32 })
+
+const toShade = (svg, light) => {
+  const { color, opacity } = shadeTone(light)
+  return svg
+    .replace(/fill="(#cee1f2|#c2d9ef)"/gi, `fill="${color}" fill-opacity="${opacity}"`)
+    .replace(/fill:\s*(#cee1f2|#c2d9ef)/gi, `fill:${color};fill-opacity:${opacity}`)
+}
+
 const toInk = (svg) => svg
   .replace(/#ffffff|#fff\b|"white"/gi, (m) => (m.toLowerCase() === '"white"' ? '"#0E4156"' : '#0E4156'))
-  .replace(/#cee1f2|#c2d9ef/gi, '#0E4156')
 
 export default function PackIcon({ src, size = 40, className = '', style }) {
   const light = useThemeMode() === 'light'
@@ -49,7 +62,7 @@ export default function PackIcon({ src, size = 40, className = '', style }) {
       className={`pack-icon ${className}`}
       style={box}
       aria-hidden="true"
-      dangerouslySetInnerHTML={{ __html: light ? toInk(markup) : markup }}
+      dangerouslySetInnerHTML={{ __html: light ? toInk(toShade(markup, true)) : toShade(markup, false) }}
     />
   )
 }
