@@ -38,7 +38,8 @@ const awakeStyle = (abs, light, isHovered) => {
 }
 
 export default function SectionIndex({ items = [], current, onGo = () => {} }) {
-  const light = useThemeMode() === 'light'
+  /* الهيرو داكن في الوضعين، فالفهرس فوقه يأخذ ألوان الداكن حتى يبقى مقروءاً */
+  const light = useThemeMode() === 'light' && current !== 'hero'
   const [hovered, setHovered] = useState(null)
   const idx = Math.max(items.findIndex((s) => s.key === current), 0)
   const mid = (items.length - 1) / 2
